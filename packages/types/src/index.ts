@@ -304,3 +304,104 @@ export {
   ConflictError,
   QuorumNotMetError,
 } from "./errors.js";
+
+// ─── Validator Re-exports ───────────────────────────────────────────────────
+
+export {
+  // Primitive schemas
+  uuidSchema,
+  didSchema,
+  sha256HashSchema,
+  ed25519SignatureSchema,
+  geoPointSchema,
+  paginationSchema,
+  // Enum schemas
+  projectStatusSchema,
+  milestoneStatusSchema,
+  actorRoleSchema,
+  organizationTypeSchema,
+  organizationStatusSchema,
+  attestationTypeSchema,
+  attestationStatusSchema,
+  certificateStatusSchema,
+  assuranceTierSchema,
+  disputeStatusSchema,
+  auditorAssignmentStatusSchema,
+  citizenPoolStatusSchema,
+  auditActionSchema,
+  webhookEventTypeSchema,
+  // Actor
+  createActorSchema,
+  actorResponseSchema,
+  // Organization
+  createOrganizationSchema,
+  updateOrganizationSchema,
+  organizationResponseSchema,
+  // ActorOrganization
+  createActorOrganizationSchema,
+  // Project
+  createProjectSchema,
+  updateProjectSchema,
+  projectResponseSchema,
+  // Milestone
+  createMilestoneSchema,
+  updateMilestoneSchema,
+  milestoneResponseSchema,
+  // Attestation
+  createAttestationSchema,
+  attestationResponseSchema,
+  // AuditorAssignment
+  createAuditorAssignmentSchema,
+  updateAuditorAssignmentSchema,
+  // CitizenPool
+  createCitizenPoolSchema,
+  updateCitizenPoolSchema,
+  // ComplianceCertificate
+  complianceCertificateResponseSchema,
+  revokeCertificateSchema,
+  // Dispute
+  createDisputeSchema,
+  resolveDisputeSchema,
+  disputeResponseSchema,
+  // TrustedIssuer
+  createTrustedIssuerSchema,
+  trustedIssuerResponseSchema,
+  // WebhookSubscription
+  createWebhookSubscriptionSchema,
+  webhookSubscriptionResponseSchema,
+  // AuditLog
+  auditLogResponseSchema,
+  auditLogQuerySchema,
+} from "./validators.js";
+
+export type {
+  CreateActorInput,
+  ActorResponse,
+  CreateOrganizationInput,
+  UpdateOrganizationInput,
+  OrganizationResponse,
+  CreateActorOrganizationInput,
+  CreateProjectInput,
+  UpdateProjectInput,
+  ProjectResponse,
+  CreateMilestoneInput,
+  UpdateMilestoneInput,
+  MilestoneResponse,
+  CreateAttestationInput,
+  AttestationResponse,
+  CreateAuditorAssignmentInput,
+  UpdateAuditorAssignmentInput,
+  CreateCitizenPoolInput,
+  UpdateCitizenPoolInput,
+  ComplianceCertificateResponse,
+  RevokeCertificateInput,
+  CreateDisputeInput,
+  ResolveDisputeInput,
+  DisputeResponse,
+  CreateTrustedIssuerInput,
+  TrustedIssuerResponse,
+  CreateWebhookSubscriptionInput,
+  WebhookSubscriptionResponse,
+  AuditLogResponse,
+  AuditLogQuery,
+} from "./validators.js";

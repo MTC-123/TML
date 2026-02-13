@@ -23,6 +23,7 @@ services:
     restart: unless-stopped
     ports:
       - "6379:6379"
+    command: ["redis-server", "--maxmemory", "64mb", "--maxmemory-policy", "allkeys-lru"]
     volumes:
       - redis_data:/data
     healthcheck:
@@ -30,6 +31,46 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+
+  api:
+    build:
+      context: ..
+      dockerfile: apps/api/Dockerfile
+    container_name: tml-api
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    environment:
+      NODE_ENV: production
+      PORT: 3000
+      HOST: 0.0.0.0
+      DATABASE_URL: postgresql://tml:tml_dev_password@postgres:5432/tml_dev?schema=public
+      DATABASE_POOL_MIN: 2
+      DATABASE_POOL_MAX: 10
+      REDIS_URL: redis://redis:6379
+      JWT_SECRET: ${JWT_SECRET:-change-me-in-production-min-32-chars!!}
+      JWT_EXPIRES_IN: 1h
+      JWT_REFRESH_EXPIRES_IN: 7d
+      MOSIP_ISSUER_URL: ${MOSIP_ISSUER_URL:-http://localhost:8080}
+      MOSIP_CLIENT_ID: ${MOSIP_CLIENT_ID:-tml-client}
+      MOSIP_CLIENT_SECRET: ${MOSIP_CLIENT_SECRET:-tml-secret}
+      MOSIP_REDIRECT_URI: ${MOSIP_REDIRECT_URI:-http://localhost:3000/auth/callback}
+      SYSTEM_SIGNING_KEY_HEX: ${SYSTEM_SIGNING_KEY_HEX:-0000000000000000000000000000000000000000000000000000000000000001}
+      RATE_LIMIT_MAX: 100
+      RATE_LIMIT_WINDOW_MS: 60000
+      CORS_ORIGIN: "*"
+      LOG_LEVEL: info
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD-SHELL", "wget -qO- http://localhost:3000/health || exit 1"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+      start_period: 15s
 
 volumes:
   postgres_data:
