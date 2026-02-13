@@ -22,45 +22,38 @@ const idParamsSchema = z.object({ id: uuidSchema });
 export async function projectRoutes(fastify: FastifyInstance): Promise<void> {
   const controller = new ProjectsController(fastify);
 
-  // GET / — list projects
-  fastify.get(
-    '/',
-    { preHandler: [authenticate, rateLimit('standard'), validateQuery(projectListQuerySchema)] },
-    (req, reply) => controller.list(req, reply),
-  );
-
-  // POST / — create project (admin only)
+  // POST / — create project (admin only, with geofence polygon)
   fastify.post(
     '/',
     { preHandler: [authenticate, requireRole('admin'), rateLimit('elevated'), validateBody(createProjectSchema)] },
     (req, reply) => controller.create(req, reply),
   );
 
-  // GET /stats — project statistics (IMPORTANT: register before /:id)
+  // GET / — list with pagination, filter by status/region
   fastify.get(
-    '/stats',
-    { preHandler: [authenticate, rateLimit('standard')] },
-    (req, reply) => controller.getStats(req, reply),
+    '/',
+    { preHandler: [authenticate, rateLimit('standard'), validateQuery(projectListQuerySchema)] },
+    (req, reply) => controller.list(req, reply),
   );
 
-  // GET /:id — get project by ID
+  // GET /:id — detail with milestones and attestation progress
   fastify.get(
     '/:id',
     { preHandler: [authenticate, rateLimit('standard'), validateParams(idParamsSchema)] },
     (req, reply) => controller.getById(req, reply),
   );
 
-  // PATCH /:id — update project (admin only)
+  // PATCH /:id — update (admin only)
   fastify.patch(
     '/:id',
-    { preHandler: [authenticate, requireRole('admin'), rateLimit('elevated'), validateBody(updateProjectSchema), validateParams(idParamsSchema)] },
+    { preHandler: [authenticate, requireRole('admin'), rateLimit('elevated'), validateParams(idParamsSchema), validateBody(updateProjectSchema)] },
     (req, reply) => controller.update(req, reply),
   );
 
-  // DELETE /:id — soft-delete project (admin only)
-  fastify.delete(
-    '/:id',
-    { preHandler: [authenticate, requireRole('admin'), rateLimit('elevated'), validateParams(idParamsSchema)] },
-    (req, reply) => controller.remove(req, reply),
+  // GET /:id/dashboard — aggregated stats
+  fastify.get(
+    '/:id/dashboard',
+    { preHandler: [authenticate, rateLimit('standard'), validateParams(idParamsSchema)] },
+    (req, reply) => controller.getDashboard(req, reply),
   );
 }

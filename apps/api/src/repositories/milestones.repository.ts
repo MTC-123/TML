@@ -1,5 +1,5 @@
 import type { PrismaClient, Prisma } from '@prisma/client';
-import type { Milestone, MilestoneStatus, CreateMilestoneInput } from '@tml/types';
+import type { Milestone, MilestoneStatus, CreateMilestoneInput, Attestation, AttestationType, AttestationStatus } from '@tml/types';
 
 export class MilestonesRepository {
   constructor(private prisma: PrismaClient) {}
@@ -23,9 +23,99 @@ export class MilestonesRepository {
     return { data: data.map((m) => this.toEntity(m)), total };
   }
 
+  /**
+   * List milestones with per-milestone attestation summary counts.
+   */
+  async findByProjectIdWithSummary(
+    projectId: string,
+    params: { page: number; limit: number },
+  ): Promise<{
+    data: Array<Milestone & {
+      attestationSummary: Record<string, { submitted: number; verified: number }>;
+      hasCertificate: boolean;
+    }>;
+    total: number;
+  }> {
+    const where: Prisma.MilestoneWhereInput = { projectId, deletedAt: null };
+
+    const [rawData, total] = await Promise.all([
+      this.prisma.milestone.findMany({
+        where,
+        skip: (params.page - 1) * params.limit,
+        take: params.limit,
+        orderBy: { sequenceNumber: 'asc' },
+        include: {
+          attestations: { select: { type: true, status: true } },
+          complianceCertificate: { select: { id: true } },
+        },
+      }),
+      this.prisma.milestone.count({ where }),
+    ]);
+
+    const data = rawData.map((m) => {
+      const summary: Record<string, { submitted: number; verified: number }> = {
+        inspector_verification: { submitted: 0, verified: 0 },
+        auditor_review: { submitted: 0, verified: 0 },
+        citizen_approval: { submitted: 0, verified: 0 },
+      };
+      for (const a of m.attestations) {
+        const bucket = summary[a.type];
+        if (!bucket) continue;
+        if (a.status === 'submitted') bucket.submitted++;
+        else if (a.status === 'verified') bucket.verified++;
+      }
+
+      return {
+        ...this.toEntity(m),
+        attestationSummary: summary,
+        hasCertificate: m.complianceCertificate !== null,
+      };
+    });
+
+    return { data, total };
+  }
+
   async findById(id: string): Promise<Milestone | null> {
     const milestone = await this.prisma.milestone.findUnique({ where: { id } });
     return milestone ? this.toEntity(milestone) : null;
+  }
+
+  /**
+   * Fetch milestone with all attestations for the detail endpoint.
+   */
+  async findByIdWithAttestations(id: string): Promise<{
+    milestone: Milestone;
+    attestations: Attestation[];
+  } | null> {
+    const raw = await this.prisma.milestone.findUnique({
+      where: { id },
+      include: {
+        attestations: { orderBy: { submittedAt: 'desc' } },
+        complianceCertificate: { select: { id: true } },
+      },
+    });
+
+    if (!raw) return null;
+
+    const attestations: Attestation[] = raw.attestations.map((a) => ({
+      id: a.id,
+      milestoneId: a.milestoneId,
+      actorId: a.actorId,
+      type: a.type as AttestationType,
+      evidenceHash: a.evidenceHash,
+      gpsLatitude: a.gpsLatitude.toString(),
+      gpsLongitude: a.gpsLongitude.toString(),
+      deviceAttestationToken: a.deviceAttestationToken,
+      digitalSignature: a.digitalSignature,
+      status: a.status as AttestationStatus,
+      submittedAt: a.submittedAt,
+      revokedAt: a.revokedAt,
+    }));
+
+    return {
+      milestone: this.toEntity(raw),
+      attestations,
+    };
   }
 
   async create(data: CreateMilestoneInput): Promise<Milestone> {

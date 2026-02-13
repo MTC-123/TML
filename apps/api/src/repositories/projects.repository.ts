@@ -36,6 +36,81 @@ export class ProjectsRepository {
     return project ? this.toEntity(project) : null;
   }
 
+  /**
+   * Fetch project with all milestones and per-milestone attestation counts.
+   */
+  async findByIdWithMilestones(id: string): Promise<{
+    project: Project;
+    milestones: Array<{
+      id: string;
+      sequenceNumber: number;
+      description: string;
+      deadline: Date;
+      status: string;
+      requiredInspectorCount: number;
+      requiredAuditorCount: number;
+      requiredCitizenCount: number;
+      createdAt: Date;
+      updatedAt: Date;
+      attestationCounts: {
+        inspector_verification: { submitted: number; verified: number };
+        auditor_review: { submitted: number; verified: number };
+        citizen_approval: { submitted: number; verified: number };
+      };
+      hasCertificate: boolean;
+    }>;
+  } | null> {
+    const raw = await this.prisma.project.findUnique({
+      where: { id },
+      include: {
+        milestones: {
+          where: { deletedAt: null },
+          orderBy: { sequenceNumber: 'asc' },
+          include: {
+            attestations: {
+              select: { type: true, status: true },
+            },
+            complianceCertificate: {
+              select: { id: true },
+            },
+          },
+        },
+      },
+    });
+
+    if (!raw) return null;
+
+    const milestones = raw.milestones.map((m) => {
+      const counts = {
+        inspector_verification: { submitted: 0, verified: 0 },
+        auditor_review: { submitted: 0, verified: 0 },
+        citizen_approval: { submitted: 0, verified: 0 },
+      };
+      for (const a of m.attestations) {
+        const type = a.type as keyof typeof counts;
+        if (a.status === 'submitted') counts[type].submitted++;
+        else if (a.status === 'verified') counts[type].verified++;
+      }
+
+      return {
+        id: m.id,
+        sequenceNumber: m.sequenceNumber,
+        description: m.description,
+        deadline: m.deadline,
+        status: m.status as string,
+        requiredInspectorCount: m.requiredInspectorCount,
+        requiredAuditorCount: m.requiredAuditorCount,
+        requiredCitizenCount: m.requiredCitizenCount,
+        createdAt: m.createdAt,
+        updatedAt: m.updatedAt,
+        attestationCounts: counts,
+        hasCertificate: m.complianceCertificate !== null,
+      };
+    });
+
+    return { project: this.toEntity(raw), milestones };
+  }
+
   async create(data: CreateProjectInput): Promise<Project> {
     const project = await this.prisma.project.create({
       data: {

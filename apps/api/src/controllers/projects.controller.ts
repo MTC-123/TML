@@ -34,7 +34,7 @@ export class ProjectsController {
 
   async getById(request: FastifyRequest, reply: FastifyReply): Promise<void> {
     const { id } = request.params as { id: string };
-    const result = await this.service.getById(id);
+    const result = await this.service.getByIdWithMilestones(id);
     if (!result.ok) {
       throw result.error;
     }
@@ -51,17 +51,9 @@ export class ProjectsController {
     reply.send(result.value);
   }
 
-  async remove(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+  async getDashboard(request: FastifyRequest, reply: FastifyReply): Promise<void> {
     const { id } = request.params as { id: string };
-    const result = await this.service.remove(id, request.actor.did);
-    if (!result.ok) {
-      throw result.error;
-    }
-    reply.status(204).send();
-  }
-
-  async getStats(_request: FastifyRequest, reply: FastifyReply): Promise<void> {
-    const result = await this.service.getStats();
+    const result = await this.service.getDashboard(id);
     if (!result.ok) {
       throw result.error;
     }

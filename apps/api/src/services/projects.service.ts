@@ -55,6 +55,37 @@ export class ProjectsService {
     return ok(project);
   }
 
+  /**
+   * Fetch project detail with milestones and per-milestone attestation progress.
+   */
+  async getByIdWithMilestones(id: string): Promise<Result<{
+    project: Project;
+    milestones: Array<{
+      id: string;
+      sequenceNumber: number;
+      description: string;
+      deadline: Date;
+      status: string;
+      requiredInspectorCount: number;
+      requiredAuditorCount: number;
+      requiredCitizenCount: number;
+      createdAt: Date;
+      updatedAt: Date;
+      attestationCounts: {
+        inspector_verification: { submitted: number; verified: number };
+        auditor_review: { submitted: number; verified: number };
+        citizen_approval: { submitted: number; verified: number };
+      };
+      hasCertificate: boolean;
+    }>;
+  }>> {
+    const result = await this.repo.findByIdWithMilestones(id);
+    if (!result || result.project.deletedAt) {
+      return err(new NotFoundError('Project', id));
+    }
+    return ok(result);
+  }
+
   async update(
     id: string,
     data: import('@tml/types').UpdateProjectInput,
@@ -95,6 +126,62 @@ export class ProjectsService {
     });
 
     return ok(undefined);
+  }
+
+  /**
+   * Dashboard stats for a single project: milestone breakdown, budget, attestation progress.
+   */
+  async getDashboard(id: string): Promise<Result<{
+    project: { id: string; name: string; region: string; budget: string; status: string };
+    milestonesByStatus: Record<string, number>;
+    totalMilestones: number;
+    completedMilestones: number;
+    attestationProgress: {
+      totalRequired: number;
+      totalSubmitted: number;
+      totalVerified: number;
+    };
+  }>> {
+    const result = await this.repo.findByIdWithMilestones(id);
+    if (!result || result.project.deletedAt) {
+      return err(new NotFoundError('Project', id));
+    }
+
+    const { project, milestones } = result;
+
+    const milestonesByStatus: Record<string, number> = {};
+    let totalRequired = 0;
+    let totalSubmitted = 0;
+    let totalVerified = 0;
+
+    for (const m of milestones) {
+      milestonesByStatus[m.status] = (milestonesByStatus[m.status] ?? 0) + 1;
+
+      totalRequired += m.requiredInspectorCount + m.requiredAuditorCount + m.requiredCitizenCount;
+
+      for (const counts of Object.values(m.attestationCounts)) {
+        totalSubmitted += counts.submitted;
+        totalVerified += counts.verified;
+      }
+    }
+
+    return ok({
+      project: {
+        id: project.id,
+        name: project.name,
+        region: project.region,
+        budget: project.budget,
+        status: project.status,
+      },
+      milestonesByStatus,
+      totalMilestones: milestones.length,
+      completedMilestones: milestonesByStatus['completed'] ?? 0,
+      attestationProgress: {
+        totalRequired,
+        totalSubmitted,
+        totalVerified,
+      },
+    });
   }
 
   async getStats(): Promise<Result<{

@@ -14,7 +14,7 @@ import { errorHandler } from './middleware/error-handler.js';
 import { healthRoutes } from './routes/health.routes.js';
 import { authRoutes } from './routes/auth.routes.js';
 import { projectRoutes } from './routes/projects.routes.js';
-import { milestoneRoutes } from './routes/milestones.routes.js';
+import { projectMilestoneRoutes, milestoneRoutes } from './routes/milestones.routes.js';
 import { certificateRoutes } from './routes/certificates.routes.js';
 import { attestationRoutes } from './routes/attestations.routes.js';
 import { auditorAssignmentsRoutes } from './routes/auditor-assignments.routes.js';
@@ -100,17 +100,18 @@ export async function buildApp(
 
   // ── Routes ──────────────────────────────────────────────────────────────
   await app.register(healthRoutes, { prefix: '/health' });
-  await app.register(authRoutes, { prefix: '/auth' });
-  await app.register(projectRoutes, { prefix: '/projects' });
-  await app.register(milestoneRoutes, { prefix: '/milestones' });
-  await app.register(certificateRoutes, { prefix: '/certificates' });
-  await app.register(attestationRoutes, { prefix: '/attestations' });
-  await app.register(auditorAssignmentsRoutes, { prefix: '/auditor-assignments' });
-  await app.register(citizenPoolsRoutes, { prefix: '/citizen-pools' });
-  await app.register(disputesRoutes, { prefix: '/disputes' });
-  await app.register(ussdRoutes, { prefix: '/ussd' });
-  await app.register(webhooksRoutes, { prefix: '/webhooks' });
-  await app.register(auditLogsRoutes, { prefix: '/audit-logs' });
+  await app.register(authRoutes, { prefix: '/api/v1/auth' });
+  await app.register(projectRoutes, { prefix: '/api/v1/projects' });
+  await app.register(projectMilestoneRoutes, { prefix: '/api/v1/projects/:id/milestones' });
+  await app.register(milestoneRoutes, { prefix: '/api/v1/milestones' });
+  await app.register(certificateRoutes, { prefix: '/api/v1/certificates' });
+  await app.register(attestationRoutes, { prefix: '/api/v1/attestations' });
+  await app.register(auditorAssignmentsRoutes, { prefix: '/api/v1/auditor-assignments' });
+  await app.register(citizenPoolsRoutes, { prefix: '/api/v1/citizen-pools' });
+  await app.register(disputesRoutes, { prefix: '/api/v1/disputes' });
+  await app.register(ussdRoutes, { prefix: '/api/v1/ussd' });
+  await app.register(webhooksRoutes, { prefix: '/api/v1/webhooks' });
+  await app.register(auditLogsRoutes, { prefix: '/api/v1/audit-logs' });
 
   return app;
 }
