@@ -13,7 +13,6 @@ out/
 
 # Claude Code
 .claude/
-CLAUDE.md
 
 # IDE
 .vscode/
@@ -25,6 +24,12 @@ CLAUDE.md
 # OS
 .DS_Store
 Thumbs.db
+nul
+
+# Temp files
+tsc_err.txt
+tsc_out.txt
+*.tmp
 
 # Testing
 coverage/
