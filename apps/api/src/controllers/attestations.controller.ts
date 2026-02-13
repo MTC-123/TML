@@ -53,6 +53,7 @@ export class AttestationsController {
       certificatesService,
       noopWebhookDispatcher,
       auditLogService,
+      projectsRepo,
     );
   }
 
@@ -95,6 +96,36 @@ export class AttestationsController {
   async revoke(request: FastifyRequest, reply: FastifyReply): Promise<void> {
     const { id } = request.params as { id: string };
     const result = await this.service.revoke(id, request.actor.did);
+    if (!result.ok) {
+      throw result.error;
+    }
+    reply.send(result.value);
+  }
+
+  async submitForMilestone(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    const { id: milestoneId } = request.params as { id: string };
+    const body = request.body as Omit<CreateAttestationInput, 'milestoneId'>;
+    const data: CreateAttestationInput = { ...body, milestoneId };
+    const result = await this.service.submit(data, request.actor.did);
+    if (!result.ok) {
+      throw result.error;
+    }
+    reply.status(201).send(result.value);
+  }
+
+  async listForMilestone(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    const { id: milestoneId } = request.params as { id: string };
+    const { page, limit } = request.query as { page: number; limit: number };
+    const result = await this.service.list(milestoneId, { page, limit });
+    if (!result.ok) {
+      throw result.error;
+    }
+    reply.send(result.value);
+  }
+
+  async quorum(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    const { id: milestoneId } = request.params as { id: string };
+    const result = await this.service.checkQuorum(milestoneId);
     if (!result.ok) {
       throw result.error;
     }

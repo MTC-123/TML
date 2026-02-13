@@ -294,6 +294,33 @@ export interface AuditLog {
   timestamp: Date;
 }
 
+// ─── Quorum Types ─────────────────────────────────────────────────────────────
+
+export interface QuorumTypeStatus {
+  required: number;
+  current: number;
+  met: boolean;
+}
+
+export interface CitizenQuorumStatus {
+  required: number;
+  weightedScore: number;
+  met: boolean;
+  breakdown: Array<{
+    actorId: string;
+    assuranceTier: AssuranceTier;
+    weight: number;
+  }>;
+}
+
+export interface QuorumBreakdown {
+  milestoneId: string;
+  inspector: QuorumTypeStatus;
+  auditor: QuorumTypeStatus;
+  citizen: CitizenQuorumStatus;
+  overallMet: boolean;
+}
+
 // ─── Re-exports ──────────────────────────────────────────────────────────────
 
 export type { AppError, AppErrorCode } from "./errors.js";
@@ -372,6 +399,9 @@ export {
   // AuditLog
   auditLogResponseSchema,
   auditLogQuerySchema,
+  // Milestone Attestation
+  createMilestoneAttestationBodySchema,
+  quorumBreakdownResponseSchema,
 } from "./validators.js";
 
 export type {
@@ -404,4 +434,6 @@ export type {
   WebhookSubscriptionResponse,
   AuditLogResponse,
   AuditLogQuery,
+  CreateMilestoneAttestationBody,
+  QuorumBreakdownResponse,
 } from "./validators.js";

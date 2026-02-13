@@ -470,3 +470,50 @@ export const auditLogQuerySchema = z
   })
   .merge(paginationSchema);
 export type AuditLogQuery = z.infer<typeof auditLogQuerySchema>;
+
+// ─── Milestone Attestation Body Schema ──────────────────────────────────────
+
+export const createMilestoneAttestationBodySchema = z.object({
+  actorId: uuidSchema,
+  type: attestationTypeSchema,
+  evidenceHash: sha256HashSchema,
+  gpsLatitude: z
+    .string()
+    .regex(/^-?\d{1,3}\.\d{1,7}$/, "Latitude must have up to 7 decimal places"),
+  gpsLongitude: z
+    .string()
+    .regex(/^-?\d{1,3}\.\d{1,7}$/, "Longitude must have up to 7 decimal places"),
+  deviceAttestationToken: z.string().min(1),
+  digitalSignature: ed25519SignatureSchema,
+});
+export type CreateMilestoneAttestationBody = z.infer<typeof createMilestoneAttestationBodySchema>;
+
+// ─── Quorum Breakdown Response Schema ───────────────────────────────────────
+
+export const quorumBreakdownResponseSchema = z.object({
+  milestoneId: uuidSchema,
+  inspector: z.object({
+    required: z.number(),
+    current: z.number(),
+    met: z.boolean(),
+  }),
+  auditor: z.object({
+    required: z.number(),
+    current: z.number(),
+    met: z.boolean(),
+  }),
+  citizen: z.object({
+    required: z.number(),
+    weightedScore: z.number(),
+    met: z.boolean(),
+    breakdown: z.array(
+      z.object({
+        actorId: uuidSchema,
+        assuranceTier: assuranceTierSchema,
+        weight: z.number(),
+      }),
+    ),
+  }),
+  overallMet: z.boolean(),
+});
+export type QuorumBreakdownResponse = z.infer<typeof quorumBreakdownResponseSchema>;

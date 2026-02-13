@@ -99,6 +99,36 @@ export class AttestationsRepository {
     return attestation ? this.toEntity(attestation) : null;
   }
 
+  async findByMilestoneDeviceAndType(
+    milestoneId: string,
+    deviceAttestationToken: string,
+    type: AttestationType,
+  ): Promise<Attestation | null> {
+    const attestation = await this.prisma.attestation.findFirst({
+      where: {
+        milestoneId,
+        deviceAttestationToken,
+        type,
+        status: { in: ['submitted', 'verified'] },
+      },
+    });
+    return attestation ? this.toEntity(attestation) : null;
+  }
+
+  async findActiveByMilestoneAndType(
+    milestoneId: string,
+    type: AttestationType,
+  ): Promise<Attestation[]> {
+    const attestations = await this.prisma.attestation.findMany({
+      where: {
+        milestoneId,
+        type,
+        status: { in: ['submitted', 'verified'] },
+      },
+    });
+    return attestations.map((a) => this.toEntity(a));
+  }
+
   private toEntity(raw: {
     id: string;
     milestoneId: string;
