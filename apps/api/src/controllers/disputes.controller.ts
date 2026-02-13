@@ -5,6 +5,7 @@ import { DisputesService } from '../services/disputes.service.js';
 import { DisputesRepository } from '../repositories/disputes.repository.js';
 import { MilestonesRepository } from '../repositories/milestones.repository.js';
 import { AuditorAssignmentsRepository } from '../repositories/auditor-assignments.repository.js';
+import { CertificatesRepository } from '../repositories/certificates.repository.js';
 import { WebhookDispatcherService } from '../services/webhook-dispatcher.service.js';
 import { WebhooksRepository } from '../repositories/webhooks.repository.js';
 import { AuditLogService } from '../services/audit-log.service.js';
@@ -25,6 +26,7 @@ export class DisputesController {
     const repo = new DisputesRepository(fastify.prisma);
     const milestonesRepo = new MilestonesRepository(fastify.prisma);
     const auditorAssignmentsRepo = new AuditorAssignmentsRepository(fastify.prisma);
+    const certificatesRepo = new CertificatesRepository(fastify.prisma);
     const webhooksRepo = new WebhooksRepository(fastify.prisma);
     const auditLogsRepo = new AuditLogsRepository(fastify.prisma);
     const auditLog = new AuditLogService(auditLogsRepo);
@@ -34,6 +36,7 @@ export class DisputesController {
       repo,
       milestonesRepo,
       auditorAssignmentsRepo,
+      certificatesRepo,
       webhookDispatcher,
       auditLog,
     );

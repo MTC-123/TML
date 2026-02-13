@@ -1,11 +1,21 @@
-import { sha256Hex } from '@tml/crypto';
+import { createHmac } from 'node:crypto';
 import type { WebhookEventType } from '@tml/types';
 import type { WebhooksRepository } from '../repositories/webhooks.repository.js';
 import type { AuditLogService } from './audit-log.service.js';
 
 const RETRY_DELAYS_MS = [1_000, 5_000, 25_000] as const;
 
+export interface DeadLetterEntry {
+  subscriptionId: string;
+  eventType: string;
+  body: string;
+  failedAt: string;
+  attempts: number;
+}
+
 export class WebhookDispatcherService {
+  private deadLetters: DeadLetterEntry[] = [];
+
   constructor(
     private webhooksRepo: WebhooksRepository,
     private auditLogService: AuditLogService,
@@ -24,6 +34,14 @@ export class WebhookDispatcherService {
     }
   }
 
+  getDeadLetters(): ReadonlyArray<DeadLetterEntry> {
+    return [...this.deadLetters];
+  }
+
+  clearDeadLetters(): void {
+    this.deadLetters = [];
+  }
+
   private async deliverWithRetry(
     url: string,
     secretHash: string,
@@ -31,7 +49,7 @@ export class WebhookDispatcherService {
     subscriptionId: string,
     eventType: WebhookEventType,
   ): Promise<void> {
-    const signature = sha256Hex(secretHash + body);
+    const signature = createHmac('sha256', secretHash).update(body).digest('hex');
 
     for (let attempt = 0; attempt <= RETRY_DELAYS_MS.length; attempt++) {
       try {
@@ -67,6 +85,14 @@ export class WebhookDispatcherService {
       }
     }
 
+    this.deadLetters.push({
+      subscriptionId,
+      eventType,
+      body,
+      failedAt: new Date().toISOString(),
+      attempts: RETRY_DELAYS_MS.length + 1,
+    });
+
     await this.auditLogService.log({
       entityType: 'WebhookSubscription',
       entityId: subscriptionId,
@@ -76,6 +102,7 @@ export class WebhookDispatcherService {
         eventType,
         status: 'failed',
         attempts: RETRY_DELAYS_MS.length + 1,
+        deadLettered: true,
       },
     });
   }

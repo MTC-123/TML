@@ -5,6 +5,7 @@ import { NotFoundError, ConflictError, ValidationError } from '@tml/types';
 import type { DisputesRepository } from '../repositories/disputes.repository.js';
 import type { MilestonesRepository } from '../repositories/milestones.repository.js';
 import type { AuditorAssignmentsRepository } from '../repositories/auditor-assignments.repository.js';
+import type { CertificatesRepository } from '../repositories/certificates.repository.js';
 import type { WebhookDispatcherService } from './webhook-dispatcher.service.js';
 import type { AuditLogService } from './audit-log.service.js';
 
@@ -13,6 +14,7 @@ export class DisputesService {
     private repo: DisputesRepository,
     private milestonesRepo: MilestonesRepository,
     private auditorAssignmentsRepo: AuditorAssignmentsRepository,
+    private certificatesRepo: CertificatesRepository,
     private webhookDispatcher: WebhookDispatcherService,
     private auditLog: AuditLogService,
   ) {}
@@ -41,6 +43,23 @@ export class DisputesService {
 
     // Create dispute with status 'open'
     const dispute = await this.repo.create(data);
+
+    // Halt any issued certificate for this milestone
+    const cert = await this.certificatesRepo.findByMilestoneId(data.milestoneId);
+    if (cert && cert.status === 'issued') {
+      await this.certificatesRepo.update(cert.id, {
+        status: 'revoked',
+        revocationReason: `Dispute filed: ${dispute.id}`,
+        revokedAt: new Date(),
+      });
+    }
+
+    // Transition milestone back to attestation_in_progress for re-inspection
+    if (milestone.status === 'completed') {
+      await this.milestonesRepo.update(data.milestoneId, {
+        status: 'attestation_in_progress',
+      });
+    }
 
     // Dispatch dispute_opened webhook
     await this.webhookDispatcher.dispatch('dispute_opened', {

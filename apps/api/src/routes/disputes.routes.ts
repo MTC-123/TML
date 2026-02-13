@@ -67,8 +67,8 @@ export async function disputesRoutes(
     (request, reply) => controller.review(request, reply),
   );
 
-  // POST /:id/resolve - Resolve a dispute
-  fastify.post(
+  // PATCH /:id/resolve - Resolve a dispute
+  fastify.patch(
     '/:id/resolve',
     {
       preHandler: [
