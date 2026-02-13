@@ -3,7 +3,8 @@
 // Run `npx prisma migrate dev` to apply changes.
 
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
+  previewFeatures = ["postgresqlExtensions"]
 }
 
 datasource db {
@@ -11,5 +12,406 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-// Schema models will be added in subsequent prompts.
-// This file establishes the Prisma configuration.
+// ─── Enums ───────────────────────────────────────────────────────────────────
+
+enum ProjectStatus {
+  draft
+  active
+  suspended
+  completed
+  archived
+
+  @@map("project_status")
+}
+
+enum MilestoneStatus {
+  pending
+  in_progress
+  attestation_in_progress
+  completed
+  failed
+
+  @@map("milestone_status")
+}
+
+enum ActorRole {
+  contractor_engineer
+  independent_auditor
+  citizen
+  admin
+  cso_aggregator
+
+  @@map("actor_role")
+}
+
+enum OrganizationType {
+  engineering_firm
+  construction_company
+  cso
+  government_body
+  donor_agency
+
+  @@map("organization_type")
+}
+
+enum OrganizationStatus {
+  active
+  suspended
+  dissolved
+
+  @@map("organization_status")
+}
+
+enum AttestationType {
+  inspector_verification
+  auditor_review
+  citizen_approval
+
+  @@map("attestation_type")
+}
+
+enum AttestationStatus {
+  submitted
+  verified
+  rejected
+  revoked
+
+  @@map("attestation_status")
+}
+
+enum CertificateStatus {
+  issued
+  delivered_to_tgr
+  acknowledged
+  revoked
+
+  @@map("certificate_status")
+}
+
+enum AssuranceTier {
+  biometric
+  ussd
+  cso_mediated
+
+  @@map("assurance_tier")
+}
+
+enum DisputeStatus {
+  open
+  under_review
+  resolved
+  dismissed
+
+  @@map("dispute_status")
+}
+
+enum AuditorAssignmentStatus {
+  assigned
+  accepted
+  completed
+  recused
+  replaced
+
+  @@map("auditor_assignment_status")
+}
+
+enum CitizenPoolStatus {
+  enrolled
+  attested
+  withdrawn
+  excluded
+
+  @@map("citizen_pool_status")
+}
+
+enum AuditAction {
+  create
+  update
+  delete
+  revoke
+  submit
+  approve
+  reject
+  assign
+
+  @@map("audit_action")
+}
+
+enum WebhookEventType {
+  certificate_issued
+  certificate_revoked
+  milestone_completed
+  dispute_opened
+  dispute_resolved
+
+  @@map("webhook_event_type")
+}
+
+// ─── Identity Group ──────────────────────────────────────────────────────────
+
+model Actor {
+  id        String      @id @default(uuid()) @db.Uuid
+  did       String      @unique @map("did")
+  cnieHash  String      @unique @map("cnie_hash")
+  roles     ActorRole[]
+  createdAt DateTime    @default(now()) @map("created_at")
+  updatedAt DateTime    @updatedAt @map("updated_at")
+
+  actorOrganizations ActorOrganization[]
+  attestations       Attestation[]
+  auditorAssignments AuditorAssignment[]
+  citizenPools       CitizenPool[]
+  disputesRaised     DisputeResolution[] @relation("DisputeRaisedBy")
+
+  @@index([did])
+  @@index([cnieHash])
+  @@map("actors")
+}
+
+model Organization {
+  id               String             @id @default(uuid()) @db.Uuid
+  name             String
+  registrationHash String             @unique @map("registration_hash")
+  type             OrganizationType
+  status           OrganizationStatus @default(active)
+  createdAt        DateTime           @default(now()) @map("created_at")
+  updatedAt        DateTime           @updatedAt @map("updated_at")
+  deletedAt        DateTime?          @map("deleted_at")
+
+  actorOrganizations ActorOrganization[]
+
+  @@index([type])
+  @@index([status])
+  @@map("organizations")
+}
+
+model ActorOrganization {
+  id             String    @id @default(uuid()) @db.Uuid
+  actorId        String    @map("actor_id") @db.Uuid
+  organizationId String    @map("organization_id") @db.Uuid
+  role           String
+  validFrom      DateTime  @map("valid_from")
+  validUntil     DateTime? @map("valid_until")
+  createdAt      DateTime  @default(now()) @map("created_at")
+  updatedAt      DateTime  @updatedAt @map("updated_at")
+
+  actor        Actor        @relation(fields: [actorId], references: [id], onDelete: Restrict)
+  organization Organization @relation(fields: [organizationId], references: [id], onDelete: Restrict)
+
+  @@unique([actorId, organizationId, role, validFrom])
+  @@index([actorId])
+  @@index([organizationId])
+  @@index([validFrom, validUntil])
+  @@map("actor_organizations")
+}
+
+// ─── Project Group ───────────────────────────────────────────────────────────
+
+model Project {
+  id        String        @id @default(uuid()) @db.Uuid
+  name      String
+  region    String
+  budget    Decimal       @db.Decimal(15, 2)
+  donor     String?
+  status    ProjectStatus @default(draft)
+  boundary  Json?
+  createdAt DateTime      @default(now()) @map("created_at")
+  updatedAt DateTime      @updatedAt @map("updated_at")
+  deletedAt DateTime?     @map("deleted_at")
+
+  milestones Milestone[]
+
+  @@index([status])
+  @@index([region])
+  @@map("projects")
+}
+
+model Milestone {
+  id                     String          @id @default(uuid()) @db.Uuid
+  projectId              String          @map("project_id") @db.Uuid
+  sequenceNumber         Int             @map("sequence_number")
+  description            String
+  deadline               DateTime
+  status                 MilestoneStatus @default(pending)
+  requiredInspectorCount Int             @default(1) @map("required_inspector_count")
+  requiredAuditorCount   Int             @default(1) @map("required_auditor_count")
+  requiredCitizenCount   Int             @default(3) @map("required_citizen_count")
+  createdAt              DateTime        @default(now()) @map("created_at")
+  updatedAt              DateTime        @updatedAt @map("updated_at")
+  deletedAt              DateTime?       @map("deleted_at")
+
+  project               Project                @relation(fields: [projectId], references: [id], onDelete: Restrict)
+  attestations          Attestation[]
+  auditorAssignments    AuditorAssignment[]
+  citizenPools          CitizenPool[]
+  complianceCertificate ComplianceCertificate?
+  disputes              DisputeResolution[]
+
+  @@unique([projectId, sequenceNumber])
+  @@index([projectId])
+  @@index([status])
+  @@map("milestones")
+}
+
+// ─── Attestation Group ───────────────────────────────────────────────────────
+
+model Attestation {
+  id                     String            @id @default(uuid()) @db.Uuid
+  milestoneId            String            @map("milestone_id") @db.Uuid
+  actorId                String            @map("actor_id") @db.Uuid
+  type                   AttestationType
+  evidenceHash           String            @map("evidence_hash")
+  gpsLatitude            Decimal           @map("gps_latitude") @db.Decimal(10, 7)
+  gpsLongitude           Decimal           @map("gps_longitude") @db.Decimal(10, 7)
+  deviceAttestationToken String            @map("device_attestation_token")
+  digitalSignature       String            @map("digital_signature")
+  status                 AttestationStatus @default(submitted)
+  submittedAt            DateTime          @default(now()) @map("submitted_at")
+  revokedAt              DateTime?         @map("revoked_at")
+
+  milestone Milestone @relation(fields: [milestoneId], references: [id], onDelete: Restrict)
+  actor     Actor     @relation(fields: [actorId], references: [id], onDelete: Restrict)
+
+  @@unique([milestoneId, actorId, type])
+  @@index([milestoneId])
+  @@index([actorId])
+  @@index([type])
+  @@index([status])
+  @@map("attestations")
+}
+
+model AuditorAssignment {
+  id               String                  @id @default(uuid()) @db.Uuid
+  milestoneId      String                  @map("milestone_id") @db.Uuid
+  auditorId        String                  @map("auditor_id") @db.Uuid
+  rotationRound    Int                     @map("rotation_round")
+  conflictDeclared Boolean                 @default(false) @map("conflict_declared")
+  conflictReason   String?                 @map("conflict_reason")
+  status           AuditorAssignmentStatus @default(assigned)
+  assignedAt       DateTime                @default(now()) @map("assigned_at")
+  updatedAt        DateTime                @updatedAt @map("updated_at")
+
+  milestone Milestone @relation(fields: [milestoneId], references: [id], onDelete: Restrict)
+  auditor   Actor     @relation(fields: [auditorId], references: [id], onDelete: Restrict)
+
+  @@unique([milestoneId, auditorId])
+  @@index([milestoneId])
+  @@index([auditorId])
+  @@index([status])
+  @@map("auditor_assignments")
+}
+
+model CitizenPool {
+  id                 String            @id @default(uuid()) @db.Uuid
+  milestoneId        String            @map("milestone_id") @db.Uuid
+  citizenId          String            @map("citizen_id") @db.Uuid
+  proximityProofHash String            @map("proximity_proof_hash")
+  assuranceTier      AssuranceTier     @map("assurance_tier")
+  status             CitizenPoolStatus @default(enrolled)
+  enrolledAt         DateTime          @default(now()) @map("enrolled_at")
+  updatedAt          DateTime          @updatedAt @map("updated_at")
+
+  milestone Milestone @relation(fields: [milestoneId], references: [id], onDelete: Restrict)
+  citizen   Actor     @relation(fields: [citizenId], references: [id], onDelete: Restrict)
+
+  @@unique([milestoneId, citizenId])
+  @@index([milestoneId])
+  @@index([citizenId])
+  @@index([assuranceTier])
+  @@map("citizen_pools")
+}
+
+// ─── Certificate Group ───────────────────────────────────────────────────────
+
+model ComplianceCertificate {
+  id               String            @id @default(uuid()) @db.Uuid
+  milestoneId      String            @unique @map("milestone_id") @db.Uuid
+  certificateHash  String            @unique @map("certificate_hash")
+  digitalSignature String            @map("digital_signature")
+  status           CertificateStatus @default(issued)
+  tgrReference     String?           @map("tgr_reference")
+  revocationReason String?           @map("revocation_reason")
+  issuedAt         DateTime          @default(now()) @map("issued_at")
+  revokedAt        DateTime?         @map("revoked_at")
+
+  milestone Milestone @relation(fields: [milestoneId], references: [id], onDelete: Restrict)
+
+  @@index([status])
+  @@index([certificateHash])
+  @@map("compliance_certificates")
+}
+
+// ─── Governance Group ────────────────────────────────────────────────────────
+
+model DisputeResolution {
+  id                  String        @id @default(uuid()) @db.Uuid
+  milestoneId         String        @map("milestone_id") @db.Uuid
+  raisedById          String        @map("raised_by_id") @db.Uuid
+  reassignedAuditorId String?       @map("reassigned_auditor_id") @db.Uuid
+  reason              String
+  status              DisputeStatus @default(open)
+  resolutionNotes     String?       @map("resolution_notes")
+  raisedAt            DateTime      @default(now()) @map("raised_at")
+  resolvedAt          DateTime?     @map("resolved_at")
+  updatedAt           DateTime      @updatedAt @map("updated_at")
+
+  milestone Milestone @relation(fields: [milestoneId], references: [id], onDelete: Restrict)
+  raisedBy  Actor     @relation("DisputeRaisedBy", fields: [raisedById], references: [id], onDelete: Restrict)
+
+  @@index([milestoneId])
+  @@index([raisedById])
+  @@index([status])
+  @@map("dispute_resolutions")
+}
+
+model TrustedIssuerRegistry {
+  id               String    @id @default(uuid()) @db.Uuid
+  issuerDid        String    @unique @map("issuer_did")
+  issuerName       String    @map("issuer_name")
+  credentialTypes  String[]  @map("credential_types")
+  active           Boolean   @default(true)
+  revocationReason String?   @map("revocation_reason")
+  activatedAt      DateTime  @default(now()) @map("activated_at")
+  revokedAt        DateTime? @map("revoked_at")
+  updatedAt        DateTime  @updatedAt @map("updated_at")
+
+  @@index([issuerDid])
+  @@index([active])
+  @@map("trusted_issuer_registry")
+}
+
+// ─── Integration Group ───────────────────────────────────────────────────────
+
+model WebhookSubscription {
+  id             String             @id @default(uuid()) @db.Uuid
+  url            String
+  eventTypes     WebhookEventType[] @map("event_types")
+  secretHash     String             @map("secret_hash")
+  subscriberName String             @map("subscriber_name")
+  active         Boolean            @default(true)
+  createdAt      DateTime           @default(now()) @map("created_at")
+  updatedAt      DateTime           @updatedAt @map("updated_at")
+  deletedAt      DateTime?          @map("deleted_at")
+
+  @@index([active])
+  @@map("webhook_subscriptions")
+}
+
+// ─── Audit Group ─────────────────────────────────────────────────────────────
+
+model AuditLog {
+  id          String      @id @default(uuid()) @db.Uuid
+  entityType  String      @map("entity_type")
+  entityId    String      @map("entity_id") @db.Uuid
+  action      AuditAction
+  actorDid    String      @map("actor_did")
+  payloadHash String      @map("payload_hash")
+  metadata    Json?
+  timestamp   DateTime    @default(now())
+
+  @@index([entityType, entityId])
+  @@index([actorDid])
+  @@index([timestamp])
+  @@index([action])
+  @@map("audit_logs")
+}
