@@ -53,6 +53,19 @@ export class CitizenPoolsRepository {
     return pool ? this.toEntity(pool) : null;
   }
 
+  async findByMilestoneAndCitizenIds(
+    milestoneId: string,
+    citizenIds: string[],
+  ): Promise<CitizenPool[]> {
+    const pools = await this.prisma.citizenPool.findMany({
+      where: {
+        milestoneId,
+        citizenId: { in: citizenIds },
+      },
+    });
+    return pools.map((p) => this.toEntity(p));
+  }
+
   async countActiveForCitizen(citizenId: string): Promise<number> {
     return this.prisma.citizenPool.count({
       where: {
@@ -60,6 +73,47 @@ export class CitizenPoolsRepository {
         status: { in: ['enrolled', 'attested'] },
       },
     });
+  }
+
+  async countActivePerCitizenBatch(citizenIds: string[]): Promise<Map<string, number>> {
+    if (citizenIds.length === 0) return new Map();
+    const results = await this.prisma.citizenPool.groupBy({
+      by: ['citizenId'],
+      _count: { id: true },
+      where: {
+        citizenId: { in: citizenIds },
+        status: { in: ['enrolled', 'attested'] },
+      },
+    });
+    const map = new Map<string, number>();
+    for (const r of results) {
+      map.set(r.citizenId, r._count.id);
+    }
+    return map;
+  }
+
+  async findLatestTierForCitizens(citizenIds: string[]): Promise<Map<string, AssuranceTier>> {
+    if (citizenIds.length === 0) return new Map();
+    const pools = await this.prisma.citizenPool.findMany({
+      where: { citizenId: { in: citizenIds } },
+      orderBy: { enrolledAt: 'desc' },
+      select: { citizenId: true, assuranceTier: true },
+    });
+    const map = new Map<string, AssuranceTier>();
+    for (const p of pools) {
+      if (!map.has(p.citizenId)) {
+        map.set(p.citizenId, p.assuranceTier as AssuranceTier);
+      }
+    }
+    return map;
+  }
+
+  async findEnrolledCitizenIdsForMilestone(milestoneId: string): Promise<string[]> {
+    const pools = await this.prisma.citizenPool.findMany({
+      where: { milestoneId },
+      select: { citizenId: true },
+    });
+    return pools.map((p) => p.citizenId);
   }
 
   private toEntity(raw: {

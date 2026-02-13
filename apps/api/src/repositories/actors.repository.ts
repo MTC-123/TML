@@ -36,6 +36,26 @@ export class ActorsRepository {
     return actors.map((a) => this.toEntity(a));
   }
 
+  async findOrganizationIdsForActors(actorIds: string[]): Promise<string[]> {
+    if (actorIds.length === 0) return [];
+    const orgs = await this.prisma.actorOrganization.findMany({
+      where: { actorId: { in: actorIds }, validUntil: null },
+      select: { organizationId: true },
+      distinct: ['organizationId'],
+    });
+    return orgs.map((o) => o.organizationId);
+  }
+
+  async findActorIdsByOrganizationIds(orgIds: string[]): Promise<string[]> {
+    if (orgIds.length === 0) return [];
+    const actors = await this.prisma.actorOrganization.findMany({
+      where: { organizationId: { in: orgIds }, validUntil: null },
+      select: { actorId: true },
+      distinct: ['actorId'],
+    });
+    return actors.map((a) => a.actorId);
+  }
+
   private toEntity(raw: {
     id: string;
     did: string;

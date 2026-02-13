@@ -80,6 +80,19 @@ export class AuditorAssignmentsRepository {
     return assignments.map((a) => this.toEntity(a));
   }
 
+  async findContractorActorIdsForProject(projectId: string): Promise<string[]> {
+    const results = await this.prisma.attestation.findMany({
+      where: {
+        milestone: { projectId },
+        type: 'inspector_verification',
+        status: { in: ['submitted', 'verified'] },
+      },
+      select: { actorId: true },
+      distinct: ['actorId'],
+    });
+    return results.map((r) => r.actorId);
+  }
+
   private toEntity(raw: {
     id: string;
     milestoneId: string;

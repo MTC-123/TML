@@ -23,6 +23,8 @@ import { disputesRoutes } from './routes/disputes.routes.js';
 import { ussdRoutes } from './routes/ussd.routes.js';
 import { webhooksRoutes } from './routes/webhooks.routes.js';
 import { auditLogsRoutes } from './routes/audit-logs.routes.js';
+import { milestoneAttestationRoutes } from './routes/milestone-attestations.routes.js';
+import { milestoneAssignmentRoutes } from './routes/milestone-assignments.routes.js';
 
 // Ensure Fastify type augmentations are loaded
 import './lib/types.js';
@@ -104,6 +106,8 @@ export async function buildApp(
   await app.register(projectRoutes, { prefix: '/api/v1/projects' });
   await app.register(projectMilestoneRoutes, { prefix: '/api/v1/projects/:id/milestones' });
   await app.register(milestoneRoutes, { prefix: '/api/v1/milestones' });
+  await app.register(milestoneAttestationRoutes, { prefix: '/api/v1/milestones' });
+  await app.register(milestoneAssignmentRoutes, { prefix: '/api/v1/milestones' });
   await app.register(certificateRoutes, { prefix: '/api/v1/certificates' });
   await app.register(attestationRoutes, { prefix: '/api/v1/attestations' });
   await app.register(auditorAssignmentsRoutes, { prefix: '/api/v1/auditor-assignments' });

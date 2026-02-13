@@ -4,8 +4,14 @@ import { createCitizenPoolSchema, updateCitizenPoolSchema } from '@tml/types';
 import { CitizenPoolsService } from '../services/citizen-pools.service.js';
 import { CitizenPoolsRepository } from '../repositories/citizen-pools.repository.js';
 import { ActorsRepository } from '../repositories/actors.repository.js';
+import { MilestonesRepository } from '../repositories/milestones.repository.js';
+import { ProjectsRepository } from '../repositories/projects.repository.js';
 import { AuditLogService } from '../services/audit-log.service.js';
 import { AuditLogsRepository } from '../repositories/audit-logs.repository.js';
+
+const selectForMilestoneBodySchema = z.object({
+  count: z.number().int().min(1).max(200),
+});
 
 const milestoneQuerySchema = z.object({
   milestoneId: z.string().uuid(),
@@ -21,10 +27,12 @@ export class CitizenPoolsController {
   constructor(fastify: FastifyInstance) {
     const repo = new CitizenPoolsRepository(fastify.prisma);
     const actorsRepo = new ActorsRepository(fastify.prisma);
+    const milestonesRepo = new MilestonesRepository(fastify.prisma);
+    const projectsRepo = new ProjectsRepository(fastify.prisma);
     const auditLogsRepo = new AuditLogsRepository(fastify.prisma);
     const auditLog = new AuditLogService(auditLogsRepo);
 
-    this.service = new CitizenPoolsService(repo, actorsRepo, auditLog);
+    this.service = new CitizenPoolsService(repo, actorsRepo, auditLog, milestonesRepo, projectsRepo);
   }
 
   async enroll(request: FastifyRequest, reply: FastifyReply): Promise<void> {
@@ -71,6 +79,22 @@ export class CitizenPoolsController {
 
     reply.send({ data: result.value });
   }
+
+  async selectForMilestone(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    const params = request.params as z.infer<typeof idParamsSchema>;
+    const body = request.body as z.infer<typeof selectForMilestoneBodySchema>;
+    const result = await this.service.selectPool(
+      params.id,
+      body.count,
+      request.actor.did,
+    );
+
+    if (!result.ok) {
+      throw result.error;
+    }
+
+    reply.code(201).send({ data: result.value });
+  }
 }
 
-export { milestoneQuerySchema, idParamsSchema };
+export { selectForMilestoneBodySchema, milestoneQuerySchema, idParamsSchema };

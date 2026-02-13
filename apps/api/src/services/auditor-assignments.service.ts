@@ -1,10 +1,11 @@
 import type { Result } from '../lib/result.js';
 import { ok, err } from '../lib/result.js';
 import type { AuditorAssignment } from '@tml/types';
-import { NotFoundError, ConflictError } from '@tml/types';
+import { NotFoundError, ConflictError, ValidationError } from '@tml/types';
 import type { AuditorAssignmentsRepository } from '../repositories/auditor-assignments.repository.js';
 import type { ActorsRepository } from '../repositories/actors.repository.js';
 import type { MilestonesRepository } from '../repositories/milestones.repository.js';
+import type { TrustedIssuersRepository } from '../repositories/trusted-issuers.repository.js';
 import type { AuditLogService } from './audit-log.service.js';
 
 export class AuditorAssignmentsService {
@@ -13,6 +14,7 @@ export class AuditorAssignmentsService {
     private actorsRepo: ActorsRepository,
     private milestonesRepo: MilestonesRepository,
     private auditLog: AuditLogService,
+    private trustedIssuersRepo?: TrustedIssuersRepository,
   ) {}
 
   async select(
@@ -20,19 +22,20 @@ export class AuditorAssignmentsService {
     count: number,
     actorDid: string,
   ): Promise<Result<AuditorAssignment[]>> {
-    // Get all actors with role independent_auditor
-    const allAuditors = await this.actorsRepo.findByRole('independent_auditor');
-
-    // Exclude already-assigned auditors for this milestone
-    const existingAssignments = await this.repo.findByMilestoneId(milestoneId);
-    const assignedAuditorIds = new Set(existingAssignments.map((a) => a.auditorId));
-
-    // Exclude auditors who served this project in last 3 rotation rounds
+    // 1. Validate milestone
     const milestone = await this.milestonesRepo.findById(milestoneId);
     if (!milestone) {
       return err(new NotFoundError('Milestone', milestoneId));
     }
 
+    // 2. Get all actors with role independent_auditor
+    const allAuditors = await this.actorsRepo.findByRole('independent_auditor');
+
+    // 3. Exclude already-assigned auditors for this milestone
+    const existingAssignments = await this.repo.findByMilestoneId(milestoneId);
+    const assignedAuditorIds = new Set(existingAssignments.map((a) => a.auditorId));
+
+    // 4. Rotation enforcement: exclude auditors who served this project in last 3 rounds
     const maxRound = await this.repo.getMaxRotationRound(milestoneId);
     const recentCutoff = Math.max(1, maxRound - 2);
     const recentAssignments = await this.repo.findRecentByProject(
@@ -41,9 +44,15 @@ export class AuditorAssignmentsService {
     );
     const recentAuditorIds = new Set(recentAssignments.map((a) => a.auditorId));
 
-    // Filter available auditors
+    // 5. Conflict of interest: exclude auditors from same organization as project contractors
+    const conflictActorIds = await this.getConflictOfInterestActorIds(milestone.projectId);
+
+    // 6. Filter available auditors
     const available = allAuditors.filter(
-      (a) => !assignedAuditorIds.has(a.id) && !recentAuditorIds.has(a.id),
+      (a) =>
+        !assignedAuditorIds.has(a.id) &&
+        !recentAuditorIds.has(a.id) &&
+        !conflictActorIds.has(a.id),
     );
 
     if (available.length < count) {
@@ -51,17 +60,21 @@ export class AuditorAssignmentsService {
         new ConflictError('Not enough available auditors for selection', {
           available: available.length,
           requested: count,
+          totalAuditors: allAuditors.length,
+          excludedByAssignment: assignedAuditorIds.size,
+          excludedByRotation: recentAuditorIds.size,
+          excludedByConflict: conflictActorIds.size,
         }),
       );
     }
 
-    // Crypto-random selection from remaining pool
+    // 7. Crypto-random selection from remaining pool
     const selected = cryptoRandomSelect(available, count);
 
-    // Increment rotation round
+    // 8. Increment rotation round
     const newRound = maxRound + 1;
 
-    // Create AuditorAssignment records
+    // 9. Create AuditorAssignment records
     const assignments: AuditorAssignment[] = [];
     for (const auditor of selected) {
       const assignment = await this.repo.create({
@@ -72,12 +85,25 @@ export class AuditorAssignmentsService {
       assignments.push(assignment);
     }
 
+    // 10. Audit log with selection rationale
     await this.auditLog.log({
       entityType: 'AuditorAssignment',
       entityId: milestoneId,
       action: 'assign',
       actorDid,
-      payload: { milestoneId, count, auditorIds: selected.map((a) => a.id) },
+      payload: {
+        milestoneId,
+        count,
+        auditorIds: selected.map((a) => a.id),
+        selectionRationale: {
+          totalEligible: allAuditors.length,
+          excludedByAssignment: assignedAuditorIds.size,
+          excludedByRotation: recentAuditorIds.size,
+          excludedByConflict: conflictActorIds.size,
+          poolSize: available.length,
+          rotationRound: newRound,
+        },
+      },
     });
 
     return ok(assignments);
@@ -166,9 +192,64 @@ export class AuditorAssignmentsService {
 
     return ok(newAssignment);
   }
+
+  async revokeForFraud(
+    auditorId: string,
+    reason: string,
+    actorDid: string,
+  ): Promise<Result<void>> {
+    if (!this.trustedIssuersRepo) {
+      return err(new ValidationError('TrustedIssuerRegistry not configured'));
+    }
+
+    const auditor = await this.actorsRepo.findById(auditorId);
+    if (!auditor) {
+      return err(new NotFoundError('Actor', auditorId));
+    }
+
+    const issuer = await this.trustedIssuersRepo.findByDid(auditor.did);
+    if (!issuer) {
+      return err(new NotFoundError('TrustedIssuerRegistry entry for DID', auditor.did));
+    }
+
+    await this.trustedIssuersRepo.update(issuer.id, {
+      active: false,
+      revocationReason: reason,
+      revokedAt: new Date(),
+    });
+
+    await this.auditLog.log({
+      entityType: 'TrustedIssuerRegistry',
+      entityId: issuer.id,
+      action: 'revoke',
+      actorDid,
+      payload: {
+        auditorId,
+        auditorDid: auditor.did,
+        reason,
+        issuerId: issuer.id,
+      },
+    });
+
+    return ok(undefined);
+  }
+
+  private async getConflictOfInterestActorIds(projectId: string): Promise<Set<string>> {
+    // Find contractor actors who have inspector_verification attestations on this project
+    const contractorActorIds = await this.repo.findContractorActorIdsForProject(projectId);
+    if (contractorActorIds.length === 0) return new Set();
+
+    // Find organizations those contractors belong to
+    const contractorOrgIds = await this.actorsRepo.findOrganizationIdsForActors(contractorActorIds);
+    if (contractorOrgIds.length === 0) return new Set();
+
+    // Find all actors in those organizations (potential conflict of interest)
+    const conflictActorIds = await this.actorsRepo.findActorIdsByOrganizationIds(contractorOrgIds);
+    return new Set(conflictActorIds);
+  }
 }
 
-function cryptoRandomSelect<T>(items: T[], count: number): T[] {
+export function cryptoRandomSelect<T>(items: T[], count: number): T[] {
   const pool = [...items];
   const selected: T[] = [];
 
