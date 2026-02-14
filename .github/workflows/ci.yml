@@ -1,0 +1,103 @@
+name: CI
+
+on:
+  push:
+    branches: [main, develop]
+  pull_request:
+    branches: [main, develop]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lint-and-typecheck:
+    name: Lint & Typecheck
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run lint
+      - run: npm run typecheck
+
+  unit-tests:
+    name: Unit Tests
+    runs-on: ubuntu-latest
+    needs: lint-and-typecheck
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm test -- --coverage
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: coverage-report
+          path: coverage/
+          retention-days: 14
+
+  branding-check:
+    name: Branding Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for forbidden branding references
+        run: |
+          # Search apps/ and packages/ for forbidden branding terms, excluding test files
+          FOUND=0
+          for term in "claude" "anthropic" "openai" "chatgpt"; do
+            if grep -r -i --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" --include="*.json" --include="*.html" --include="*.css" \
+              --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=tests --exclude-dir=__tests__ \
+              --exclude="*.test.*" --exclude="*.spec.*" --exclude="CLAUDE.md" \
+              "$term" apps/ packages/ 2>/dev/null; then
+              echo "::error::Found forbidden branding reference: $term"
+              FOUND=1
+            fi
+          done
+          if [ "$FOUND" -eq 1 ]; then
+            exit 1
+          fi
+          echo "No branding violations found."
+
+  name-check:
+    name: Name Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Check for personal name references
+        run: |
+          # Check for personal names in source code (add names to check here)
+          FOUND=0
+          for name in "Taha Charef" "tahachaef" "tahac"; do
+            if grep -r --include="*.ts" --include="*.tsx" --include="*.js" --include="*.jsx" --include="*.html" \
+              --exclude-dir=node_modules --exclude-dir=.git --exclude-dir=tests --exclude-dir=__tests__ \
+              --exclude="*.test.*" --exclude="*.spec.*" --exclude="package-lock.json" \
+              "$name" apps/ packages/ 2>/dev/null; then
+              echo "::error::Found personal name reference: $name"
+              FOUND=1
+            fi
+          done
+          if [ "$FOUND" -eq 1 ]; then
+            exit 1
+          fi
+          echo "No personal name violations found."
+
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+    needs: [lint-and-typecheck, unit-tests]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+      - run: npm ci
+      - run: npm run build

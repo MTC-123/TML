@@ -43,6 +43,9 @@
 - [ ] TypeScript strict mode — no `any` types
 - [ ] Zod validation on new API boundaries
 - [ ] Error handling uses typed errors
+- [ ] No personal names in code
+- [ ] i18n: all user-facing strings externalized
+- [ ] Responsive: tested at 360px and 1440px
 - [ ] Tests pass locally (`npm test`)
 - [ ] Lint passes (`npm run lint`)
 - [ ] Type-check passes (`npm run typecheck`)
