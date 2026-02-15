@@ -254,21 +254,12 @@ export default function TMLAsciiLogo({
         className="absolute inset-0 pointer-events-none z-10"
         style={{
           background:
-            "radial-gradient(ellipse at center, transparent 50%, rgba(0,0,0,0.7) 100%)",
-        }}
-      />
-
-      {/* Scan lines overlay */}
-      <div
-        className="absolute inset-0 pointer-events-none z-[11]"
-        style={{
-          background:
-            "repeating-linear-gradient(0deg, transparent, transparent 2px, rgba(0,20,40,0.15) 2px, rgba(0,20,40,0.15) 4px)",
+            "radial-gradient(ellipse at center, transparent 60%, rgba(10,15,28,0.5) 100%)",
         }}
       />
 
       {/* Top status bar */}
-      <div className="hidden sm:block text-[#1e3a5f80] text-[11px] tracking-[3px] mb-6 font-['Courier_New',monospace] uppercase">
+      <div className="hidden sm:block text-sidebar-foreground/30 text-[11px] tracking-[3px] mb-6 font-['Courier_New',monospace] uppercase">
         ┌ sys.tml.core ─── identity verification protocol ─── active ┐
       </div>
 
@@ -282,9 +273,7 @@ export default function TMLAsciiLogo({
         <pre
           className="m-0 select-none tracking-[1px] text-[5px] leading-[6px] sm:text-[clamp(5px,1.1vw,13px)] sm:leading-[clamp(6px,1.25vw,15px)]"
           style={{
-            color: "#3b7dd8",
-            textShadow:
-              "0 0 8px rgba(30,58,95,0.6), 0 0 20px rgba(30,58,95,0.3)",
+            color: "#1e3a5f",
           }}
         >
           {currentFrame.map((line, i) => (
@@ -296,7 +285,7 @@ export default function TMLAsciiLogo({
                 transition: reducedMotion ? "none" : "opacity 0.05s",
                 color:
                   !reducedMotion && i === scanLine
-                    ? "#7fb5ff"
+                    ? "#5a8ab5"
                     : line.trim().length === 0
                       ? "transparent"
                       : undefined,
@@ -314,7 +303,7 @@ export default function TMLAsciiLogo({
             style={{
               transform: "translate(-50%, -50%)",
               background:
-                "radial-gradient(ellipse, rgba(30,58,95,0.15) 0%, transparent 70%)",
+                "radial-gradient(ellipse, rgba(30,58,95,0.1) 0%, transparent 70%)",
               animation: "tml-pulse 3s ease-in-out infinite",
             }}
           />
@@ -323,7 +312,7 @@ export default function TMLAsciiLogo({
 
       {/* Divider line */}
       <div
-        className="text-[#1e3a5f50] text-[clamp(5px,1.1vw,13px)] font-['Courier_New',monospace] my-3 tracking-[2px]"
+        className="text-sidebar-foreground/20 text-[clamp(5px,1.1vw,13px)] font-['Courier_New',monospace] my-3 tracking-[2px]"
       >
         ═══════════════════════════════════════════════════════════════
       </div>
@@ -333,8 +322,6 @@ export default function TMLAsciiLogo({
         className="m-0 text-center select-none font-['Courier_New',monospace] text-[clamp(6px,1.2vw,14px)] leading-[clamp(7px,1.35vw,16px)]"
         style={{
           color: "#c8daf0",
-          textShadow:
-            "0 0 12px rgba(100,160,255,0.4), 0 0 30px rgba(30,58,95,0.3)",
         }}
       >
         {TML_LOGO.map((line, i) => (
@@ -377,7 +364,6 @@ export default function TMLAsciiLogo({
         className="mt-2 font-['Courier_New',monospace] uppercase text-[clamp(8px,0.9vw,12px)] tracking-[clamp(3px,0.7vw,8px)]"
         style={{
           color: "#2d8a4e",
-          textShadow: "0 0 10px rgba(45,138,78,0.4)",
           ...(reducedMotion
             ? {}
             : {
@@ -392,7 +378,7 @@ export default function TMLAsciiLogo({
 
       {/* Bottom status */}
       <div
-        className="hidden sm:flex gap-8 mt-8 text-[#1e3a5f60] text-[10px] tracking-[2px] font-['Courier_New',monospace]"
+        className="hidden sm:flex gap-8 mt-8 text-sidebar-foreground/25 text-[10px] tracking-[2px] font-['Courier_New',monospace]"
         style={
           reducedMotion
             ? {}

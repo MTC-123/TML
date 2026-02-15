@@ -1,0 +1,187 @@
+{
+  "landing": {
+    "hero": {
+      "badge": "Infrastructure Accountability Protocol",
+      "title": "Every Dirham Accountable. Every Milestone Verified.",
+      "subtitle": "Identity-anchored attestation middleware connecting contractors, auditors, and citizens through cryptographic proof."
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "contractor": {
+        "title": "Contractor Submits",
+        "description": "Site engineer submits GPS-stamped, device-attested photographic evidence signed with their verified CNIE identity."
+      },
+      "auditor": {
+        "title": "Auditor Verifies",
+        "description": "Randomly assigned licensed professional engineer reviews documentation and attests compliance — license at stake."
+      },
+      "citizen": {
+        "title": "Citizens Confirm",
+        "description": "CNIE-verified residents near the project site confirm observable construction progress via smartphone or USSD."
+      }
+    },
+    "stats": {
+      "projects": "24",
+      "projectsLabel": "Active Projects",
+      "verification": "99.7%",
+      "verificationLabel": "Verification Rate",
+      "citizens": "1,247",
+      "citizensLabel": "Citizen Attestors",
+      "fraud": "0",
+      "fraudLabel": "Undetected Fraud"
+    },
+    "cta": {
+      "title": "Verify a Certificate",
+      "subtitle": "Enter a Payment Clearance Certificate hash to verify its authenticity.",
+      "placeholder": "Enter SHA-256 certificate hash…",
+      "button": "Verify"
+    }
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "projects": "Projects",
+    "attestations": "Attestations",
+    "certificates": "Certificates",
+    "disputes": "Disputes",
+    "auditLog": "Audit Log",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "title": "Dashboard",
+    "subtitle": "Real-time infrastructure accountability overview",
+    "activeProjects": "Active Projects",
+    "completedMilestones": "Completed Milestones",
+    "pendingAttestations": "Pending Attestations",
+    "certificatesIssued": "Certificates Issued",
+    "disbursedFunds": "Disbursed Funds",
+    "projectHealth": "Project Health",
+    "recentActivity": "Recent Activity",
+    "attestationBreakdown": "Attestation Breakdown",
+    "regionalCoverage": "Regional Coverage"
+  },
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Public infrastructure projects under TML oversight",
+    "create": "New Project",
+    "search": "Search projects…",
+    "filterByStatus": "Filter by status",
+    "filterByRegion": "Filter by region",
+    "allStatuses": "All statuses",
+    "allRegions": "All regions",
+    "noProjects": "No projects found",
+    "noProjectsDesc": "Adjust your filters or create a new project.",
+    "budget": "Budget",
+    "donor": "Donor",
+    "milestones": "Milestones",
+    "region": "Region",
+    "status": "Status",
+    "progress": "Progress",
+    "viewDetails": "View Details"
+  },
+  "project": {
+    "overview": "Overview",
+    "milestones": "Milestones",
+    "attestations": "Attestations",
+    "certificates": "Certificates",
+    "disputes": "Disputes",
+    "timeline": "Timeline",
+    "quorum": "Quorum Status",
+    "inspectors": "Inspectors",
+    "auditors": "Auditors",
+    "citizens": "Citizens",
+    "required": "Required",
+    "current": "Current",
+    "met": "Met",
+    "notMet": "Not Met",
+    "weightedScore": "Weighted Score"
+  },
+  "certificates": {
+    "title": "Certificates",
+    "subtitle": "Payment Clearance Certificates for TGR disbursement",
+    "verify": "Verify Certificate",
+    "verifyTitle": "Certificate Verification",
+    "verifySubtitle": "Verify the authenticity of a Payment Clearance Certificate",
+    "hash": "Certificate Hash",
+    "signature": "Digital Signature",
+    "tgrReference": "TGR Reference",
+    "issuedAt": "Issued At",
+    "status": "Status",
+    "valid": "Valid — Signature Verified",
+    "invalid": "Invalid — Tampered or Forged",
+    "revoked": "Revoked",
+    "notFound": "Certificate Not Found",
+    "notFoundDesc": "No certificate matches this hash. Verify the hash and try again.",
+    "downloadQR": "Download QR Code",
+    "viewMilestone": "View Milestone"
+  },
+  "attestations": {
+    "title": "Submit Attestation",
+    "subtitle": "Cryptographically sign your attestation for this milestone",
+    "step1": "GPS Verification",
+    "step2": "Evidence Upload",
+    "step3": "Digital Signature",
+    "step4": "Confirmation",
+    "gpsPrompt": "Allow location access to verify you are within the project geofence.",
+    "gpsVerified": "Location verified — within project boundary",
+    "gpsFailed": "Location outside project boundary",
+    "uploadEvidence": "Upload Evidence",
+    "uploadDesc": "Drag photos or documents here, or click to browse. Files are SHA-256 hashed locally.",
+    "sign": "Sign with Ed25519",
+    "signDesc": "Your attestation will be signed with your DID private key.",
+    "submit": "Submit Attestation",
+    "success": "Attestation Submitted",
+    "successDesc": "Your attestation has been recorded on the compliance chain.",
+    "reference": "Reference"
+  },
+  "disputes": {
+    "title": "Disputes",
+    "subtitle": "Dispute resolution for flagged milestones",
+    "file": "File Dispute",
+    "reason": "Reason",
+    "status": "Status",
+    "raisedAt": "Raised At",
+    "resolvedAt": "Resolved At",
+    "resolution": "Resolution Notes",
+    "noDisputes": "No disputes filed",
+    "noDisputesDesc": "All milestones are proceeding without disputes."
+  },
+  "common": {
+    "loading": "Loading…",
+    "error": "Something went wrong",
+    "retry": "Retry",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "view": "View",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "search": "Search…",
+    "noResults": "No results found",
+    "confirm": "Confirm",
+    "copied": "Copied to clipboard"
+  },
+  "status": {
+    "draft": "Draft",
+    "active": "Active",
+    "suspended": "Suspended",
+    "completed": "Completed",
+    "archived": "Archived",
+    "pending": "Pending",
+    "in_progress": "In Progress",
+    "attestation_in_progress": "Attestation In Progress",
+    "failed": "Failed",
+    "submitted": "Submitted",
+    "verified": "Verified",
+    "rejected": "Rejected",
+    "revoked": "Revoked",
+    "issued": "Issued",
+    "delivered_to_tgr": "Delivered to TGR",
+    "acknowledged": "Acknowledged",
+    "open": "Open",
+    "under_review": "Under Review",
+    "resolved": "Resolved",
+    "dismissed": "Dismissed"
+  }
+}

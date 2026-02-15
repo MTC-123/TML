@@ -1,0 +1,187 @@
+{
+  "landing": {
+    "hero": {
+      "badge": "بروتوكول المساءلة عن البنية التحتية",
+      "title": "كل درهم محاسب. كل مرحلة موثقة.",
+      "subtitle": "طبقة وسيطة للتصديق مبنية على الهوية الرقمية تربط المقاولين والمدققين والمواطنين عبر إثبات مشفّر."
+    },
+    "howItWorks": {
+      "title": "كيف يعمل",
+      "contractor": {
+        "title": "المقاول يقدم",
+        "description": "يقدم المهندس أدلة مصورة مع إحداثيات GPS وتصديق الجهاز، موقعة بهويته CNIE الموثقة."
+      },
+      "auditor": {
+        "title": "المدقق يتحقق",
+        "description": "مهندس محترف مرخص يُعيَّن عشوائيًا يراجع الوثائق ويشهد على الامتثال — رخصته على المحك."
+      },
+      "citizen": {
+        "title": "المواطنون يؤكدون",
+        "description": "سكان قريبون من الموقع يؤكدون تقدم البناء عبر الهاتف الذكي أو USSD."
+      }
+    },
+    "stats": {
+      "projects": "24",
+      "projectsLabel": "مشاريع نشطة",
+      "verification": "99.7%",
+      "verificationLabel": "معدل التحقق",
+      "citizens": "1,247",
+      "citizensLabel": "مواطنون مصدقون",
+      "fraud": "0",
+      "fraudLabel": "احتيال غير مكتشف"
+    },
+    "cta": {
+      "title": "تحقق من شهادة",
+      "subtitle": "أدخل رمز SHA-256 للتحقق من صحة شهادة تفويض الدفع.",
+      "placeholder": "أدخل رمز SHA-256…",
+      "button": "تحقق"
+    }
+  },
+  "nav": {
+    "dashboard": "لوحة القيادة",
+    "projects": "المشاريع",
+    "attestations": "التصديقات",
+    "certificates": "الشهادات",
+    "disputes": "النزاعات",
+    "auditLog": "سجل التدقيق",
+    "settings": "الإعدادات"
+  },
+  "dashboard": {
+    "title": "لوحة القيادة",
+    "subtitle": "نظرة عامة آنية على مساءلة البنية التحتية",
+    "activeProjects": "المشاريع النشطة",
+    "completedMilestones": "المراحل المكتملة",
+    "pendingAttestations": "تصديقات معلقة",
+    "certificatesIssued": "شهادات صادرة",
+    "disbursedFunds": "الأموال المصروفة",
+    "projectHealth": "صحة المشاريع",
+    "recentActivity": "النشاط الأخير",
+    "attestationBreakdown": "تفصيل التصديقات",
+    "regionalCoverage": "التغطية الإقليمية"
+  },
+  "projects": {
+    "title": "المشاريع",
+    "subtitle": "مشاريع البنية التحتية العامة تحت إشراف TML",
+    "create": "مشروع جديد",
+    "search": "البحث عن مشاريع…",
+    "filterByStatus": "تصفية حسب الحالة",
+    "filterByRegion": "تصفية حسب المنطقة",
+    "allStatuses": "جميع الحالات",
+    "allRegions": "جميع المناطق",
+    "noProjects": "لا توجد مشاريع",
+    "noProjectsDesc": "عدّل الفلاتر أو أنشئ مشروعًا جديدًا.",
+    "budget": "الميزانية",
+    "donor": "المانح",
+    "milestones": "المراحل",
+    "region": "المنطقة",
+    "status": "الحالة",
+    "progress": "التقدم",
+    "viewDetails": "عرض التفاصيل"
+  },
+  "project": {
+    "overview": "نظرة عامة",
+    "milestones": "المراحل",
+    "attestations": "التصديقات",
+    "certificates": "الشهادات",
+    "disputes": "النزاعات",
+    "timeline": "الجدول الزمني",
+    "quorum": "حالة النصاب",
+    "inspectors": "المفتشون",
+    "auditors": "المدققون",
+    "citizens": "المواطنون",
+    "required": "مطلوب",
+    "current": "حالي",
+    "met": "مستوفى",
+    "notMet": "غير مستوفى",
+    "weightedScore": "النتيجة المرجحة"
+  },
+  "certificates": {
+    "title": "الشهادات",
+    "subtitle": "شهادات تفويض الدفع لصرف أموال TGR",
+    "verify": "تحقق من الشهادة",
+    "verifyTitle": "التحقق من الشهادة",
+    "verifySubtitle": "تحقق من صحة شهادة تفويض الدفع",
+    "hash": "رمز الشهادة",
+    "signature": "التوقيع الرقمي",
+    "tgrReference": "مرجع TGR",
+    "issuedAt": "تاريخ الإصدار",
+    "status": "الحالة",
+    "valid": "صالحة — التوقيع موثق",
+    "invalid": "غير صالحة — مزورة أو معدّلة",
+    "revoked": "ملغاة",
+    "notFound": "الشهادة غير موجودة",
+    "notFoundDesc": "لا توجد شهادة تطابق هذا الرمز.",
+    "downloadQR": "تحميل رمز QR",
+    "viewMilestone": "عرض المرحلة"
+  },
+  "attestations": {
+    "title": "تقديم تصديق",
+    "subtitle": "وقّع تصديقك مشفّرًا لهذه المرحلة",
+    "step1": "تحقق GPS",
+    "step2": "رفع الأدلة",
+    "step3": "التوقيع الرقمي",
+    "step4": "التأكيد",
+    "gpsPrompt": "اسمح بالوصول إلى الموقع للتحقق من وجودك ضمن نطاق المشروع.",
+    "gpsVerified": "الموقع موثق — ضمن حدود المشروع",
+    "gpsFailed": "الموقع خارج حدود المشروع",
+    "uploadEvidence": "رفع الأدلة",
+    "uploadDesc": "اسحب الصور أو المستندات هنا. يتم حساب SHA-256 محليًا.",
+    "sign": "التوقيع بـ Ed25519",
+    "signDesc": "سيُوقع تصديقك بمفتاحك الخاص DID.",
+    "submit": "إرسال التصديق",
+    "success": "تم تسجيل التصديق",
+    "successDesc": "تم تسجيل تصديقك في سلسلة الامتثال.",
+    "reference": "المرجع"
+  },
+  "disputes": {
+    "title": "النزاعات",
+    "subtitle": "حل النزاعات للمراحل المعلّقة",
+    "file": "تقديم نزاع",
+    "reason": "السبب",
+    "status": "الحالة",
+    "raisedAt": "تاريخ التقديم",
+    "resolvedAt": "تاريخ الحل",
+    "resolution": "ملاحظات الحل",
+    "noDisputes": "لا توجد نزاعات",
+    "noDisputesDesc": "جميع المراحل تسير بدون نزاعات."
+  },
+  "common": {
+    "loading": "جاري التحميل…",
+    "error": "حدث خطأ",
+    "retry": "إعادة المحاولة",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "view": "عرض",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "search": "بحث…",
+    "noResults": "لا توجد نتائج",
+    "confirm": "تأكيد",
+    "copied": "تم النسخ"
+  },
+  "status": {
+    "draft": "مسودة",
+    "active": "نشط",
+    "suspended": "معلق",
+    "completed": "مكتمل",
+    "archived": "مؤرشف",
+    "pending": "قيد الانتظار",
+    "in_progress": "قيد التنفيذ",
+    "attestation_in_progress": "التصديق جارٍ",
+    "failed": "فشل",
+    "submitted": "مقدّم",
+    "verified": "موثق",
+    "rejected": "مرفوض",
+    "revoked": "ملغى",
+    "issued": "صادر",
+    "delivered_to_tgr": "مُسلَّم لـ TGR",
+    "acknowledged": "مُعترف به",
+    "open": "مفتوح",
+    "under_review": "قيد المراجعة",
+    "resolved": "محلول",
+    "dismissed": "مرفوض"
+  }
+}
