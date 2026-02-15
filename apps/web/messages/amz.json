@@ -1,0 +1,187 @@
+{
+  "landing": {
+    "hero": {
+      "badge": "ⴰⵙⵍⴽⵛ ⵏ ⵓⵎⵙⴰⵡⴰⵍ ⵏ ⵜⵓⵙⵙⵏⴰ",
+      "title": "ⴽⵓⵍ ⴰⴷⵔⵉⵎ ⵉⵜⵜⵓⵙⵎⴰⵍ. ⴽⵓⵍ ⵜⴰⴼⵓⵍⵜ ⵜⵜⵓⵙⵎⴰⵍ.",
+      "subtitle": "ⵜⴰⵙⵏⴰ ⵏ ⵓⵙⴼⵓⵍⴽⵉ ⵏ ⵜⵎⴰⴳⵉⵜ ⵜⵓⵎⵥⵉⵏⵜ."
+    },
+    "howItWorks": {
+      "title": "ⵎⴰⵎⴽ ⴰⵢ ⵜⵜⵅⴷⴰⵎ",
+      "contractor": {
+        "title": "ⴰⵎⵙⵖⵏⵓ ⵉⵜⵜⴰⵣⵏ",
+        "description": "ⴰⵎⵀⴰⵏⴷⵉⵙ ⵉⵜⵜⴰⵣⵏ ⵉⵏⴼⴰⵍⵏ ⵙ GPS ⴷ ⵓⵙⵎⵉⵍ ⵏ ⵜⵎⴰⴳⵉⵜ CNIE."
+      },
+      "auditor": {
+        "title": "ⴰⵎⵙⵖⴰⴷ ⵉⵙⵖⴰⴷ",
+        "description": "ⴰⵎⵀⴰⵏⴷⵉⵙ ⴰⵎⵙⵖⴰⴷ ⵉⵜⵜⵓⵙⵜⵉ ⵙ ⵜⵖⴰⵔⴰⵙⵜ."
+      },
+      "citizen": {
+        "title": "ⵉⵎⵣⴷⴰⵖⵏ ⵙⵎⴰⵍⵏ",
+        "description": "ⵉⵎⵣⴷⴰⵖⵏ ⵙ CNIE ⵙⵎⴰⵍⵏ ⴰⵙⵎⵓⵜⵜⴳ ⵏ ⵓⴱⵏⵉ."
+      }
+    },
+    "stats": {
+      "projects": "24",
+      "projectsLabel": "ⵉⵙⵏⴼⴰⵔⵏ ⵉⵎⵔⵙⵏ",
+      "verification": "99.7%",
+      "verificationLabel": "ⴰⵙⵜⴰⵢ ⵏ ⵓⵙⵖⴰⴷ",
+      "citizens": "1,247",
+      "citizensLabel": "ⵉⵎⵣⴷⴰⵖⵏ ⵉⵎⵙⴼⵓⵍⴽⵉⵏ",
+      "fraud": "0",
+      "fraudLabel": "ⴰⵅⴷⴷⴰⵄ ⵓⵔ ⵉⵜⵜⵓⴼⴰⵏ"
+    },
+    "cta": {
+      "title": "ⵙⵖⴰⴷ ⴰⵙⴰⵍⵉⵡ",
+      "subtitle": "ⵙⴽⵛⵎ SHA-256 ⵏ ⵓⵙⴰⵍⵉⵡ.",
+      "placeholder": "ⵙⴽⵛⵎ SHA-256…",
+      "button": "ⵙⵖⴰⴷ"
+    }
+  },
+  "nav": {
+    "dashboard": "ⵜⴰⴼⵍⵡⵉⵜ",
+    "projects": "ⵉⵙⵏⴼⴰⵔⵏ",
+    "attestations": "ⵉⵙⴼⵓⵍⴽⵉⵜⵏ",
+    "certificates": "ⵉⵙⴰⵍⵉⵡⵏ",
+    "disputes": "ⵉⵎⵏⵖⵉⵜⵏ",
+    "auditLog": "ⴰⵙⵖⵍ ⵏ ⵓⵙⵖⴰⴷ",
+    "settings": "ⵉⵙⵖⵏⵏ"
+  },
+  "dashboard": {
+    "title": "ⵜⴰⴼⵍⵡⵉⵜ",
+    "subtitle": "ⵜⴰⵏⵏⴰⵢⵜ ⵜⴰⵎⵇⵕⴰⵏⵜ",
+    "activeProjects": "ⵉⵙⵏⴼⴰⵔⵏ ⵉⵎⵔⵙⵏ",
+    "completedMilestones": "ⵜⵉⴼⵓⵍⵉⵏ ⵉⵎⴷⵏ",
+    "pendingAttestations": "ⵉⵙⴼⵓⵍⴽⵉⵜⵏ ⵉⵜⵜⵔⴰⵊⵓⵏ",
+    "certificatesIssued": "ⵉⵙⴰⵍⵉⵡⵏ ⵉⵜⵜⵓⴼⴽⴰⵏ",
+    "disbursedFunds": "ⵉⴷⵔⵉⵎⵏ ⵉⵜⵜⵓⵙⵔⵙⵏ",
+    "projectHealth": "ⵜⴰⴷⵓⵙⵉ ⵏ ⵉⵙⵏⴼⴰⵔⵏ",
+    "recentActivity": "ⵜⵉⵎⵙⴽⴰⵔ ⵜⵉⵎⴰⵢⵏⵓⵜⵉⵏ",
+    "attestationBreakdown": "ⴰⴼⵙⵙⴰⵢ ⵏ ⵉⵙⴼⵓⵍⴽⵉⵜⵏ",
+    "regionalCoverage": "ⴰⴽⵜⵜⵓⵔ ⴰⵙⴳⴰⵡⴰⵏ"
+  },
+  "projects": {
+    "title": "ⵉⵙⵏⴼⴰⵔⵏ",
+    "subtitle": "ⵉⵙⵏⴼⴰⵔⵏ ⵏ ⵜⵓⵙⵙⵏⴰ ⵜⴰⴳⴷⵓⴷⴰⵏⵜ",
+    "create": "ⴰⵙⵏⴼⴰⵔ ⴰⵎⴰⵢⵏⵓ",
+    "search": "ⵔⵣⵓ ⵅⴼ ⵉⵙⵏⴼⴰⵔⵏ…",
+    "filterByStatus": "ⵙⵜⵉ ⵙ ⵡⴰⴷⴷⴰⴷ",
+    "filterByRegion": "ⵙⵜⵉ ⵙ ⵜⵙⴳⴰ",
+    "allStatuses": "ⵎⴰⵕⵕⴰ ⵉⵡⴰⴷⴷⴰⴷⵏ",
+    "allRegions": "ⵎⴰⵕⵕⴰ ⵜⵉⵙⴳⵉⵡⵉⵏ",
+    "noProjects": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵙⵏⴼⴰⵔⵏ",
+    "noProjectsDesc": "ⵙⵏⴼⵍ ⵉⵙⵜⴰⵢⵏ ⵏⵖ ⵙⵏⵓⵍⴼⵓ ⴰⵙⵏⴼⴰⵔ.",
+    "budget": "ⵜⴰⵎⵙⴰⵔⵜ",
+    "donor": "ⴰⵎⴼⴽⵉ",
+    "milestones": "ⵜⵉⴼⵓⵍⵉⵏ",
+    "region": "ⵜⴰⵙⴳⴰ",
+    "status": "ⴰⵡⴰⴷⴷⴰⴷ",
+    "progress": "ⴰⵎⵓⵜⵜⵉ",
+    "viewDetails": "ⵥⵕ ⵉⴼⵔⴷⵉⵙⵏ"
+  },
+  "project": {
+    "overview": "ⵜⴰⵏⵏⴰⵢⵜ",
+    "milestones": "ⵜⵉⴼⵓⵍⵉⵏ",
+    "attestations": "ⵉⵙⴼⵓⵍⴽⵉⵜⵏ",
+    "certificates": "ⵉⵙⴰⵍⵉⵡⵏ",
+    "disputes": "ⵉⵎⵏⵖⵉⵜⵏ",
+    "timeline": "ⴰⵣⵎⵣ",
+    "quorum": "ⴰⵡⴰⴷⴷⴰⴷ ⵏ ⵡⴰⵎⵓⵔ",
+    "inspectors": "ⵉⵎⵣⵔⴰⴳⵏ",
+    "auditors": "ⵉⵎⵙⵖⴰⴷⵏ",
+    "citizens": "ⵉⵎⵣⴷⴰⵖⵏ",
+    "required": "ⵉⵜⵜⵓⵙⵜⵔⵏ",
+    "current": "ⴰⵎⵉⵔⴰⵏ",
+    "met": "ⵉⵜⵜⵓⴱⴹⵓ",
+    "notMet": "ⵓⵔ ⵉⵜⵜⵓⴱⴹⵓ",
+    "weightedScore": "ⵜⴰⵏⵇⵇⵉⵟⵜ ⵜⴰⵡⵣⵉⵏⵜ"
+  },
+  "certificates": {
+    "title": "ⵉⵙⴰⵍⵉⵡⵏ",
+    "subtitle": "ⵉⵙⴰⵍⵉⵡⵏ ⵏ ⵓⵙⵔⵙ ⵏ ⵉⴷⵔⵉⵎⵏ ⵉ TGR",
+    "verify": "ⵙⵖⴰⴷ ⴰⵙⴰⵍⵉⵡ",
+    "verifyTitle": "ⴰⵙⵖⴰⴷ ⵏ ⵓⵙⴰⵍⵉⵡ",
+    "verifySubtitle": "ⵙⵖⴰⴷ ⵜⵉⴷⵜ ⵏ ⵓⵙⴰⵍⵉⵡ",
+    "hash": "ⴰⵣⵡⵍ ⵏ ⵓⵙⴰⵍⵉⵡ",
+    "signature": "ⴰⵣⵎⵓⵍ ⴰⵎⵥⵍⴰⵢ",
+    "tgrReference": "ⵜⴰⵎⴼⵔⵉⵙⵜ TGR",
+    "issuedAt": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵓⴼⴽⴰ",
+    "status": "ⴰⵡⴰⴷⴷⴰⴷ",
+    "valid": "ⵉⵖⴷⵏ — ⴰⵣⵎⵓⵍ ⵉⵜⵜⵓⵙⵖⴰⴷ",
+    "invalid": "ⵓⵔ ⵉⵖⴷⵉ",
+    "revoked": "ⵉⵜⵜⵓⵙⴼⵙⵅ",
+    "notFound": "ⵓⵔ ⵉⵜⵜⵓⴼⴰ ⵓⵙⴰⵍⵉⵡ",
+    "notFoundDesc": "ⵓⵔ ⵉⵍⵍⵉ ⵓⵙⴰⵍⵉⵡ ⵙ ⵡⴰⵣⵡⵍ ⴰⴷ.",
+    "downloadQR": "ⴰⴳⵎ QR",
+    "viewMilestone": "ⵥⵕ ⵜⴰⴼⵓⵍⵜ"
+  },
+  "attestations": {
+    "title": "ⴼⴽ ⴰⵙⴼⵓⵍⴽⵉ",
+    "subtitle": "ⵥⵎⵍ ⴰⵙⴼⵓⵍⴽⵉ ⵏⵏⴽ ⵙ ⵜⴼⵓⵍⵜ ⴰⴷ",
+    "step1": "ⴰⵙⵖⴰⴷ GPS",
+    "step2": "ⴰⵙⵙⵉⴼⴹ ⵏ ⵉⵏⴼⴰⵍⵏ",
+    "step3": "ⴰⵣⵎⵓⵍ ⴰⵎⵥⵍⴰⵢ",
+    "step4": "ⴰⵙⵎⴰⵍ",
+    "gpsPrompt": "ⴰⴷⵊ ⴰⵏⴼⴰⴷ ⵖⵔ ⵡⴰⴷⴳ.",
+    "gpsVerified": "ⴰⴷⴳ ⵉⵜⵜⵓⵙⵖⴰⴷ",
+    "gpsFailed": "ⴰⴷⴳ ⴱⵕⵕⴰ ⵉ ⵜⵍⵉⵙⴰ",
+    "uploadEvidence": "ⵙⵙⵉⴼⴹ ⵉⵏⴼⴰⵍⵏ",
+    "uploadDesc": "ⵙⵙⵉⴼⴹ ⵜⵉⵡⵍⴰⴼⵉⵏ ⴷⴰ.",
+    "sign": "ⵥⵎⵍ ⵙ Ed25519",
+    "signDesc": "ⴰⵙⴼⵓⵍⴽⵉ ⴰⴷ ⵉⵜⵜⵓⵥⵎⵍ ⵙ ⵜⵙⴰⵔⵓⵜ ⵏⵏⴽ.",
+    "submit": "ⴰⵣⵏ ⴰⵙⴼⵓⵍⴽⵉ",
+    "success": "ⵉⵜⵜⵡⴰⵣⵏ ⵓⵙⴼⵓⵍⴽⵉ",
+    "successDesc": "ⵉⵜⵜⵓⵔⴰ ⵓⵙⴼⵓⵍⴽⵉ ⵏⵏⴽ.",
+    "reference": "ⵜⴰⵎⴼⵔⵉⵙⵜ"
+  },
+  "disputes": {
+    "title": "ⵉⵎⵏⵖⵉⵜⵏ",
+    "subtitle": "ⴰⴼⵙⵙⴰⵢ ⵏ ⵉⵎⵏⵖⵉⵜⵏ",
+    "file": "ⴼⴽ ⴰⵎⵏⵖⵉ",
+    "reason": "ⵜⴰⵎⵏⵜⵉⵍⵜ",
+    "status": "ⴰⵡⴰⴷⴷⴰⴷ",
+    "raisedAt": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵓⴼⴽⴰ",
+    "resolvedAt": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵓⴼⵙⵙⴰⵢ",
+    "resolution": "ⵜⵉⵏⵏⴰⵢⵉⵏ ⵏ ⵓⴼⵙⵙⴰⵢ",
+    "noDisputes": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵎⵏⵖⵉⵜⵏ",
+    "noDisputesDesc": "ⵎⴰⵕⵕⴰ ⵜⵉⴼⵓⵍⵉⵏ ⴰⵔ ⵜⵜⴷⴷⵓⵏ ⴱⵍⴰ ⴰⵎⵏⵖⵉ."
+  },
+  "common": {
+    "loading": "ⴰⵔ ⵉⵙⵙⴰⴳⴳⵯ…",
+    "error": "ⵉⵍⵍⴰ ⵓⵣⴳⵍ",
+    "retry": "ⴰⵍⵙ",
+    "save": "ⵃⴹⵓ",
+    "cancel": "ⵙⵙⵔ",
+    "delete": "ⴽⴽⵙ",
+    "edit": "ⵙⵏⴼⵍ",
+    "view": "ⵥⵕ",
+    "back": "ⵖⵔ ⴷⴼⴼⵉⵔ",
+    "next": "ⵖⵔ ⵣⴷⴰⵜ",
+    "previous": "ⵖⵔ ⴷⴼⴼⵉⵔ",
+    "search": "ⵔⵣⵓ…",
+    "noResults": "ⵓⵔ ⵉⵜⵜⵓⴼⴰ ⵡⴰⵍⵓ",
+    "confirm": "ⵙⵎⴰⵍ",
+    "copied": "ⵉⵜⵜⵓⵏⵖⵍ"
+  },
+  "status": {
+    "draft": "ⵜⴰⵡⵔⵉⵇⵜ",
+    "active": "ⵉⵎⵔⵙ",
+    "suspended": "ⵉⵜⵜⵡⴰⵙⴱⴷⴷ",
+    "completed": "ⵉⵎⴷⴰ",
+    "archived": "ⵉⵜⵜⵓⵃⵕⵥ",
+    "pending": "ⵉⵜⵜⵔⴰⵊⵓ",
+    "in_progress": "ⴰⵔ ⵉⵜⵜⴷⴷⵓ",
+    "attestation_in_progress": "ⴰⵙⴼⵓⵍⴽⵉ ⴰⵔ ⵉⵜⵜⴷⴷⵓ",
+    "failed": "ⵉⵖⵍⵉ",
+    "submitted": "ⵉⵜⵜⵡⴰⴼⴽ",
+    "verified": "ⵉⵜⵜⵓⵙⵖⴰⴷ",
+    "rejected": "ⵉⵜⵜⵡⴰⴳⵉ",
+    "revoked": "ⵉⵜⵜⵓⵙⴼⵙⵅ",
+    "issued": "ⵉⵜⵜⵓⴼⴽⴰ",
+    "delivered_to_tgr": "ⵜⵜⵡⴰⵡⵙ ⵉ TGR",
+    "acknowledged": "ⵉⵜⵜⵡⴰⵙⵏ",
+    "open": "ⵉⵍⴷⵉ",
+    "under_review": "ⴰⵔ ⵉⵜⵜⵢⴰⵏⵏⴰⵢ",
+    "resolved": "ⵉⵜⵜⵓⵙⵎⴷ",
+    "dismissed": "ⵉⵜⵜⵡⴰⴳⵉ"
+  }
+}
