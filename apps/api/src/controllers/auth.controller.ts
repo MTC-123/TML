@@ -2,6 +2,7 @@ import type { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { loadEnv } from '../config/env.js';
 import { ActorsRepository } from '../repositories/actors.repository.js';
 import { AuthService } from '../services/auth.service.js';
+import { OidcDiscoveryService } from '../services/oidc-discovery.service.js';
 
 export class AuthController {
   private service: AuthService;
@@ -10,11 +11,13 @@ export class AuthController {
     const actorsRepo = new ActorsRepository(fastify.prisma);
     const env = loadEnv();
     // eslint-disable-next-line @typescript-eslint/no-explicit-any -- ioredis type adapter
-    this.service = new AuthService(actorsRepo, fastify.redis as any, fastify.jwt, env);
+    const redis = fastify.redis as any;
+    const oidcDiscovery = new OidcDiscoveryService(redis, env.MOSIP_ISSUER_URL);
+    this.service = new AuthService(actorsRepo, redis, fastify.jwt, env, oidcDiscovery);
   }
 
   async login(_request: FastifyRequest, reply: FastifyReply): Promise<void> {
-    const result = this.service.getLoginUrl();
+    const result = await this.service.getLoginUrl();
     if (!result.ok) {
       throw result.error;
     }

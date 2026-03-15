@@ -1,6 +1,5 @@
 import type { Result } from '../../lib/result.js';
-import { ok, err } from '../../lib/result.js';
-import { ValidationError } from '@tml/types';
+import { ok } from '../../lib/result.js';
 import { sanitizeUssdInput, sanitizeProjectCode, sanitizeOtp } from './input-sanitizer.js';
 import { SessionStore, type UssdSession, type RedisClient } from './session-store.js';
 import { OtpManager } from './otp-manager.js';
@@ -11,8 +10,16 @@ import type { MilestonesRepository } from '../../repositories/milestones.reposit
 import type { ProjectsRepository } from '../../repositories/projects.repository.js';
 import type { AttestationsService } from '../../services/attestations.service.js';
 import type { AuditLogService } from '../../services/audit-log.service.js';
+import { type UssdLocale, getStrings, detectLocaleFromPhone } from './ussd-locales.js';
 
 const RATE_LIMIT_TTL = 86400; // 24 hours
+
+/** Map language-selection input to locale. Options 3 and 4 vary per current locale. */
+const LANGUAGE_SWITCH: Record<UssdLocale, Record<string, UssdLocale>> = {
+  fr: { '3': 'ar', '4': 'amz' },
+  ar: { '3': 'fr', '4': 'amz' },
+  amz: { '3': 'fr', '4': 'ar' },
+};
 
 export class UssdService {
   constructor(
@@ -51,6 +58,7 @@ export class UssdService {
         milestoneId: null,
         milestoneDescription: null,
         vote: null,
+        locale: detectLocaleFromPhone(phoneNumber),
       };
     }
 
@@ -59,7 +67,8 @@ export class UssdService {
     try {
       response = await this.dispatch(session, parts);
     } catch {
-      response = 'END Erreur système. Veuillez réessayer.';
+      const strings = getStrings(session.locale || 'fr');
+      response = strings.systemError;
     }
 
     // Save session (unless completed)
@@ -73,72 +82,84 @@ export class UssdService {
   }
 
   private async dispatch(session: UssdSession, parts: string[]): Promise<string> {
+    const locale = session.locale || 'fr';
+    const strings = getStrings(locale);
+
     // Empty text → welcome
     if (parts.length === 1 && parts[0] === '') {
-      return this.screenWelcome();
+      return this.screenWelcome(strings);
+    }
+
+    // Language switch (options 3 or 4 from welcome menu)
+    if (parts.length === 1 && (parts[0] === '3' || parts[0] === '4')) {
+      const newLocale = LANGUAGE_SWITCH[locale]?.[parts[0]!];
+      if (newLocale) {
+        session.locale = newLocale;
+        return this.screenWelcome(getStrings(newLocale));
+      }
     }
 
     // Help
     if (parts.length === 1 && parts[0] === '2') {
-      return this.screenHelp();
+      return this.screenHelp(strings);
     }
 
     // Enter project code prompt
     if (parts.length === 1 && parts[0] === '1') {
-      return this.screenEnterProjectCode(session);
+      return this.screenEnterProjectCode(session, strings);
     }
 
     // Project code entered
     if (parts.length === 2 && parts[0] === '1') {
-      return this.handleProjectCode(session, parts[1]!);
+      return this.handleProjectCode(session, parts[1]!, strings);
     }
 
     // For steps 3+ we need project/milestone context resolved
     // AfricasTalking sends accumulated text, so session may already have this
     // from a previous callback, but we ensure it's populated.
     if (parts.length >= 3 && parts[0] === '1') {
-      const ensured = await this.ensureProjectContext(session, parts[1]!);
+      const ensured = await this.ensureProjectContext(session, parts[1]!, strings);
       if (ensured) return ensured;
     }
 
     // Vote: Oui
     if (parts.length === 3 && parts[0] === '1' && parts[2] === '1') {
-      return this.handleVoteOui(session);
+      return this.handleVoteOui(session, strings);
     }
 
     // Vote: Non
     if (parts.length === 3 && parts[0] === '1' && parts[2] === '2') {
-      return this.handleVoteNon(session);
+      return this.handleVoteNon(session, strings);
     }
 
     // Vote: Pas sûr
     if (parts.length === 3 && parts[0] === '1' && parts[2] === '3') {
-      return this.handleVotePasSur();
+      return this.handleVotePasSur(strings);
     }
 
     // OTP entered
     if (parts.length === 4 && parts[0] === '1' && parts[2] === '1') {
-      return this.handleOtp(session, parts[3]!);
+      return this.handleOtp(session, parts[3]!, strings);
     }
 
-    return 'END Entrée invalide. Veuillez réessayer.';
+    return strings.invalidInput;
   }
 
   /** Ensure session has project/milestone context. Returns error string if resolution fails, null on success. */
-  private async ensureProjectContext(session: UssdSession, rawCode: string): Promise<string | null> {
+  private async ensureProjectContext(session: UssdSession, rawCode: string, strings: ReturnType<typeof getStrings>): Promise<string | null> {
     if (session.projectId && session.milestoneId) return null;
 
     const code = sanitizeProjectCode(rawCode);
-    if (!code) return 'END Code invalide. Le code doit contenir 6 chiffres.';
+    if (!code) return strings.invalidCode;
 
     const projectId = await this.projectCodeStore.resolve(code);
-    if (!projectId) return 'END Projet non trouvé. Vérifiez le code et réessayez.';
+    if (!projectId) return strings.projectNotFound;
 
     const project = await this.projectsRepo.findById(projectId);
-    if (!project || project.deletedAt) return 'END Projet non trouvé. Vérifiez le code et réessayez.';
+    if (!project || project.deletedAt) return strings.projectNotFound;
 
     const milestone = await this.milestonesRepo.findActiveByProjectId(projectId);
-    if (!milestone) return 'END Aucune étape en cours pour ce projet.';
+    if (!milestone) return strings.noActiveMilestone;
 
     session.projectId = projectId;
     session.projectName = project.name;
@@ -147,41 +168,41 @@ export class UssdService {
     return null;
   }
 
-  private screenWelcome(): string {
-    return 'CON Bienvenue sur TML\n1. Vérifier un projet\n2. Aide';
+  private screenWelcome(strings: ReturnType<typeof getStrings>): string {
+    return strings.welcome;
   }
 
-  private screenHelp(): string {
-    return 'END TML: plateforme de transparence. Appelez *123# pour vérifier les travaux publics.';
+  private screenHelp(strings: ReturnType<typeof getStrings>): string {
+    return strings.helpText;
   }
 
-  private screenEnterProjectCode(session: UssdSession): string {
+  private screenEnterProjectCode(session: UssdSession, strings: ReturnType<typeof getStrings>): string {
     session.state = 'awaiting_project_code';
-    return 'CON Entrez le code du projet (6 chiffres):';
+    return strings.enterProjectCode;
   }
 
-  private async handleProjectCode(session: UssdSession, rawCode: string): Promise<string> {
+  private async handleProjectCode(session: UssdSession, rawCode: string, strings: ReturnType<typeof getStrings>): Promise<string> {
     const code = sanitizeProjectCode(rawCode);
     if (!code) {
-      return 'END Code invalide. Le code doit contenir 6 chiffres.';
+      return strings.invalidCode;
     }
 
     // Resolve project code → projectId
     const projectId = await this.projectCodeStore.resolve(code);
     if (!projectId) {
-      return 'END Projet non trouvé. Vérifiez le code et réessayez.';
+      return strings.projectNotFound;
     }
 
     // Lookup project
     const project = await this.projectsRepo.findById(projectId);
     if (!project || project.deletedAt) {
-      return 'END Projet non trouvé. Vérifiez le code et réessayez.';
+      return strings.projectNotFound;
     }
 
     // Find active milestone
     const milestone = await this.milestonesRepo.findActiveByProjectId(projectId);
     if (!milestone) {
-      return 'END Aucune étape en cours pour ce projet.';
+      return strings.noActiveMilestone;
     }
 
     // Update session
@@ -191,19 +212,19 @@ export class UssdService {
     session.milestoneId = milestone.id;
     session.milestoneDescription = milestone.description;
 
-    return `CON ${project.name}, Étape: ${milestone.description}\n1. Oui, travaux en cours\n2. Non, pas de progrès\n3. Pas sûr`;
+    return strings.votePrompt(project.name, milestone.description);
   }
 
-  private async handleVoteOui(session: UssdSession): Promise<string> {
+  private async handleVoteOui(session: UssdSession, strings: ReturnType<typeof getStrings>): Promise<string> {
     // Resolve phone → actor
     if (!session.actorId) {
       const actorId = await this.redis.get(`ussd:phone:${session.phoneNumber}`);
       if (!actorId) {
-        return 'END Votre numéro n\'est pas enregistré. Veuillez vous inscrire d\'abord.';
+        return strings.notRegistered;
       }
       const actor = await this.actorsRepo.findById(actorId);
       if (!actor) {
-        return 'END Votre numéro n\'est pas enregistré. Veuillez vous inscrire d\'abord.';
+        return strings.notRegistered;
       }
       session.actorId = actorId;
       session.actorDid = actor.did;
@@ -214,7 +235,7 @@ export class UssdService {
       const rateLimitKey = `ussd:ratelimit:${session.actorId}:${session.milestoneId}`;
       const existing = await this.redis.get(rateLimitKey);
       if (existing) {
-        return 'END Vous avez déjà attesté pour cette étape. Réessayez dans 24h.';
+        return strings.alreadyAttested;
       }
     }
 
@@ -222,16 +243,16 @@ export class UssdService {
     const otp = await this.otpManager.generate(session.sessionId);
     const sent = await this.smsGateway.sendOtp(session.phoneNumber, otp);
     if (!sent) {
-      return 'END Impossible d\'envoyer le SMS. Veuillez réessayer.';
+      return strings.smsFailed;
     }
 
     session.state = 'awaiting_otp';
     session.vote = '1';
 
-    return 'CON Entrez votre code de vérification (6 chiffres):';
+    return strings.enterOtp;
   }
 
-  private async handleVoteNon(session: UssdSession): Promise<string> {
+  private async handleVoteNon(session: UssdSession, strings: ReturnType<typeof getStrings>): Promise<string> {
     // Resolve phone → actor for audit log
     if (!session.actorId) {
       const actorId = await this.redis.get(`ussd:phone:${session.phoneNumber}`);
@@ -258,34 +279,34 @@ export class UssdService {
       });
     }
 
-    return 'END Merci pour votre réponse. Votre avis a été enregistré.';
+    return strings.thankYouNegative;
   }
 
-  private handleVotePasSur(): string {
-    return 'END Merci. Vous pouvez réessayer plus tard.';
+  private handleVotePasSur(strings: ReturnType<typeof getStrings>): string {
+    return strings.thankYouUnsure;
   }
 
-  private async handleOtp(session: UssdSession, rawOtp: string): Promise<string> {
+  private async handleOtp(session: UssdSession, rawOtp: string, strings: ReturnType<typeof getStrings>): Promise<string> {
     const otp = sanitizeOtp(rawOtp);
     if (!otp) {
-      return 'END Code incorrect. Veuillez réessayer.';
+      return strings.invalidOtp;
     }
 
     const result = await this.otpManager.verify(session.sessionId, otp);
 
     if (result === 'expired') {
-      return 'END Code expiré. Veuillez réessayer.';
+      return strings.expiredOtp;
     }
     if (result === 'invalid') {
-      return 'END Code incorrect. Veuillez réessayer.';
+      return strings.invalidOtp;
     }
     if (result === 'used') {
-      return 'END Code déjà utilisé. Veuillez réessayer.';
+      return strings.usedOtp;
     }
 
     // Submit attestation
     if (!session.actorId || !session.actorDid || !session.milestoneId) {
-      return 'END Erreur de session. Veuillez réessayer.';
+      return strings.systemError;
     }
 
     const attestResult = await this.attestationsService.submitFromUssd(
@@ -298,15 +319,15 @@ export class UssdService {
     if (!attestResult.ok) {
       const error = attestResult.error;
       if (error.message.includes('enrolled in the citizen pool')) {
-        return 'END Vous n\'êtes pas inscrit pour cette étape.';
+        return strings.notEnrolled;
       }
       if (error.message.includes('already exists')) {
-        return 'END Vous avez déjà soumis une attestation pour cette étape.';
+        return strings.alreadyAttested;
       }
       if (error.message.includes('auditor review is required') || error.message.includes('inspector verification is required')) {
-        return 'END Cette étape n\'est pas encore prête pour les attestations citoyennes.';
+        return strings.notReady;
       }
-      return 'END Erreur lors de l\'enregistrement. Veuillez réessayer.';
+      return strings.systemError;
     }
 
     // Set rate limit
@@ -316,6 +337,6 @@ export class UssdService {
     const refCode = `ATT-${attestResult.value.id.slice(0, 8).toUpperCase()}`;
     session.state = 'completed';
 
-    return `END Merci! Attestation enregistrée. Réf: ${refCode}`;
+    return strings.attestationSuccess(refCode);
   }
 }

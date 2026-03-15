@@ -53,3 +53,31 @@ npm-debug.log*
 
 # Generated
 packages/database/src/generated/
+
+# Documents & binary assets (local only — do not commit)
+docs/
+*.pdf
+*.doc
+*.docx
+*.xls
+*.xlsx
+*.ppt
+*.pptx
+*.aux
+*.tex
+
+# Video & media
+*.mp4
+*.avi
+*.mov
+*.mkv
+*.wmv
+*.webm
+*.gif
+
+# Archives
+*.zip
+*.tar
+*.tar.gz
+*.rar
+*.7z

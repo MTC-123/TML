@@ -1,0 +1,189 @@
+{
+  "app": {
+    "name": "TML",
+    "fullName": "طبقة الوساطة للشفافية",
+    "description": "طبقة وساطة الشفافية لمساءلة البنية التحتية العامة"
+  },
+  "nav": {
+    "home": "الرئيسية",
+    "dashboard": "لوحة التحكم",
+    "projects": "المشاريع",
+    "attestations": "التصديقات",
+    "certificates": "الشهادات",
+    "disputes": "النزاعات",
+    "credentials": "الاعتمادات",
+    "admin": "الإدارة",
+    "profile": "الملف الشخصي",
+    "settings": "الإعدادات",
+    "logout": "تسجيل الخروج",
+    "verify": "تحقق",
+    "about": "حول"
+  },
+  "common": {
+    "loading": "جاري التحميل...",
+    "error": "خطأ",
+    "save": "حفظ",
+    "cancel": "إلغاء",
+    "delete": "حذف",
+    "edit": "تعديل",
+    "create": "إنشاء",
+    "submit": "إرسال",
+    "confirm": "تأكيد",
+    "back": "رجوع",
+    "next": "التالي",
+    "previous": "السابق",
+    "search": "بحث",
+    "filter": "تصفية",
+    "sort": "ترتيب",
+    "noResults": "لم يتم العثور على نتائج",
+    "yes": "نعم",
+    "no": "لا",
+    "status": "الحالة",
+    "actions": "الإجراءات",
+    "details": "التفاصيل",
+    "date": "التاريخ",
+    "description": "الوصف",
+    "name": "الاسم",
+    "type": "النوع",
+    "role": "الدور",
+    "view": "عرض",
+    "download": "تحميل",
+    "upload": "رفع",
+    "retry": "إعادة المحاولة",
+    "close": "إغلاق",
+    "update": "تحديث",
+    "refresh": "تحديث",
+    "export": "تصدير",
+    "import": "استيراد",
+    "approve": "الموافقة",
+    "reject": "رفض",
+    "viewDetails": "عرض التفاصيل",
+    "learnMore": "معرفة المزيد",
+    "signOut": "تسجيل الخروج"
+  },
+  "status": {
+    "pending": "قيد الانتظار",
+    "approved": "موافق عليه",
+    "rejected": "مرفوض",
+    "completed": "مكتمل",
+    "active": "نشط",
+    "inactive": "غير نشط",
+    "draft": "مسودة",
+    "inProgress": "قيد التنفيذ",
+    "revoked": "ملغى",
+    "verified": "تم التحقق",
+    "expired": "منتهي الصلاحية",
+    "suspended": "معلق"
+  },
+  "roles": {
+    "contractor": "مقاول",
+    "inspector": "مفتش",
+    "auditor": "مدقق",
+    "citizen": "مواطن",
+    "admin": "مدير",
+    "projectManager": "مدير المشروع"
+  },
+  "language": {
+    "select": "اختر اللغة",
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية",
+    "tzm": "ⵜⴰⵎⴰⵣⵉⵖⵜ"
+  },
+  "footer": {
+    "rights": "جميع الحقوق محفوظة",
+    "privacy": "سياسة الخصوصية",
+    "terms": "شروط الاستخدام",
+    "copyright": "© 2026 طبقة الوساطة للشفافية. جميع الحقوق محفوظة.",
+    "tagline": "تأمين مساءلة البنية التحتية العامة بالثقة التشفيرية.",
+    "platform": "المنصة",
+    "verifyCertificate": "التحقق من شهادة",
+    "aboutTML": "حول TML",
+    "howItWorks": "كيف يعمل",
+    "about": "حول",
+    "cnieBinding": "ربط هوية البطاقة الوطنية",
+    "multiPartyAttestation": "تصديق متعدد الأطراف",
+    "tgrIntegration": "التكامل مع الخزينة العامة",
+    "ed25519Cryptography": "تشفير Ed25519",
+    "legal": "الشؤون القانونية",
+    "dataProtection": "حماية البيانات"
+  },
+  "errors": {
+    "notFound": "الصفحة غير موجودة",
+    "serverError": "خطأ في الخادم",
+    "unauthorized": "غير مصرح لك بالوصول إلى هذه الصفحة",
+    "forbidden": "الوصول محظور",
+    "networkError": "خطأ في الشبكة. يرجى التحقق من اتصالك.",
+    "unexpectedError": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى.",
+    "sessionExpired": "انتهت صلاحية جلستك. يرجى تسجيل الدخول مرة أخرى.",
+    "validationError": "يرجى التحقق من أخطاء النموذج."
+  },
+  "dashboard": {
+    "title": "لوحة التحكم",
+    "welcome": "مرحبا بعودتك",
+    "totalProjects": "إجمالي المشاريع",
+    "activeAttestations": "التصديقات النشطة",
+    "certificatesIssued": "الشهادات الصادرة",
+    "pendingReview": "قيد المراجعة",
+    "recentActivity": "النشاط الأخير",
+    "attestationPipeline": "مسار التصديقات",
+    "impactMetrics": "مؤشرات الأثر",
+    "quickActions": "إجراءات سريعة"
+  },
+  "pagination": {
+    "showing": "عرض",
+    "of": "من",
+    "results": "نتائج",
+    "page": "صفحة",
+    "perPage": "لكل صفحة"
+  },
+  "confirmation": {
+    "areYouSure": "هل أنت متأكد؟",
+    "cannotUndo": "لا يمكن التراجع عن هذا الإجراء.",
+    "deleteConfirm": "هل أنت متأكد من حذف هذا العنصر؟"
+  },
+  "empty": {
+    "noResults": "لم يتم العثور على نتائج",
+    "noData": "لا توجد بيانات متاحة",
+    "tryAdjusting": "حاول تعديل معايير البحث أو التصفية."
+  },
+  "accessibility": {
+    "skipToContent": "الانتقال إلى المحتوى",
+    "openMenu": "فتح القائمة",
+    "closeMenu": "إغلاق القائمة",
+    "toggleTheme": "تبديل المظهر"
+  },
+  "disputes": {
+    "title": "النزاعات",
+    "create": "فتح نزاع",
+    "empty": "لم يتم العثور على نزاعات",
+    "status": {
+      "open": "مفتوح",
+      "underReview": "قيد المراجعة",
+      "resolved": "تم الحل",
+      "dismissed": "مرفوض"
+    },
+    "fields": {
+      "reason": "السبب",
+      "submittedBy": "مقدم من",
+      "resolution": "الحل",
+      "createdAt": "تاريخ الفتح"
+    }
+  },
+  "credentials": {
+    "title": "الاعتمادات القابلة للتحقق",
+    "issued": "الاعتمادات الصادرة",
+    "received": "الاعتمادات المستلمة",
+    "empty": "لم يتم العثور على اعتمادات",
+    "verify": "التحقق من الاعتماد",
+    "revoke": "إلغاء الاعتماد",
+    "fields": {
+      "issuer": "الجهة المصدرة",
+      "subject": "الموضوع",
+      "type": "نوع الاعتماد",
+      "issuedAt": "صدر في",
+      "expiresAt": "ينتهي في",
+      "status": "الحالة"
+    }
+  }
+}

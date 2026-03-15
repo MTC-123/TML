@@ -1,0 +1,80 @@
+{
+  "projects": {
+    "title": "Projets",
+    "subtitle": "G\u00e9rer les projets d\u2019infrastructure publique et suivre l\u2019avancement des jalons.",
+    "create": "Nouveau projet",
+    "search": "Rechercher des projets...",
+    "empty": "Aucun projet trouv\u00e9",
+    "fields": {
+      "name": "Nom du projet",
+      "description": "Description",
+      "location": "Localisation",
+      "region": "R\u00e9gion",
+      "budget": "Budget (MAD)",
+      "contractor": "Entrepreneur",
+      "donor": "Bailleur de fonds",
+      "status": "Statut",
+      "milestones": "Jalons",
+      "createdAt": "Date de cr\u00e9ation",
+      "startDate": "Date de d\u00e9but",
+      "endDate": "Date de fin",
+      "deadline": "Date limite",
+      "progress": "Progression",
+      "assuranceTier": "Niveau d\u2019assurance",
+      "sector": "Secteur"
+    },
+    "status": {
+      "draft": "Brouillon",
+      "active": "Actif",
+      "suspended": "Suspendu",
+      "completed": "Termin\u00e9",
+      "archived": "Archiv\u00e9"
+    },
+    "tabs": {
+      "overview": "Aper\u00e7u",
+      "milestones": "Jalons",
+      "attestations": "Attestations",
+      "certificates": "Certificats",
+      "disputes": "Litiges",
+      "team": "\u00c9quipe",
+      "timeline": "Chronologie",
+      "documents": "Documents"
+    },
+    "sectors": {
+      "roads": "Routes et autoroutes",
+      "schools": "\u00c9coles et \u00e9ducation",
+      "hospitals": "H\u00f4pitaux et sant\u00e9",
+      "water": "Eau et assainissement",
+      "energy": "\u00c9nergie et \u00e9lectricit\u00e9",
+      "housing": "Logement",
+      "telecommunications": "T\u00e9l\u00e9communications",
+      "other": "Autre"
+    }
+  },
+  "milestones": {
+    "title": "Jalons",
+    "create": "Nouveau jalon",
+    "empty": "Aucun jalon trouv\u00e9",
+    "fields": {
+      "name": "Nom du jalon",
+      "description": "Description",
+      "deadline": "Date limite",
+      "status": "Statut",
+      "sequence": "S\u00e9quence",
+      "dueDate": "Date d\u2019\u00e9ch\u00e9ance",
+      "progress": "Progression",
+      "completionDate": "Date d\u2019ach\u00e8vement",
+      "fundAmount": "Montant des fonds (MAD)"
+    },
+    "quorum": {
+      "title": "\u00c9tat du quorum",
+      "inspectors": "Inspecteurs",
+      "auditors": "Auditeurs",
+      "citizens": "Citoyens",
+      "met": "Atteint",
+      "notMet": "Non atteint",
+      "required": "Attestations requises",
+      "received": "Attestations re\u00e7ues"
+    }
+  }
+}

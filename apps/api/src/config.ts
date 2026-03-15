@@ -23,7 +23,8 @@ const envSchema = z.object({
   // MOSIP e-Signet OIDC
   MOSIP_ISSUER_URL: z.string().url(),
   MOSIP_CLIENT_ID: z.string().min(1),
-  MOSIP_CLIENT_SECRET: z.string().min(1),
+  MOSIP_CLIENT_SECRET: z.string().min(1).optional(),
+  MOSIP_CLIENT_PRIVATE_KEY_HEX: z.string().regex(/^[a-f0-9]{64}$/).optional(),
   MOSIP_REDIRECT_URI: z.string().url(),
 
   // System signing key (Ed25519 private key hex)
@@ -44,7 +45,13 @@ const envSchema = z.object({
   LOG_LEVEL: z
     .enum(['fatal', 'error', 'warn', 'info', 'debug', 'trace'])
     .default('info'),
-});
+}).refine(
+  (data) => data.MOSIP_CLIENT_SECRET || data.MOSIP_CLIENT_PRIVATE_KEY_HEX,
+  {
+    message: 'At least one of MOSIP_CLIENT_SECRET or MOSIP_CLIENT_PRIVATE_KEY_HEX must be set',
+    path: ['MOSIP_CLIENT_SECRET'],
+  },
+);
 
 export type Env = z.infer<typeof envSchema>;
 

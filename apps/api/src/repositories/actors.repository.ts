@@ -29,6 +29,14 @@ export class ActorsRepository {
     return this.toEntity(actor);
   }
 
+  async updateAssurance(actorId: string, assuranceLevel: string, acr: string): Promise<Actor> {
+    const actor = await this.prisma.actor.update({
+      where: { id: actorId },
+      data: { assuranceLevel, lastAuthAcr: acr },
+    });
+    return this.toEntity(actor);
+  }
+
   async findByRole(role: ActorRole): Promise<Actor[]> {
     const actors = await this.prisma.actor.findMany({
       where: { roles: { has: role } },
@@ -61,6 +69,8 @@ export class ActorsRepository {
     did: string;
     cnieHash: string;
     roles: string[];
+    assuranceLevel: string | null;
+    lastAuthAcr: string | null;
     createdAt: Date;
     updatedAt: Date;
   }): Actor {
@@ -69,6 +79,8 @@ export class ActorsRepository {
       did: raw.did,
       cnieHash: raw.cnieHash,
       roles: raw.roles as ActorRole[],
+      assuranceLevel: raw.assuranceLevel,
+      lastAuthAcr: raw.lastAuthAcr,
       createdAt: raw.createdAt,
       updatedAt: raw.updatedAt,
     };

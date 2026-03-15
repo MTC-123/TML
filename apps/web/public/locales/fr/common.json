@@ -1,0 +1,189 @@
+{
+  "app": {
+    "name": "TML",
+    "fullName": "Transparency Middleware Layer",
+    "description": "Couche middleware de transparence pour la responsabilit\u00e9 des infrastructures publiques"
+  },
+  "nav": {
+    "home": "Accueil",
+    "dashboard": "Tableau de bord",
+    "projects": "Projets",
+    "attestations": "Attestations",
+    "certificates": "Certificats",
+    "disputes": "Litiges",
+    "credentials": "Justificatifs",
+    "admin": "Administration",
+    "profile": "Profil",
+    "settings": "Param\u00e8tres",
+    "logout": "D\u00e9connexion",
+    "verify": "V\u00e9rifier",
+    "about": "\u00c0 propos"
+  },
+  "common": {
+    "loading": "Chargement...",
+    "error": "Erreur",
+    "save": "Enregistrer",
+    "cancel": "Annuler",
+    "delete": "Supprimer",
+    "edit": "Modifier",
+    "create": "Cr\u00e9er",
+    "submit": "Soumettre",
+    "confirm": "Confirmer",
+    "back": "Retour",
+    "next": "Suivant",
+    "previous": "Pr\u00e9c\u00e9dent",
+    "search": "Rechercher",
+    "filter": "Filtrer",
+    "sort": "Trier",
+    "noResults": "Aucun r\u00e9sultat trouv\u00e9",
+    "yes": "Oui",
+    "no": "Non",
+    "status": "Statut",
+    "actions": "Actions",
+    "details": "D\u00e9tails",
+    "date": "Date",
+    "description": "Description",
+    "name": "Nom",
+    "type": "Type",
+    "role": "R\u00f4le",
+    "view": "Voir",
+    "download": "T\u00e9l\u00e9charger",
+    "upload": "Importer",
+    "retry": "R\u00e9essayer",
+    "close": "Fermer",
+    "update": "Mettre \u00e0 jour",
+    "refresh": "Actualiser",
+    "export": "Exporter",
+    "import": "Importer",
+    "approve": "Approuver",
+    "reject": "Rejeter",
+    "viewDetails": "Voir les d\u00e9tails",
+    "learnMore": "En savoir plus",
+    "signOut": "Se d\u00e9connecter"
+  },
+  "status": {
+    "pending": "En attente",
+    "approved": "Approuv\u00e9",
+    "rejected": "Rejet\u00e9",
+    "completed": "Termin\u00e9",
+    "active": "Actif",
+    "inactive": "Inactif",
+    "draft": "Brouillon",
+    "inProgress": "En cours",
+    "revoked": "R\u00e9voqu\u00e9",
+    "verified": "V\u00e9rifi\u00e9",
+    "expired": "Expir\u00e9",
+    "suspended": "Suspendu"
+  },
+  "roles": {
+    "contractor": "Entrepreneur",
+    "inspector": "Inspecteur",
+    "auditor": "Auditeur",
+    "citizen": "Citoyen",
+    "admin": "Administrateur",
+    "projectManager": "Chef de projet"
+  },
+  "language": {
+    "select": "Choisir la langue",
+    "en": "English",
+    "fr": "Fran\u00e7ais",
+    "ar": "\u0627\u0644\u0639\u0631\u0628\u064a\u0629",
+    "tzm": "\u2d5c\u2d30\u2d4e\u2d30\u2d63\u2d49\u2d56\u2d5c"
+  },
+  "footer": {
+    "rights": "Tous droits r\u00e9serv\u00e9s",
+    "privacy": "Politique de confidentialit\u00e9",
+    "terms": "Conditions d\u2019utilisation",
+    "copyright": "\u00a9 2026 Transparency Middleware Layer. Tous droits r\u00e9serv\u00e9s.",
+    "tagline": "S\u00e9curiser la responsabilit\u00e9 des infrastructures publiques par la confiance cryptographique.",
+    "platform": "Plateforme",
+    "verifyCertificate": "V\u00e9rifier un certificat",
+    "aboutTML": "\u00c0 propos de TML",
+    "howItWorks": "Comment \u00e7a marche",
+    "about": "\u00c0 propos",
+    "cnieBinding": "Liaison d\u2019identit\u00e9 CNIE",
+    "multiPartyAttestation": "Attestation multi-parties",
+    "tgrIntegration": "Int\u00e9gration TGR",
+    "ed25519Cryptography": "Cryptographie Ed25519",
+    "legal": "Mentions l\u00e9gales",
+    "dataProtection": "Protection des donn\u00e9es"
+  },
+  "errors": {
+    "notFound": "Page introuvable",
+    "serverError": "Erreur serveur",
+    "unauthorized": "Vous n\u2019\u00eates pas autoris\u00e9 \u00e0 acc\u00e9der \u00e0 cette page",
+    "forbidden": "Acc\u00e8s interdit",
+    "networkError": "Erreur r\u00e9seau. Veuillez v\u00e9rifier votre connexion.",
+    "unexpectedError": "Une erreur inattendue est survenue. Veuillez r\u00e9essayer.",
+    "sessionExpired": "Votre session a expir\u00e9. Veuillez vous reconnecter.",
+    "validationError": "Veuillez v\u00e9rifier les erreurs du formulaire."
+  },
+  "dashboard": {
+    "title": "Tableau de bord",
+    "welcome": "Bienvenue",
+    "totalProjects": "Total des projets",
+    "activeAttestations": "Attestations actives",
+    "certificatesIssued": "Certificats \u00e9mis",
+    "pendingReview": "En attente de r\u00e9vision",
+    "recentActivity": "Activit\u00e9 r\u00e9cente",
+    "attestationPipeline": "Pipeline d\u2019attestations",
+    "impactMetrics": "Indicateurs d\u2019impact",
+    "quickActions": "Actions rapides"
+  },
+  "pagination": {
+    "showing": "Affichage de",
+    "of": "sur",
+    "results": "r\u00e9sultats",
+    "page": "Page",
+    "perPage": "Par page"
+  },
+  "confirmation": {
+    "areYouSure": "\u00cates-vous s\u00fbr ?",
+    "cannotUndo": "Cette action est irr\u00e9versible.",
+    "deleteConfirm": "\u00cates-vous s\u00fbr de vouloir supprimer cet \u00e9l\u00e9ment ?"
+  },
+  "empty": {
+    "noResults": "Aucun r\u00e9sultat trouv\u00e9",
+    "noData": "Aucune donn\u00e9e disponible",
+    "tryAdjusting": "Essayez d\u2019ajuster vos crit\u00e8res de recherche ou de filtre."
+  },
+  "accessibility": {
+    "skipToContent": "Aller au contenu",
+    "openMenu": "Ouvrir le menu",
+    "closeMenu": "Fermer le menu",
+    "toggleTheme": "Changer de th\u00e8me"
+  },
+  "disputes": {
+    "title": "Litiges",
+    "create": "Ouvrir un litige",
+    "empty": "Aucun litige trouv\u00e9",
+    "status": {
+      "open": "Ouvert",
+      "underReview": "En cours d\u2019examen",
+      "resolved": "R\u00e9solu",
+      "dismissed": "Rejet\u00e9"
+    },
+    "fields": {
+      "reason": "Motif",
+      "submittedBy": "Soumis par",
+      "resolution": "R\u00e9solution",
+      "createdAt": "Ouvert le"
+    }
+  },
+  "credentials": {
+    "title": "Justificatifs v\u00e9rifiables",
+    "issued": "Justificatifs \u00e9mis",
+    "received": "Justificatifs re\u00e7us",
+    "empty": "Aucun justificatif trouv\u00e9",
+    "verify": "V\u00e9rifier le justificatif",
+    "revoke": "R\u00e9voquer le justificatif",
+    "fields": {
+      "issuer": "\u00c9metteur",
+      "subject": "Sujet",
+      "type": "Type de justificatif",
+      "issuedAt": "\u00c9mis le",
+      "expiresAt": "Expire le",
+      "status": "Statut"
+    }
+  }
+}

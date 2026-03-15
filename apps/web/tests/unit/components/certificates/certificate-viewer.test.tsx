@@ -21,7 +21,7 @@ describe("CertificateViewer", () => {
       screen.getByText("Payment Clearance Certificate"),
     ).toBeInTheDocument();
     expect(screen.getByText("Issued")).toBeInTheDocument();
-    expect(screen.getByText(/e3b0c4/)).toBeInTheDocument();
+    expect(screen.getAllByText(/e3b0c4/).length).toBeGreaterThan(0);
   });
 
   it("shows revoked state", () => {
@@ -63,6 +63,6 @@ describe("CertificateViewer", () => {
 
   it("shows QR code placeholder", () => {
     render(<CertificateViewer {...defaultProps} />);
-    expect(screen.getByText("QR Code")).toBeInTheDocument();
+    expect(screen.getByText("Verification QR Code")).toBeInTheDocument();
   });
 });

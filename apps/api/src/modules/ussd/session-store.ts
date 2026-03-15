@@ -1,3 +1,5 @@
+import type { UssdLocale } from './ussd-locales.js';
+
 export type UssdState = 'init' | 'awaiting_project_code' | 'awaiting_vote' | 'awaiting_otp' | 'completed';
 
 export interface UssdSession {
@@ -11,6 +13,7 @@ export interface UssdSession {
   milestoneId: string | null;
   milestoneDescription: string | null;
   vote: string | null;
+  locale?: UssdLocale;
 }
 
 export interface RedisClient {

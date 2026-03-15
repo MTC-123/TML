@@ -1,0 +1,83 @@
+{
+  "attestations": {
+    "title": "Attestations",
+    "subtitle": "Submit and manage attestations for project milestones.",
+    "submit": "Submit an attestation",
+    "empty": "No attestations found",
+    "wizard": {
+      "title": "New Attestation",
+      "step1": "GPS Location",
+      "step2": "Upload Evidence",
+      "step3": "Digital Signature",
+      "step4": "Review and Submit",
+      "captureGps": "Capture GPS location",
+      "gpsAcquired": "GPS location acquired",
+      "gpsDenied": "GPS access denied",
+      "uploadEvidence": "Upload evidence photos",
+      "sign": "Sign digitally",
+      "review": "Review details",
+      "submitAttestation": "Submit attestation"
+    },
+    "status": {
+      "submitted": "Submitted",
+      "verified": "Verified",
+      "rejected": "Rejected",
+      "revoked": "Revoked",
+      "pending": "Pending Review",
+      "approved": "Approved",
+      "expired": "Expired"
+    },
+    "fields": {
+      "type": "Type",
+      "milestone": "Milestone",
+      "submittedAt": "Submitted on",
+      "evidence": "Evidence",
+      "gps": "GPS Coordinates",
+      "attestedBy": "Attested by",
+      "date": "Date",
+      "role": "Role"
+    },
+    "quorum": {
+      "title": "Quorum Progress",
+      "progress": "Quorum Progress",
+      "required": "Required",
+      "received": "Received",
+      "remaining": "Remaining",
+      "met": "Quorum Met",
+      "notMet": "Quorum Not Met",
+      "threshold": "Threshold"
+    },
+    "geofence": {
+      "title": "Geofence Validation",
+      "insideZone": "You are within the project zone.",
+      "outsideZone": "You are outside the project zone. On-site presence required.",
+      "locationRequired": "Location access is required for this attestation.",
+      "accuracy": "GPS Accuracy",
+      "permissionDenied": "Location permission denied. Please enable location services."
+    },
+    "types": {
+      "inspector": "Inspector Attestation",
+      "auditor": "Auditor Attestation",
+      "citizen": "Citizen Attestation",
+      "inspectorDescription": "On-site verification of milestone completion by a certified inspector.",
+      "auditorDescription": "Documentation review and compliance verification by a licensed auditor.",
+      "citizenDescription": "Community satisfaction assessment by registered citizens."
+    },
+    "signature": {
+      "title": "Signature Verification",
+      "verified": "Signature Verified",
+      "invalid": "Invalid Signature",
+      "signedBy": "Signed by",
+      "signedAt": "Signed at",
+      "algorithm": "Algorithm"
+    },
+    "steps": {
+      "project": "Project",
+      "milestone": "Milestone",
+      "evidence": "Evidence",
+      "location": "Location",
+      "signature": "Signature",
+      "review": "Review"
+    }
+  }
+}

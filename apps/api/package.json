@@ -29,11 +29,15 @@
     "@tml/types": "*",
     "fastify": "^5.0.0",
     "fastify-plugin": "^5.1.0",
+    "pdfkit": "^0.17.2",
     "pino": "^9.0.0",
+    "qrcode": "^1.5.4",
     "zod": "^3.23.0"
   },
   "devDependencies": {
     "@types/node": "^22.0.0",
+    "@types/pdfkit": "^0.17.5",
+    "@types/qrcode": "^1.5.6",
     "@vitest/coverage-v8": "^2.1.0",
     "eslint": "^9.0.0",
     "tsx": "^4.19.0",

@@ -1,0 +1,80 @@
+{
+  "projects": {
+    "title": "المشاريع",
+    "subtitle": "إدارة مشاريع البنية التحتية العامة وتتبع تقدم المراحل.",
+    "create": "مشروع جديد",
+    "search": "البحث عن المشاريع...",
+    "empty": "لم يتم العثور على مشاريع",
+    "fields": {
+      "name": "اسم المشروع",
+      "description": "الوصف",
+      "location": "الموقع",
+      "region": "المنطقة",
+      "budget": "الميزانية (درهم)",
+      "contractor": "المقاول",
+      "donor": "الجهة المانحة",
+      "status": "الحالة",
+      "milestones": "المراحل",
+      "createdAt": "تاريخ الإنشاء",
+      "startDate": "تاريخ البدء",
+      "endDate": "تاريخ الانتهاء",
+      "deadline": "الموعد النهائي",
+      "progress": "التقدم",
+      "assuranceTier": "مستوى الضمان",
+      "sector": "القطاع"
+    },
+    "status": {
+      "draft": "مسودة",
+      "active": "نشط",
+      "suspended": "معلق",
+      "completed": "مكتمل",
+      "archived": "مؤرشف"
+    },
+    "tabs": {
+      "overview": "نظرة عامة",
+      "milestones": "المراحل",
+      "attestations": "التصديقات",
+      "certificates": "الشهادات",
+      "disputes": "النزاعات",
+      "team": "الفريق",
+      "timeline": "الجدول الزمني",
+      "documents": "المستندات"
+    },
+    "sectors": {
+      "roads": "الطرق والطرق السريعة",
+      "schools": "المدارس والتعليم",
+      "hospitals": "المستشفيات والصحة",
+      "water": "المياه والصرف الصحي",
+      "energy": "الطاقة والكهرباء",
+      "housing": "الإسكان",
+      "telecommunications": "الاتصالات",
+      "other": "أخرى"
+    }
+  },
+  "milestones": {
+    "title": "المراحل",
+    "create": "مرحلة جديدة",
+    "empty": "لم يتم العثور على مراحل",
+    "fields": {
+      "name": "اسم المرحلة",
+      "description": "الوصف",
+      "deadline": "الموعد النهائي",
+      "status": "الحالة",
+      "sequence": "التسلسل",
+      "dueDate": "تاريخ الاستحقاق",
+      "progress": "التقدم",
+      "completionDate": "تاريخ الإنجاز",
+      "fundAmount": "مبلغ التمويل (درهم)"
+    },
+    "quorum": {
+      "title": "حالة النصاب",
+      "inspectors": "المفتشون",
+      "auditors": "المدققون",
+      "citizens": "المواطنون",
+      "met": "مكتمل",
+      "notMet": "غير مكتمل",
+      "required": "التصديقات المطلوبة",
+      "received": "التصديقات المستلمة"
+    }
+  }
+}

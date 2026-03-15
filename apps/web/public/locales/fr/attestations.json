@@ -1,0 +1,83 @@
+{
+  "attestations": {
+    "title": "Attestations",
+    "subtitle": "Soumettre et g\u00e9rer les attestations pour les jalons des projets.",
+    "submit": "Soumettre une attestation",
+    "empty": "Aucune attestation trouv\u00e9e",
+    "wizard": {
+      "title": "Nouvelle attestation",
+      "step1": "Localisation GPS",
+      "step2": "T\u00e9l\u00e9charger les preuves",
+      "step3": "Signature num\u00e9rique",
+      "step4": "V\u00e9rification et soumission",
+      "captureGps": "Capturer la position GPS",
+      "gpsAcquired": "Position GPS acquise",
+      "gpsDenied": "Acc\u00e8s GPS refus\u00e9",
+      "uploadEvidence": "T\u00e9l\u00e9charger les photos de preuve",
+      "sign": "Signer num\u00e9riquement",
+      "review": "V\u00e9rifier les d\u00e9tails",
+      "submitAttestation": "Soumettre l\u2019attestation"
+    },
+    "status": {
+      "submitted": "Soumise",
+      "verified": "V\u00e9rifi\u00e9e",
+      "rejected": "Rejet\u00e9e",
+      "revoked": "R\u00e9voqu\u00e9e",
+      "pending": "En attente de r\u00e9vision",
+      "approved": "Approuv\u00e9e",
+      "expired": "Expir\u00e9e"
+    },
+    "fields": {
+      "type": "Type",
+      "milestone": "Jalon",
+      "submittedAt": "Soumise le",
+      "evidence": "Preuve",
+      "gps": "Coordonn\u00e9es GPS",
+      "attestedBy": "Attest\u00e9 par",
+      "date": "Date",
+      "role": "R\u00f4le"
+    },
+    "quorum": {
+      "title": "Progression du quorum",
+      "progress": "Progression du quorum",
+      "required": "Requis",
+      "received": "Re\u00e7us",
+      "remaining": "Restants",
+      "met": "Quorum atteint",
+      "notMet": "Quorum non atteint",
+      "threshold": "Seuil"
+    },
+    "geofence": {
+      "title": "Validation du p\u00e9rim\u00e8tre g\u00e9ographique",
+      "insideZone": "Vous \u00eates dans la zone du projet.",
+      "outsideZone": "Vous \u00eates en dehors de la zone du projet. Pr\u00e9sence sur site requise.",
+      "locationRequired": "L\u2019acc\u00e8s \u00e0 la localisation est requis pour cette attestation.",
+      "accuracy": "Pr\u00e9cision GPS",
+      "permissionDenied": "Permission de localisation refus\u00e9e. Veuillez activer les services de localisation."
+    },
+    "types": {
+      "inspector": "Attestation d\u2019inspecteur",
+      "auditor": "Attestation d\u2019auditeur",
+      "citizen": "Attestation citoyenne",
+      "inspectorDescription": "V\u00e9rification sur site de l\u2019ach\u00e8vement du jalon par un inspecteur certifi\u00e9.",
+      "auditorDescription": "Examen documentaire et v\u00e9rification de conformit\u00e9 par un auditeur agr\u00e9\u00e9.",
+      "citizenDescription": "\u00c9valuation de la satisfaction communautaire par les citoyens inscrits."
+    },
+    "signature": {
+      "title": "V\u00e9rification de la signature",
+      "verified": "Signature v\u00e9rifi\u00e9e",
+      "invalid": "Signature invalide",
+      "signedBy": "Sign\u00e9 par",
+      "signedAt": "Sign\u00e9 le",
+      "algorithm": "Algorithme"
+    },
+    "steps": {
+      "project": "Projet",
+      "milestone": "Jalon",
+      "evidence": "Preuve",
+      "location": "Localisation",
+      "signature": "Signature",
+      "review": "R\u00e9vision"
+    }
+  }
+}

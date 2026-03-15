@@ -1,0 +1,83 @@
+{
+  "attestations": {
+    "title": "ⵜⵉⵎⴰⵜⴰⵔⵉⵏ",
+    "subtitle": "ⵙⴽⵛⵎ ⴷ ⵙⵡⵓⴷⴷⵓ ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵏ ⵜⵉⴼⵔⴽⵉⵡⵉⵏ ⵏ ⵉⵙⵏⴼⴰⵔⵏ.",
+    "submit": "ⵙⴽⵛⵎ ⵜⴰⵎⴰⵜⴰⵔⵜ",
+    "empty": "ⵓⵔ ⵜⵜⵓⴼⴰⵏ ⵜⵉⵎⴰⵜⴰⵔⵉⵏ",
+    "wizard": {
+      "title": "ⵜⴰⵎⴰⵜⴰⵔⵜ ⵜⴰⵎⴰⵢⵏⵓⵜ",
+      "step1": "ⴰⴷⵖⴰⵔ GPS",
+      "step2": "ⴰⵣⴷⴰⵎ ⵏ ⵜⵏⵥⵥⵉ",
+      "step3": "ⴰⵣⵎⵓⵍ ⴰⵎⵉⴹⴰⵏ",
+      "step4": "ⴰⵙⵏⵇⴷ ⴷ ⵓⵙⴽⵛⵎ",
+      "captureGps": "ⵟⵟⴼ ⴰⴷⵖⴰⵔ GPS",
+      "gpsAcquired": "ⵉⵜⵜⵓⵟⵟⴼ ⵓⴷⵖⴰⵔ",
+      "gpsDenied": "ⵉⵜⵜⵓⴳⴷⵍ GPS",
+      "uploadEvidence": "ⴰⵣⴷⴰⵎ ⵏ ⵜⵡⵍⴰⴼⵉⵏ",
+      "sign": "ⴰⵣⵎⵓⵍ ⴰⵎⵉⴹⴰⵏ",
+      "review": "ⵙⵏⵇⴷ ⵉⴼⵔⴷⵉⵙⵏ",
+      "submitAttestation": "ⵙⴽⵛⵎ ⵜⴰⵎⴰⵜⴰⵔⵜ"
+    },
+    "status": {
+      "submitted": "ⵜⵜⵓⵙⴽⵛⵎ",
+      "verified": "ⵜⵜⵓⵙⵏⵇⴷ",
+      "rejected": "ⵜⵜⵓⴳⴷⵍ",
+      "revoked": "ⵜⵜⵓⴽⴽⵙ",
+      "pending": "ⴰⵔ ⵉⵜⵜⵇⵇⵍ ⴰⵙⵏⵇⴷ",
+      "approved": "ⵜⵜⵓⵇⴱⵍ",
+      "expired": "ⵜⴼⵓⴽ"
+    },
+    "fields": {
+      "type": "ⴰⵏⴰⵡ",
+      "milestone": "ⵜⴰⴼⵔⴽⵉⵜ",
+      "submittedAt": "ⴰⵙⴰⴽⵓⴷ",
+      "evidence": "ⵜⴰⵏⵥⵥⵉⵜ",
+      "gps": "ⴰⴷⵖⴰⵔ",
+      "attestedBy": "ⵉⵜⵜⵓⵙⵖⵣⴼ ⵙⴳ",
+      "date": "ⴰⵙⴰⴽⵓⴷ",
+      "role": "ⵜⴰⵡⵓⵔⵉ"
+    },
+    "quorum": {
+      "title": "ⴰⵎⴰⵣⵣⴰⵍ ⵏ ⵓⴽⴰⴱⴰⵔ",
+      "progress": "ⴰⵎⴰⵣⵣⴰⵍ ⵏ ⵓⴽⴰⴱⴰⵔ",
+      "required": "ⵉⵅⵚⵚⴰⵏ",
+      "received": "ⵉⵜⵜⵓⵔⵎⵙⵏ",
+      "remaining": "ⵉⵇⵇⵉⵎⵏ",
+      "met": "ⴰⴽⴰⴱⴰⵔ ⵉⴽⵎⵎⵍ",
+      "notMet": "ⴰⴽⴰⴱⴰⵔ ⵓⵔ ⵉⴽⵎⵎⵍ",
+      "threshold": "ⴰⵣⴳⵣⵍ"
+    },
+    "geofence": {
+      "title": "ⴰⵙⵖⵣⴼ ⵏ ⵓⵏⴳⵔⴰⵡ ⴰⵊⵢⵓⴳⵔⴰⴼⵉ",
+      "insideZone": "ⵜⵍⵍⵉⴷ ⴳ ⵜⵎⵏⴰⴹⵜ ⵏ ⵓⵙⵏⴼⴰⵔ.",
+      "outsideZone": "ⵜⵍⵍⵉⴷ ⴱⵕⵕⴰ ⵉ ⵜⵎⵏⴰⴹⵜ ⵏ ⵓⵙⵏⴼⴰⵔ. ⵉⵅⵚⵚⴰ ⵜⵉⵍⵍⵉⵜ ⴳ ⵡⴰⴷⴷⴰⴳ.",
+      "locationRequired": "ⵉⵅⵚⵚⴰ ⵓⴽⵛⵓⵎ ⵖⵔ ⵓⴷⵖⴰⵔ ⵉ ⵜⵎⴰⵜⴰⵔⵜ ⴰⴷ.",
+      "accuracy": "ⵜⵉⵣⵉ ⵏ GPS",
+      "permissionDenied": "ⵉⵜⵜⵓⴳⴷⵍ ⵓⴽⵛⵓⵎ ⵖⵔ ⵓⴷⵖⴰⵔ. ⵕⵎⴷ ⵜⵉⵏⴰⴼⵓⵜⵉⵏ ⵏ ⵓⴷⵖⴰⵔ."
+    },
+    "types": {
+      "inspector": "ⵜⴰⵎⴰⵜⴰⵔⵜ ⵏ ⵓⵎⵙⵜⴰⵢ",
+      "auditor": "ⵜⴰⵎⴰⵜⴰⵔⵜ ⵏ ⵓⵎⵙⵓⴳⴳⵉ",
+      "citizen": "ⵜⴰⵎⴰⵜⴰⵔⵜ ⵏ ⵓⵖⵔⵎⴰⵏ",
+      "inspectorDescription": "ⴰⵙⵏⵇⴷ ⴳ ⵡⴰⴷⴷⴰⴳ ⵏ ⵓⵙⵎⴷ ⵏ ⵜⴼⵔⴽⵉⵜ ⵙⴳ ⵓⵎⵙⵜⴰⵢ ⵉⵜⵜⵓⵙⵍⴽⵏ.",
+      "auditorDescription": "ⴰⵙⵏⵇⴷ ⵏ ⵉⵙⴽⴽⵉⵍⵏ ⴷ ⵓⵎⵢⴰⵡⴰⵙ ⵙⴳ ⵓⵎⵙⵓⴳⴳⵉ ⵉⵜⵜⵓⵙⵜⵉ.",
+      "citizenDescription": "ⴰⵙⵏⵇⴷ ⵏ ⵓⵙⵜⴼ ⵏ ⵜⵎⵙⵎⵓⵏⵜ ⵙⴳ ⵉⵖⵔⵎⴰⵏ ⵉⵜⵜⵓⵙⴽⵜⴱⵏ."
+    },
+    "signature": {
+      "title": "ⴰⵙⵏⵇⴷ ⵏ ⵓⵣⵎⵓⵍ",
+      "verified": "ⴰⵣⵎⵓⵍ ⵉⵜⵜⵓⵙⵏⵇⴷ",
+      "invalid": "ⴰⵣⵎⵓⵍ ⵓⵔ ⵉⵙⵜⵉⵢⵏ",
+      "signedBy": "ⵉⵜⵜⵓⵣⵎⵍ ⵙⴳ",
+      "signedAt": "ⵉⵜⵜⵓⵣⵎⵍ ⴳ",
+      "algorithm": "ⴰⵍⴳⵓⵔⵉⵜⵎ"
+    },
+    "steps": {
+      "project": "ⴰⵙⵏⴼⴰⵔ",
+      "milestone": "ⵜⴰⴼⵔⴽⵉⵜ",
+      "evidence": "ⵜⴰⵏⵥⵥⵉⵜ",
+      "location": "ⴰⴷⵖⴰⵔ",
+      "signature": "ⴰⵣⵎⵓⵍ",
+      "review": "ⴰⵙⵏⵇⴷ"
+    }
+  }
+}

@@ -1,0 +1,191 @@
+{
+  "public": {
+    "nav": {
+      "home": "Home",
+      "verify": "Verify Certificate",
+      "about": "About",
+      "tagline": "Transparency",
+      "openMenu": "Open menu"
+    },
+    "footer": {
+      "description": "TML is a digital identity attestation middleware for public infrastructure accountability in Morocco and Africa. Cryptographic proof at every step.",
+      "platform": "Platform",
+      "verifyCertificate": "Verify Certificate",
+      "aboutTml": "About TML",
+      "howItWorks": "How It Works",
+      "aboutHeading": "About",
+      "cnieBinding": "CNIE Identity Binding",
+      "multiPartyAttestation": "Multi-Party Attestation",
+      "tgrIntegration": "TGR Integration",
+      "ed25519Cryptography": "Ed25519 Cryptography",
+      "legal": "Legal",
+      "privacyPolicy": "Privacy Policy",
+      "termsOfService": "Terms of Service",
+      "dataProtection": "Data Protection",
+      "copyright": "TML. All rights reserved.",
+      "tagline": "Identity-Anchored Accountability for Public Infrastructure"
+    }
+  },
+  "landing": {
+    "hero": {
+      "badge": "Securing Morocco's Infrastructure 2030",
+      "title": "Trust Every Dirham of Public Spending",
+      "subtitle": "Cryptographic accountability for public infrastructure. Every milestone verified, every payment justified.",
+      "learnMore": "Learn More"
+    },
+    "howItWorks": {
+      "title": "How It Works",
+      "contractor": {
+        "title": "Contractor Declares",
+        "description": "The contractor submits a milestone completion declaration with supporting documentation and evidence."
+      },
+      "auditor": {
+        "title": "Auditor Verifies",
+        "description": "A licensed auditor reviews documentation and an inspector conducts on-site geofenced verification."
+      },
+      "citizen": {
+        "title": "Citizens Attest",
+        "description": "Registered citizens within the project zone provide community attestation to reach quorum."
+      }
+    },
+    "stats": {
+      "projects": "1,247",
+      "projectsLabel": "Projects Tracked",
+      "verification": "99.7%",
+      "verificationLabel": "Verification Rate",
+      "citizens": "48,000+",
+      "citizensLabel": "Citizens Engaged",
+      "fraud": "0",
+      "fraudLabel": "Fraud Cases"
+    },
+    "cta": {
+      "title": "Verify a Payment Clearance Certificate",
+      "subtitle": "Enter the SHA-256 hash to verify the authenticity and integrity of any certificate.",
+      "placeholder": "Enter certificate hash (SHA-256)...",
+      "button": "Verify a Certificate",
+      "helpText": "Enter the SHA-256 hash found on your Payment Clearance Certificate to verify its authenticity."
+    },
+    "security": {
+      "title": "Cryptographic Trust Infrastructure",
+      "subtitle": "Every certificate is anchored in verifiable cryptography, not institutional trust alone.",
+      "ed25519": {
+        "title": "Ed25519 Signatures",
+        "description": "Every attestation is cryptographically signed with Ed25519, ensuring tamper-proof verification of milestone completion across the entire disbursement chain."
+      },
+      "cnie": {
+        "title": "CNIE Identity Binding",
+        "description": "National electronic ID cards are bound to decentralized identifiers, anchoring every action to a verified real-world identity."
+      },
+      "multiParty": {
+        "title": "Multi-Party Attestation",
+        "description": "Inspector, auditor, and citizen quorum must independently attest before any funds are released, eliminating single points of compromise."
+      }
+    },
+    "partners": {
+      "tgr": "Built for TGR Integration",
+      "mosip": "MOSIP e-Signet Compatible",
+      "w3c": "W3C Verifiable Credentials"
+    }
+  },
+  "about": {
+    "title": "About TML",
+    "description": "TML (Transparency Middleware Layer) is a digital identity attestation platform for public infrastructure accountability in Morocco and Africa. It connects contractors, inspectors, auditors, and citizens through CNIE-verified digital identities.",
+    "mission": "Our mission is to ensure that every dirham of public funds is spent transparently by requiring verifiable multi-party attestations before any disbursement through the General Treasury of the Kingdom.",
+    "teamTitle": "Our Team",
+    "teamName": "Team TML",
+    "team": {
+      "member1": "Architecture & Backend Development",
+      "member2": "Cryptography & Identity Integration",
+      "member3": "Frontend & User Experience"
+    },
+    "patronTitle": "Academic Supervisor",
+    "patron": "Faculty Supervisor"
+  },
+  "verify": {
+    "title": "Verify Certificate",
+    "subtitle": "Independently verify the authenticity and integrity of any Payment Clearance Certificate issued by TML.",
+    "placeholder": "Enter SHA-256 hash...",
+    "search": "Verify",
+    "searching": "Searching...",
+    "loading": "Verifying certificate integrity...",
+    "button": "Verify",
+    "notFound": {
+      "title": "Certificate Not Found",
+      "description": "No certificate matching this hash was found. Please verify the hash and try again.",
+      "hint": "Double-check that you entered the complete 64-character SHA-256 hash."
+    },
+    "invalid": {
+      "title": "Verification Failed",
+      "description": "The certificate could not be verified. It may have been tampered with."
+    },
+    "scanner": {
+      "title": "Camera Scanner",
+      "description": "Point your camera at the QR code on the certificate"
+    },
+    "hashMode": {
+      "title": "Hash Verification",
+      "description": "Type or paste the SHA-256 integrity hash printed on the certificate",
+      "helpText": "The SHA-256 hash is printed at the bottom of every Payment Clearance Certificate."
+    },
+    "vpMode": {
+      "title": "Verifiable Presentation (OpenID4VP)",
+      "description": "Submit a W3C Verifiable Presentation token for cryptographic verification",
+      "placeholder": "Paste VP token here...",
+      "verifying": "Verifying...",
+      "verifyButton": "Verify Credential",
+      "howItWorksLabel": "How it works:",
+      "howItWorksText": "The VP token is cryptographically verified against the issuer's DID using Ed25519 signature validation."
+    },
+    "certificate": {
+      "title": "Payment Clearance Certificate",
+      "verified": "Verified",
+      "verifiedDescription": "This Payment Clearance Certificate is authentic and has not been tampered with.",
+      "validTitle": "Valid Certificate",
+      "revoked": "Revoked",
+      "revokedTitle": "Certificate Revoked",
+      "revokedDescription": "This certificate has been revoked and is no longer valid for fund disbursement.",
+      "id": "Certificate ID",
+      "milestoneId": "Milestone ID",
+      "issuedAt": "Issued on",
+      "status": "Status",
+      "tgrReference": "TGR Reference",
+      "integrityHash": "Integrity Hash (SHA-256)",
+      "digitalSignature": "Ed25519 Digital Signature",
+      "verifiedOn": "Verified on",
+      "attestationChain": "Attestation Chain"
+    },
+    "details": {
+      "title": "Certificate Details",
+      "certificateId": "Certificate ID",
+      "milestoneId": "Milestone ID",
+      "issued": "Issued on",
+      "status": "Status",
+      "tgrReference": "TGR Reference",
+      "integrityHash": "Integrity Hash (SHA-256)",
+      "digitalSignature": "Ed25519 Digital Signature",
+      "copyHash": "Copy hash",
+      "verifiedOn": "Verified on {date}"
+    },
+    "modes": {
+      "scanQr": {
+        "title": "Scan QR Code",
+        "description": "Scan the QR code printed on the certificate"
+      },
+      "enterHash": {
+        "title": "Enter Hash",
+        "description": "Type or paste the SHA-256 integrity hash"
+      },
+      "verifyCredential": {
+        "title": "Verify Credential",
+        "description": "Submit a Verifiable Presentation token"
+      }
+    },
+    "verifyAnother": "Verify Another Certificate",
+    "errors": {
+      "qrFailed": "Failed to read QR code. Please try again.",
+      "credentialFailed": "Failed to verify credential. Please check the token and try again."
+    },
+    "hash": "Hash",
+    "qrCode": "QR Code"
+  }
+}

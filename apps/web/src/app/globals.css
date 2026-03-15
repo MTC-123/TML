@@ -1,0 +1,354 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-background: #faf7f2;
+  --color-foreground: #0a1628;
+  --color-card: #ffffff;
+  --color-card-foreground: #0a1628;
+  --color-popover: #ffffff;
+  --color-popover-foreground: #0a1628;
+  --color-primary: #1e3a5f;
+  --color-primary-foreground: #faf7f2;
+  --color-secondary: #f0ebe3;
+  --color-secondary-foreground: #1e3a5f;
+  --color-muted: #f0ebe3;
+  --color-muted-foreground: #64748b;
+  --color-accent: #10b981;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #dc2626;
+  --color-destructive-foreground: #ffffff;
+  --color-border: #e2ddd5;
+  --color-input: #e2ddd5;
+  --color-ring: #1e3a5f;
+  --color-chart-1: #1e3a5f;
+  --color-chart-2: #10b981;
+  --color-chart-3: #d4a017;
+  --color-chart-4: #dc2626;
+  --color-chart-5: #7c3aed;
+  --color-sidebar-background: #0a1628;
+  --color-sidebar-foreground: #faf7f2;
+  --color-sidebar-primary: #faf7f2;
+  --color-sidebar-primary-foreground: #0a1628;
+  --color-sidebar-accent: #1e3a5f;
+  --color-sidebar-accent-foreground: #faf7f2;
+  --color-sidebar-border: #1e3a5f;
+  --color-sidebar-ring: #faf7f2;
+  --radius: 0.625rem;
+  --font-sans: "DM Sans", system-ui, sans-serif;
+  --font-display: "Playfair Display", Georgia, serif;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground antialiased;
+    font-feature-settings: "liga" 1, "kern" 1;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  h1, h2, h3 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+}
+
+/* ═══ Zellige geometric pattern background ═══ */
+.zellige-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cpath d='M30 0L60 30L30 60L0 30z' stroke='%231e3a5f' stroke-width='0.5' opacity='0.08'/%3E%3Cpath d='M30 10L50 30L30 50L10 30z' stroke='%231e3a5f' stroke-width='0.3' opacity='0.05'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ═══ Grain texture overlay ═══ */
+.grain-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-size: 256px 256px;
+}
+
+/* ═══ Animated gradient mesh ═══ */
+@keyframes mesh-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+.gradient-mesh {
+  background: linear-gradient(-45deg, #0a1628, #1e3a5f, #0f2a47, #0a1628);
+  background-size: 400% 400%;
+  animation: mesh-shift 15s ease infinite;
+}
+
+/* ═══ Gold accent line ═══ */
+.gold-accent {
+  background: linear-gradient(90deg, transparent, #d4a017, transparent);
+  height: 1px;
+}
+
+/* ═══ Card hover effects ═══ */
+.card-hover {
+  transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.card-hover:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 40px -8px rgba(10, 22, 40, 0.12), 0 4px 12px -4px rgba(10, 22, 40, 0.08);
+}
+
+/* ═══ Staggered reveal animations ═══ */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-up {
+  animation: fade-up 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.stagger-1 { animation-delay: 0.1s; }
+.stagger-2 { animation-delay: 0.2s; }
+.stagger-3 { animation-delay: 0.3s; }
+.stagger-4 { animation-delay: 0.4s; }
+.stagger-5 { animation-delay: 0.5s; }
+
+@keyframes fade-in {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+.animate-fade-in {
+  animation: fade-in 0.8s ease both;
+}
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+.animate-slide-right {
+  animation: slide-in-right 0.5s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ═══ Number counter animation ═══ */
+@keyframes count-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.animate-count {
+  animation: count-up 0.8s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+/* ═══ Pulse glow for verification ═══ */
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  50% { box-shadow: 0 0 0 12px rgba(16, 185, 129, 0); }
+}
+.pulse-glow {
+  animation: pulse-glow 2s infinite;
+}
+
+/* ═══ Shimmer loading ═══ */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+.shimmer {
+  background: linear-gradient(90deg, #f0ebe3 25%, #e2ddd5 50%, #f0ebe3 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+
+/* ═══ RTL Support ═══ */
+[dir="rtl"] {
+  text-align: right;
+}
+
+/* RTL-aware spacing overrides — use CSS logical properties */
+[dir="rtl"] .gold-accent {
+  direction: rtl;
+}
+
+/* Flip horizontal transforms for RTL */
+[dir="rtl"] .animate-slide-right {
+  animation-name: slide-in-left;
+}
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+/* Reverse icon chevrons in RTL */
+[dir="rtl"] .group-hover\:translate-x-1:hover {
+  --tw-translate-x: -0.25rem;
+}
+
+/* Corner brackets flip for RTL */
+[dir="rtl"] .corner-brackets::before {
+  left: auto;
+  right: -2px;
+  border-left: none;
+  border-right: 2px solid;
+}
+[dir="rtl"] .corner-brackets::after {
+  right: auto;
+  left: -2px;
+  border-right: none;
+  border-left: 2px solid;
+}
+
+/* Strikethrough animation direction for RTL */
+[dir="rtl"] .revoked-strike::after {
+  transform-origin: right;
+}
+
+/* Scrollbar on left side for RTL */
+[dir="rtl"] ::-webkit-scrollbar {
+  direction: rtl;
+}
+
+/* ═══ Accessibility ═══ */
+.high-contrast {
+  --color-background: #ffffff;
+  --color-foreground: #000000;
+  --color-primary: #000000;
+  --color-primary-foreground: #ffffff;
+  --color-muted: #e5e5e5;
+  --color-muted-foreground: #1a1a1a;
+  --color-border: #000000;
+  --color-input: #000000;
+  --color-card: #ffffff;
+  --color-card-foreground: #000000;
+  --color-accent: #006600;
+  --color-accent-foreground: #ffffff;
+  --color-destructive: #cc0000;
+  --color-destructive-foreground: #ffffff;
+}
+.high-contrast img { filter: contrast(1.2); }
+.high-contrast a { text-decoration: underline; }
+.high-contrast button { border: 1px solid currentColor; }
+
+.large-text {
+  font-size: 125%;
+  line-height: 1.6;
+}
+.large-text h1, .large-text h2, .large-text h3 {
+  line-height: 1.3;
+}
+
+.reduce-motion *,
+.reduce-motion *::before,
+.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  scroll-behavior: auto !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+*:focus-visible {
+  outline: 3px solid #d4a017;
+  outline-offset: 2px;
+}
+
+/* Ensure focus indicators are visible in high contrast mode */
+.high-contrast *:focus-visible {
+  outline: 3px solid #000000;
+  outline-offset: 2px;
+  box-shadow: 0 0 0 5px #ffffff, 0 0 0 8px #000000;
+}
+
+/* ═══ Scrollbar styling ═══ */
+::-webkit-scrollbar { width: 8px; }
+::-webkit-scrollbar-track { background: #f0ebe3; }
+::-webkit-scrollbar-thumb { background: #1e3a5f; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #0a1628; }
+
+/* ═══ Selection ═══ */
+::selection {
+  background: #1e3a5f;
+  color: #faf7f2;
+}
+
+/* ═══ Gold ring around icon ═══ */
+.gold-ring {
+  box-shadow: 0 0 0 3px #d4a017, 0 0 0 7px rgba(212, 160, 23, 0.15);
+}
+
+/* ═══ Gold line animated expand ═══ */
+@keyframes gold-line-expand {
+  from { width: 0; opacity: 0; }
+  to { width: 120px; opacity: 1; }
+}
+.gold-line-animated {
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #d4a017, transparent);
+  animation: gold-line-expand 1.5s ease forwards;
+  animation-delay: 0.5s;
+  opacity: 0;
+}
+
+/* ═══ Decorative corner brackets ═══ */
+.corner-brackets {
+  position: relative;
+}
+.corner-brackets::before,
+.corner-brackets::after {
+  content: "";
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: #d4a017;
+  pointer-events: none;
+  z-index: 10;
+}
+.corner-brackets::before {
+  top: -2px;
+  left: -2px;
+  border-top: 2px solid;
+  border-left: 2px solid;
+}
+.corner-brackets::after {
+  bottom: -2px;
+  right: -2px;
+  border-bottom: 2px solid;
+  border-right: 2px solid;
+}
+
+/* ═══ Slow spin for loading ═══ */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.animate-spin-slow {
+  animation: spin-slow 2s linear infinite;
+}
+
+/* ═══ Revoked strikethrough ═══ */
+.revoked-strike {
+  position: relative;
+}
+.revoked-strike::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.5);
+  animation: strike-through 0.4s ease forwards;
+  animation-delay: 0.3s;
+  transform: scaleX(0);
+  transform-origin: left;
+}
+@keyframes strike-through {
+  to { transform: scaleX(1); }
+}

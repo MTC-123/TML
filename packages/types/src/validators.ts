@@ -517,3 +517,40 @@ export const quorumBreakdownResponseSchema = z.object({
   overallMet: z.boolean(),
 });
 export type QuorumBreakdownResponse = z.infer<typeof quorumBreakdownResponseSchema>;
+
+// ─── Credential Issuance ───────────────────────────────────────────────────
+
+export const credentialTypeSchema = z.enum([
+  "ProfessionalEngineerCredential",
+  "CNIEIdentityCredential",
+  "DelegatedAuthorityCredential",
+  "AuditorAccreditationCredential",
+]);
+
+export const credentialStatusSchema = z.enum(["active", "revoked", "expired"]);
+
+export const issueCredentialBodySchema = z.object({
+  type: credentialTypeSchema,
+  holderDid: didSchema,
+  metadata: z.record(z.unknown()).default({}),
+});
+export type IssueCredentialBody = z.infer<typeof issueCredentialBodySchema>;
+
+export const revokeCredentialBodySchema = z.object({
+  reason: z.string().min(1).max(500),
+});
+export type RevokeCredentialBody = z.infer<typeof revokeCredentialBodySchema>;
+
+export const issuedCredentialResponseSchema = z.object({
+  id: uuidSchema,
+  holderDid: didSchema,
+  holderActorId: uuidSchema,
+  credentialType: z.string(),
+  credentialHash: z.string(),
+  status: credentialStatusSchema,
+  revocationReason: z.string().nullable(),
+  issuedAt: z.string(),
+  expiresAt: z.string().nullable(),
+  revokedAt: z.string().nullable(),
+});
+export type IssuedCredentialResponse = z.infer<typeof issuedCredentialResponseSchema>;

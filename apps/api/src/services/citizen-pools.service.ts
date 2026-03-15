@@ -1,6 +1,6 @@
 import type { Result } from '../lib/result.js';
 import { ok, err } from '../lib/result.js';
-import type { CitizenPool, CreateCitizenPoolInput, AssuranceTier, GeoPoint } from '@tml/types';
+import type { CitizenPool, CreateCitizenPoolInput, AssuranceTier } from '@tml/types';
 import { NotFoundError, ConflictError, ValidationError } from '@tml/types';
 import { createStubVerifier, sha256Hex } from '@tml/crypto';
 import type { CitizenPoolsRepository } from '../repositories/citizen-pools.repository.js';
@@ -8,7 +8,7 @@ import type { ActorsRepository } from '../repositories/actors.repository.js';
 import type { MilestonesRepository } from '../repositories/milestones.repository.js';
 import type { ProjectsRepository } from '../repositories/projects.repository.js';
 import type { AuditLogService } from './audit-log.service.js';
-import { isPointInPolygon } from '../lib/geofence.js';
+import type { CredentialsService } from './credentials.service.js';
 import { cryptoRandomSelect } from './auditor-assignments.service.js';
 
 const MAX_ACTIVE_ENROLLMENTS = 5;
@@ -22,6 +22,7 @@ export class CitizenPoolsService {
     private auditLog: AuditLogService,
     private milestonesRepo?: MilestonesRepository,
     private projectsRepo?: ProjectsRepository,
+    private credentialsService?: CredentialsService,
   ) {}
 
   async selectPool(
@@ -176,6 +177,18 @@ export class CitizenPoolsService {
 
     // Create with status 'enrolled'
     const pool = await this.repo.create(data);
+
+    // Auto-issue citizen credential on enrollment
+    if (this.credentialsService) {
+      await this.credentialsService.issue({
+        type: 'CNIEIdentityCredential',
+        holderDid: citizen.did,
+        actorId: citizen.id,
+        metadata: { milestoneId: data.milestoneId, assuranceTier: data.assuranceTier, poolId: pool.id },
+      }).catch(() => {
+        // Non-blocking: credential issuance failure should not block enrollment
+      });
+    }
 
     await this.auditLog.log({
       entityType: 'CitizenPool',

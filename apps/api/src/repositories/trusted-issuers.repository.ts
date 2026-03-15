@@ -34,6 +34,30 @@ export class TrustedIssuersRepository {
     return this.toEntity(issuer);
   }
 
+  async findActive(): Promise<TrustedIssuerRegistry[]> {
+    const issuers = await this.prisma.trustedIssuerRegistry.findMany({
+      where: { active: true },
+      orderBy: { activatedAt: 'desc' },
+    });
+    return issuers.map((i) => this.toEntity(i));
+  }
+
+  async revoke(id: string, reason: string): Promise<TrustedIssuerRegistry> {
+    const issuer = await this.prisma.trustedIssuerRegistry.update({
+      where: { id },
+      data: {
+        active: false,
+        revocationReason: reason,
+        revokedAt: new Date(),
+      },
+    });
+    return this.toEntity(issuer);
+  }
+
+  async delete(id: string): Promise<void> {
+    await this.prisma.trustedIssuerRegistry.delete({ where: { id } });
+  }
+
   async update(id: string, data: Partial<TrustedIssuerRegistry>): Promise<TrustedIssuerRegistry> {
     const updateData: Prisma.TrustedIssuerRegistryUpdateInput = {};
     if (data.issuerName !== undefined) updateData.issuerName = data.issuerName;

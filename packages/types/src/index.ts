@@ -130,13 +130,44 @@ export const WebhookEventType = {
 export type WebhookEventType =
   (typeof WebhookEventType)[keyof typeof WebhookEventType];
 
+export const ConnectionState = {
+  invited: "invited",
+  connected: "connected",
+  active: "active",
+  closed: "closed",
+} as const;
+export type ConnectionState =
+  (typeof ConnectionState)[keyof typeof ConnectionState];
+
 // ─── Entity Types ────────────────────────────────────────────────────────────
+
+export interface AgentConnection {
+  id: string;
+  initiatorDid: string;
+  responderDid: string | null;
+  state: ConnectionState;
+  label: string | null;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export interface CredentialSchema {
+  id: string;
+  credentialType: string;
+  schemaVersion: string;
+  attributes: string[];
+  requiredFields: string[];
+  createdAt: Date;
+  updatedAt: Date;
+}
 
 export interface Actor {
   id: string;
   did: string;
   cnieHash: string;
   roles: ActorRole[];
+  assuranceLevel: string | null;
+  lastAuthAcr: string | null;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -294,6 +325,65 @@ export interface AuditLog {
   timestamp: Date;
 }
 
+// ─── Consent Types ──────────────────────────────────────────────────────────
+
+export const ConsentPurpose = {
+  identity_verification: "identity_verification",
+  attestation_submission: "attestation_submission",
+  data_sharing: "data_sharing",
+  credential_issuance: "credential_issuance",
+  analytics: "analytics",
+} as const;
+export type ConsentPurpose =
+  (typeof ConsentPurpose)[keyof typeof ConsentPurpose];
+
+export const ConsentStatus = {
+  granted: "granted",
+  revoked: "revoked",
+  expired: "expired",
+} as const;
+export type ConsentStatus =
+  (typeof ConsentStatus)[keyof typeof ConsentStatus];
+
+export interface ConsentRecord {
+  id: string;
+  actorId: string;
+  actorDid: string;
+  purpose: ConsentPurpose;
+  scope: string;
+  legalBasis: string;
+  status: ConsentStatus;
+  grantedAt: Date;
+  expiresAt: Date | null;
+  revokedAt: Date | null;
+  ipAddress: string | null;
+  userAgent: string | null;
+}
+
+// ─── Credential Types ────────────────────────────────────────────────────────
+
+export const CredentialStatus = {
+  active: "active",
+  revoked: "revoked",
+  expired: "expired",
+} as const;
+export type CredentialStatus =
+  (typeof CredentialStatus)[keyof typeof CredentialStatus];
+
+export interface IssuedCredential {
+  id: string;
+  holderDid: string;
+  holderActorId: string;
+  credentialType: string;
+  credentialJson: Record<string, unknown>;
+  credentialHash: string;
+  status: CredentialStatus;
+  revocationReason: string | null;
+  issuedAt: Date;
+  expiresAt: Date | null;
+  revokedAt: Date | null;
+}
+
 // ─── Quorum Types ─────────────────────────────────────────────────────────────
 
 export interface QuorumTypeStatus {
@@ -402,7 +492,28 @@ export {
   // Milestone Attestation
   createMilestoneAttestationBodySchema,
   quorumBreakdownResponseSchema,
+  // Credential Issuance
+  credentialTypeSchema,
+  credentialStatusSchema,
+  issueCredentialBodySchema,
+  revokeCredentialBodySchema,
+  issuedCredentialResponseSchema,
 } from "./validators.js";
+
+// ─── OpenID4VP Re-exports ───────────────────────────────────────────────────
+
+export type {
+  PresentationDefinition,
+  InputDescriptor,
+  InputDescriptorConstraints,
+  InputDescriptorField,
+  AuthorizationRequest,
+  AuthorizationResponse,
+  PresentationSubmission,
+  DescriptorMapEntry,
+  VerifyRequest,
+  VerifyResponse,
+} from "./openid4vp.js";
 
 export type {
   CreateActorInput,
@@ -436,4 +547,7 @@ export type {
   AuditLogQuery,
   CreateMilestoneAttestationBody,
   QuorumBreakdownResponse,
+  IssueCredentialBody,
+  RevokeCredentialBody,
+  IssuedCredentialResponse,
 } from "./validators.js";

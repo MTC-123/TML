@@ -7,6 +7,7 @@ import type { ActorsRepository } from '../repositories/actors.repository.js';
 import type { MilestonesRepository } from '../repositories/milestones.repository.js';
 import type { TrustedIssuersRepository } from '../repositories/trusted-issuers.repository.js';
 import type { AuditLogService } from './audit-log.service.js';
+import type { CredentialsService } from './credentials.service.js';
 
 export class AuditorAssignmentsService {
   constructor(
@@ -15,6 +16,7 @@ export class AuditorAssignmentsService {
     private milestonesRepo: MilestonesRepository,
     private auditLog: AuditLogService,
     private trustedIssuersRepo?: TrustedIssuersRepository,
+    private credentialsService?: CredentialsService,
   ) {}
 
   async select(
@@ -83,6 +85,18 @@ export class AuditorAssignmentsService {
         rotationRound: newRound,
       });
       assignments.push(assignment);
+
+      // Auto-issue auditor credential
+      if (this.credentialsService) {
+        await this.credentialsService.issue({
+          type: 'AuditorAccreditationCredential',
+          holderDid: auditor.did,
+          actorId: auditor.id,
+          metadata: { milestoneId, rotationRound: newRound, assignmentId: assignment.id },
+        }).catch(() => {
+          // Non-blocking: credential issuance failure should not block assignment
+        });
+      }
     }
 
     // 10. Audit log with selection rationale

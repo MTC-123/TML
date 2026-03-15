@@ -49,6 +49,13 @@ export async function certificateRoutes(fastify: FastifyInstance): Promise<void>
     (req, reply) => controller.getById(req, reply),
   );
 
+  // GET /:id/pdf — download certificate as PDF (authenticated)
+  fastify.get(
+    '/:id/pdf',
+    { preHandler: [authenticate, rateLimit('standard'), validateParams(idParamsSchema)] },
+    (req, reply) => controller.downloadPdf(req, reply),
+  );
+
   // POST /:id/revoke — revoke certificate (admin only)
   fastify.post(
     '/:id/revoke',

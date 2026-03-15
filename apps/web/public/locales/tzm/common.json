@@ -1,0 +1,189 @@
+{
+  "app": {
+    "name": "TML",
+    "fullName": "ⵜⴰⵙⴽⴽⵉⵍⵜ ⵏ ⵜⵉⴼⴰⵡⵜ",
+    "description": "ⵜⴰⵙⴽⴽⵉⵍⵜ ⵏ ⵜⵉⴼⴰⵡⵜ ⵉ ⵜⵎⵙⵓⵍⵜ ⵏ ⵜⵣⵓⵏⵉⵏ ⵜⵉⴳⴷⵓⴷⴰⵏⵉⵏ"
+  },
+  "nav": {
+    "home": "ⴰⵙⵏⵓⴱⴳ",
+    "dashboard": "ⵜⴰⴼⵍⵡⵉⵜ",
+    "projects": "ⵉⵙⵏⴼⴰⵔⵏ",
+    "attestations": "ⵜⵉⵙⵖⵏⴰⵙⵉⵏ",
+    "certificates": "ⵜⵉⵙⴽⵉⵍⵉⵏ",
+    "disputes": "ⵉⵎⵏⵖⴰⵏ",
+    "credentials": "ⵉⵙⵍⴽⵏ",
+    "admin": "ⴰⵙⵡⵓⴷⴷⵓ",
+    "profile": "ⴰⵙⵎⵎⴰⵍ",
+    "settings": "ⵜⵉⵙⵖⴰⵍ",
+    "logout": "ⴰⴼⴼⵖ",
+    "verify": "ⵙⵏⵇⴷ",
+    "about": "ⵅⴼ"
+  },
+  "common": {
+    "loading": "ⴰⵙⵔⵙ...",
+    "error": "ⵜⵓⵛⴷⴰ",
+    "save": "ⵃⴹⵓ",
+    "cancel": "ⵙⵔ",
+    "delete": "ⴽⴽⵙ",
+    "edit": "ⵙⵏⴼⵍ",
+    "create": "ⵙⵏⵓⵍⴼ",
+    "submit": "ⴰⵣⵏ",
+    "confirm": "ⵙⵖⵣⴼ",
+    "back": "ⵖⵔ ⴷⴼⴼⵉⵔ",
+    "next": "ⴰⵎⴰⴳⴳⴰⵔ",
+    "previous": "ⴰⵎⵣⵡⴰⵔⵓ",
+    "search": "ⵔⵣⵓ",
+    "filter": "ⵙⵜⵉ",
+    "sort": "ⵙⵎⵓⵏ",
+    "noResults": "ⵓⵔ ⵜⵜⵓⴼⴰ ⵉⵎⵢⴰⴷⴰⵙⵏ",
+    "yes": "ⵢⴰⵀ",
+    "no": "ⵓⵀⵓ",
+    "status": "ⴰⴷⴷⴰⴷ",
+    "actions": "ⵜⵉⴳⴰⵡⵉⵏ",
+    "details": "ⵉⵙⴼⴽⴰ",
+    "date": "ⴰⵙⴰⴽⵓⴷ",
+    "description": "ⴰⴳⵍⴰⵎ",
+    "name": "ⵉⵙⵎ",
+    "type": "ⴰⵏⴰⵡ",
+    "role": "ⵜⴰⵡⵓⵔⵉ",
+    "view": "ⵥⵕ",
+    "download": "ⴰⴳⵎ",
+    "upload": "ⵙⴽⵛⵎ",
+    "retry": "ⴰⵍⵙ",
+    "close": "ⵇⵇⵏ",
+    "update": "ⵙⴷⴳⵉ",
+    "refresh": "ⵙⵎⴰⵢⵏⵓ",
+    "export": "ⵙⵙⵓⴼⵖ",
+    "import": "ⵙⴽⵛⵎ",
+    "approve": "ⵇⴱⵍ",
+    "reject": "ⴰⴳⵉ",
+    "viewDetails": "ⵥⵕ ⵉⵙⴼⴽⴰ",
+    "learnMore": "ⵉⵙⵙⵏ ⵓⴳⴳⴰⵔ",
+    "signOut": "ⴼⴼⵖ"
+  },
+  "status": {
+    "pending": "ⴰⵔ ⵉⵜⵜⵇⵇⵍ",
+    "approved": "ⵉⵜⵜⵓⵇⴱⵍ",
+    "rejected": "ⵉⵜⵜⵓⴳⴷⵍ",
+    "completed": "ⵉⵎⴷⴰ",
+    "active": "ⵉⵜⵜⵓⵙⴽⴰⵔ",
+    "inactive": "ⵓⵔ ⵉⵜⵜⵓⵙⴽⴰⵔ",
+    "draft": "ⴰⵡⵏⵏⵉ",
+    "inProgress": "ⴳ ⵓⵙⵡⵉⵔ",
+    "revoked": "ⵉⵜⵜⵓⴽⴽⵙ",
+    "verified": "ⵉⵜⵜⵓⵙⵏⵇⴷ",
+    "expired": "ⵉⴼⵓⴽ",
+    "suspended": "ⵉⵜⵜⵓⵙⴱⴷⴷ"
+  },
+  "roles": {
+    "contractor": "ⴰⵎⵙⴽⴰⵔ",
+    "inspector": "ⴰⵎⵙⵜⴰⵢ",
+    "auditor": "ⴰⵎⵙⵓⴳⴳⵉ",
+    "citizen": "ⴰⵖⵔⴼⴰⵏ",
+    "admin": "ⴰⵎⵙⵡⵓⴷⴷⵓ",
+    "projectManager": "ⴰⵎⵙⵡⵓⴷⴷⵓ ⵏ ⵓⵙⵏⴼⴰⵔ"
+  },
+  "language": {
+    "select": "ⵙⵜⵉ ⵜⵓⵜⵍⴰⵢⵜ",
+    "en": "English",
+    "fr": "Français",
+    "ar": "العربية",
+    "tzm": "ⵜⴰⵎⴰⵣⵉⵖⵜ"
+  },
+  "footer": {
+    "rights": "ⵎⴰⵕⵕⴰ ⵉⵣⵔⴼⴰⵏ ⵜⵜⵡⴰⵃⵟⵟⵓⵏ",
+    "privacy": "ⵜⴰⵙⵔⵜⵉⵜ ⵏ ⵜⵉⵏⵏⵓⵜⵍⴰ",
+    "terms": "ⵜⵉⵡⵜⵉⵍⵉⵏ ⵏ ⵓⵙⵙⵎⵔⵙ",
+    "copyright": "© 2026 ⵜⴰⵙⴽⴽⵉⵍⵜ ⵏ ⵜⵉⴼⴰⵡⵜ. ⵎⴰⵕⵕⴰ ⵉⵣⵔⴼⴰⵏ ⵜⵜⵡⴰⵃⵟⵟⵓⵏ.",
+    "tagline": "ⴰⵙⵏⵇⴷ ⵏ ⵜⵎⵙⵓⵍⵜ ⵏ ⵜⵣⵓⵏⵉⵏ ⵜⵉⴳⴷⵓⴷⴰⵏⵉⵏ ⵙ ⵜⴼⵍⵙⵜ ⵜⴰⵡⵏⴳⵉⵎⵜ.",
+    "platform": "ⵜⴰⵙⵉⵍⴰ",
+    "verifyCertificate": "ⵙⵏⵇⴷ ⵜⴰⵙⵍⴽⵉⵜ",
+    "aboutTML": "ⵅⴼ TML",
+    "howItWorks": "ⵎⴰⵎⴽ ⵉⵜⵜⵙⵡⵓⵔⵉ",
+    "about": "ⵅⴼ",
+    "cnieBinding": "ⴰⵇⵇⵏ ⵏ ⵜⵎⴰⴳⵉⵜ CNIE",
+    "multiPartyAttestation": "ⵜⴰⵎⴰⵜⴰⵔⵜ ⵜⴰⴳⵜⵎⴰⵜⴰⵔⵜ",
+    "tgrIntegration": "ⴰⵙⵎⵓⵏ ⴷ TGR",
+    "ed25519Cryptography": "ⵜⴰⵡⵏⴳⵉⵎⵜ Ed25519",
+    "legal": "ⴰⵣⵔⴼⴰⵏ",
+    "dataProtection": "ⴰⵃⵟⵟⵓ ⵏ ⵉⵙⴼⴽⴰ"
+  },
+  "errors": {
+    "notFound": "ⵜⴰⵙⵏⴰ ⵓⵔ ⵜⵜⵓⴼⴰ",
+    "serverError": "ⵜⵓⵛⴷⴰ ⵏ ⵓⵎⴼⴰⴹ",
+    "unauthorized": "ⵓⵔ ⵜⵙⵜⵉⵢⴷ ⴰⴷ ⵜⴽⵛⵎⴷ ⵖⵔ ⵜⴰⵙⵏⴰ ⴰⴷ",
+    "forbidden": "ⴰⴽⵛⵓⵎ ⵉⵜⵜⵓⴳⴷⵍ",
+    "networkError": "ⵜⵓⵛⴷⴰ ⵏ ⵓⵥⵟⵟⴰ. ⵙⵏⵇⴷ ⴰⵥⵟⵟⴰ ⵏⵏⴽ.",
+    "unexpectedError": "ⵜⵍⵍⴰ ⵜⵓⵛⴷⴰ ⵓⵔ ⵏⵜⵜⵔⵉ. ⴰⵔⵎ ⴷⴰⵖ.",
+    "sessionExpired": "ⵜⴼⵓⴽ ⵜⵖⵉⵎⵉⵜ ⵏⵏⴽ. ⴽⵛⵎ ⴷⴰⵖ.",
+    "validationError": "ⵙⵏⵇⴷ ⵜⵓⵛⴷⵉⵡⵉⵏ ⵏ ⵓⵎⵙⵙⵓⴷⵙ."
+  },
+  "dashboard": {
+    "title": "ⵜⴰⴼⵍⵡⵉⵜ",
+    "welcome": "ⴰⵏⵙⵓⴼ ⵏ ⵓⵖⵓⵍ",
+    "totalProjects": "ⴰⵎⴹⴰⵏ ⵏ ⵉⵙⵏⴼⴰⵔⵏ",
+    "activeAttestations": "ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵜⵉⵎⴰⵢⵏⵓⵜⵉⵏ",
+    "certificatesIssued": "ⵜⵉⵙⵍⴽⵉⵏ ⵉⵜⵜⵓⵙⵓⴼⵖⵏ",
+    "pendingReview": "ⴰⵔ ⵉⵜⵜⵇⵇⵍ ⴰⵙⵏⵇⴷ",
+    "recentActivity": "ⵜⵉⴳⴰⵡⵉⵏ ⵜⵉⵎⴰⵢⵏⵓⵜⵉⵏ",
+    "attestationPipeline": "ⴰⵎⵓⵙⵙⵓ ⵏ ⵜⵎⴰⵜⴰⵔⵉⵏ",
+    "impactMetrics": "ⵉⵎⵙⵙⵉⵙⵏ ⵏ ⵓⵙⵏⴼⵍ",
+    "quickActions": "ⵜⵉⴳⴰⵡⵉⵏ ⵜⵉⵣⵔⴱⵉⵏ"
+  },
+  "pagination": {
+    "showing": "ⴰⵙⴽⴰⵏ",
+    "of": "ⵙⴳ",
+    "results": "ⵉⵎⵢⴰⴷⴰⵙⵏ",
+    "page": "ⵜⴰⵙⵏⴰ",
+    "perPage": "ⵉ ⵜⴰⵙⵏⴰ"
+  },
+  "confirmation": {
+    "areYouSure": "ⵉⵙ ⵜⴳⴰⴷ ⵙ ⵜⵉⴷⵜ?",
+    "cannotUndo": "ⵜⵉⴳⴰⵡⵜ ⴰⴷ ⵓⵔ ⵜⵜⵓⵖⵓⵍ.",
+    "deleteConfirm": "ⵉⵙ ⵜⵔⵉⴷ ⴰⴷ ⵜⴽⴽⵙⴷ ⴰⴼⵔⴷⵉⵙ ⴰⴷ?"
+  },
+  "empty": {
+    "noResults": "ⵓⵔ ⵜⵜⵓⴼⴰ ⵉⵎⵢⴰⴷⴰⵙⵏ",
+    "noData": "ⵓⵔ ⵍⵍⵉⵏ ⵉⵙⴼⴽⴰ",
+    "tryAdjusting": "ⴰⵔⵎ ⴰⴷ ⵜⵙⵏⴼⵍⴷ ⵉⵎⵙⵙⵉⵙⵏ ⵏ ⵓⵔⵣⵣⵓ."
+  },
+  "accessibility": {
+    "skipToContent": "ⴷⴷⵓ ⵖⵔ ⵓⵎⴰⴳⵔⴰⴷ",
+    "openMenu": "ⵕⵥⵎ ⵜⴰⵍⴳⴰⵎⵜ",
+    "closeMenu": "ⵇⵇⵏ ⵜⴰⵍⴳⴰⵎⵜ",
+    "toggleTheme": "ⵙⵏⴼⵍ ⴰⵙⵏⵎⴽⵜⴰ"
+  },
+  "disputes": {
+    "title": "ⵉⵎⵏⵖⴰⵏ",
+    "create": "ⵕⵥⵎ ⴰⵎⵏⵖⵉ",
+    "empty": "ⵓⵔ ⵜⵜⵓⴼⴰⵏ ⵉⵎⵏⵖⴰⵏ",
+    "status": {
+      "open": "ⵉⵕⵥⵎ",
+      "underReview": "ⴰⵔ ⵉⵜⵜⵓⵙⵏⵇⴷ",
+      "resolved": "ⵉⵜⵜⵓⴼⵔⴰ",
+      "dismissed": "ⵉⵜⵜⵓⴳⴷⵍ"
+    },
+    "fields": {
+      "reason": "ⵜⴰⵎⵏⵜⵉⵍⵜ",
+      "submittedBy": "ⵉⵜⵜⵓⵙⴽⵛⵎ ⵙⴳ",
+      "resolution": "ⴰⴼⵙⵙⴰⵢ",
+      "createdAt": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵓⵕⵥⵓⵎ"
+    }
+  },
+  "credentials": {
+    "title": "ⵉⵙⵍⴽⵏ ⵉⵜⵜⵓⵙⵏⵇⴷⵏ",
+    "issued": "ⵉⵙⵍⴽⵏ ⵉⵜⵜⵓⵙⵓⴼⵖⵏ",
+    "received": "ⵉⵙⵍⴽⵏ ⵉⵜⵜⵓⵔⵎⵙⵏ",
+    "empty": "ⵓⵔ ⵜⵜⵓⴼⴰⵏ ⵉⵙⵍⴽⵏ",
+    "verify": "ⵙⵏⵇⴷ ⴰⵙⵍⴽⵉⵏ",
+    "revoke": "ⴽⴽⵙ ⴰⵙⵍⴽⵉⵏ",
+    "fields": {
+      "issuer": "ⴰⵎⵙⵓⴼⵖ",
+      "subject": "ⴰⵙⵏⵜⵍ",
+      "type": "ⴰⵏⴰⵡ ⵏ ⵓⵙⵍⴽⵉⵏ",
+      "issuedAt": "ⵉⵜⵜⵓⵙⵓⴼⵖ ⴳ",
+      "expiresAt": "ⵉⵜⵜⴼⵓⴽ ⴳ",
+      "status": "ⴰⴷⴷⴰⴷ"
+    }
+  }
+}

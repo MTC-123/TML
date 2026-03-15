@@ -20,11 +20,16 @@ import { attestationRoutes } from './routes/attestations.routes.js';
 import { auditorAssignmentsRoutes } from './routes/auditor-assignments.routes.js';
 import { citizenPoolsRoutes } from './routes/citizen-pools.routes.js';
 import { disputesRoutes } from './routes/disputes.routes.js';
-import { ussdRoutes } from './routes/ussd.routes.js';
+import { ussdRoutes } from './modules/ussd/ussd.routes.js';
 import { webhooksRoutes } from './routes/webhooks.routes.js';
 import { auditLogsRoutes } from './routes/audit-logs.routes.js';
 import { milestoneAttestationRoutes } from './routes/milestone-attestations.routes.js';
 import { milestoneAssignmentRoutes } from './routes/milestone-assignments.routes.js';
+import { credentialsRoutes } from './routes/credentials.routes.js';
+import { trustedIssuersRoutes } from './routes/trusted-issuers.routes.js';
+import { agentRoutes } from './routes/agent.routes.js';
+import { verificationRoutes } from './routes/verification.routes.js';
+import { consentRoutes } from './routes/consent.routes.js';
 
 // Ensure Fastify type augmentations are loaded
 import './lib/types.js';
@@ -116,6 +121,11 @@ export async function buildApp(
   await app.register(ussdRoutes, { prefix: '/api/v1/ussd' });
   await app.register(webhooksRoutes, { prefix: '/api/v1/webhooks' });
   await app.register(auditLogsRoutes, { prefix: '/api/v1/audit-logs' });
+  await app.register(credentialsRoutes, { prefix: '/api/v1/credentials' });
+  await app.register(trustedIssuersRoutes, { prefix: '/api/v1/trusted-issuers' });
+  await app.register(agentRoutes, { prefix: '/api/v1/agent' });
+  await app.register(verificationRoutes, { prefix: '/api/v1/verify' });
+  await app.register(consentRoutes, { prefix: '/api/v1/consent' });
 
   return app;
 }

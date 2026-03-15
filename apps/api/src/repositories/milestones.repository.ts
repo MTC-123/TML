@@ -157,6 +157,14 @@ export class MilestonesRepository {
     return this.toEntity(milestone);
   }
 
+  async findActiveByProjectId(projectId: string): Promise<Milestone | null> {
+    const milestone = await this.prisma.milestone.findFirst({
+      where: { projectId, status: 'attestation_in_progress', deletedAt: null },
+      orderBy: { sequenceNumber: 'asc' },
+    });
+    return milestone ? this.toEntity(milestone) : null;
+  }
+
   async findByProjectAndSequence(projectId: string, sequenceNumber: number): Promise<Milestone | null> {
     const milestone = await this.prisma.milestone.findUnique({
       where: { projectId_sequenceNumber: { projectId, sequenceNumber } },

@@ -1,4 +1,3 @@
-import { ExpiredCredentialError, InvalidSignatureError, MalformedDIDError } from "./errors.js";
 import { extractPublicKey, resolveDID } from "./did.js";
 import { sha256Hex } from "./hashing.js";
 import { signPayload, verifyPayload } from "./signing.js";

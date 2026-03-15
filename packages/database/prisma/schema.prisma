@@ -150,12 +150,14 @@ enum WebhookEventType {
 // ─── Identity Group ──────────────────────────────────────────────────────────
 
 model Actor {
-  id        String      @id @default(uuid()) @db.Uuid
-  did       String      @unique @map("did")
-  cnieHash  String      @unique @map("cnie_hash")
-  roles     ActorRole[]
-  createdAt DateTime    @default(now()) @map("created_at")
-  updatedAt DateTime    @updatedAt @map("updated_at")
+  id             String      @id @default(uuid()) @db.Uuid
+  did            String      @unique @map("did")
+  cnieHash       String      @unique @map("cnie_hash")
+  roles          ActorRole[]
+  assuranceLevel String?     @map("assurance_level")
+  lastAuthAcr    String?     @map("last_auth_acr")
+  createdAt      DateTime    @default(now()) @map("created_at")
+  updatedAt      DateTime    @updatedAt @map("updated_at")
 
   actorOrganizations ActorOrganization[]
   attestations       Attestation[]
@@ -397,6 +399,74 @@ model WebhookSubscription {
   @@map("webhook_subscriptions")
 }
 
+// ─── Credential Group ────────────────────────────────────────────────────────
+
+enum CredentialStatus {
+  active
+  revoked
+  expired
+
+  @@map("credential_status")
+}
+
+model IssuedCredential {
+  id               String           @id @default(uuid()) @db.Uuid
+  holderDid        String           @map("holder_did")
+  holderActorId    String           @map("holder_actor_id") @db.Uuid
+  credentialType   String           @map("credential_type")
+  credentialJson   Json             @map("credential_json")
+  credentialHash   String           @unique @map("credential_hash")
+  status           CredentialStatus @default(active)
+  revocationReason String?          @map("revocation_reason")
+  issuedAt         DateTime         @default(now()) @map("issued_at")
+  expiresAt        DateTime?        @map("expires_at")
+  revokedAt        DateTime?        @map("revoked_at")
+
+  @@index([holderDid])
+  @@index([holderActorId])
+  @@index([credentialType])
+  @@index([status])
+  @@map("issued_credentials")
+}
+
+// ─── Agent Group ────────────────────────────────────────────────────────────
+
+enum ConnectionState {
+  invited
+  connected
+  active
+  closed
+
+  @@map("connection_state")
+}
+
+model AgentConnection {
+  id           String          @id @default(uuid()) @db.Uuid
+  initiatorDid String          @map("initiator_did")
+  responderDid String?         @map("responder_did")
+  state        ConnectionState @default(invited)
+  label        String?
+  createdAt    DateTime        @default(now()) @map("created_at")
+  updatedAt    DateTime        @updatedAt @map("updated_at")
+
+  @@index([initiatorDid])
+  @@index([responderDid])
+  @@index([state])
+  @@map("agent_connections")
+}
+
+model CredentialSchema {
+  id             String   @id @default(uuid()) @db.Uuid
+  credentialType String   @unique @map("credential_type")
+  schemaVersion  String   @default("1.0") @map("schema_version")
+  attributes     String[]
+  requiredFields String[] @map("required_fields")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("credential_schemas")
+}
+
 // ─── Audit Group ─────────────────────────────────────────────────────────────
 
 model AuditLog {
@@ -414,4 +484,46 @@ model AuditLog {
   @@index([timestamp])
   @@index([action])
   @@map("audit_logs")
+}
+
+// ─── Consent Group ──────────────────────────────────────────────────────────
+
+enum ConsentPurpose {
+  identity_verification
+  attestation_submission
+  data_sharing
+  credential_issuance
+  analytics
+
+  @@map("consent_purpose")
+}
+
+enum ConsentStatus {
+  granted
+  revoked
+  expired
+
+  @@map("consent_status")
+}
+
+model ConsentRecord {
+  id         String         @id @default(uuid()) @db.Uuid
+  actorId    String         @map("actor_id") @db.Uuid
+  actorDid   String         @map("actor_did")
+  purpose    ConsentPurpose
+  scope      String
+  legalBasis String         @map("legal_basis")
+  status     ConsentStatus  @default(granted)
+  grantedAt  DateTime       @default(now()) @map("granted_at")
+  expiresAt  DateTime?      @map("expires_at")
+  revokedAt  DateTime?      @map("revoked_at")
+  ipAddress  String?        @map("ip_address")
+  userAgent  String?        @map("user_agent")
+
+  @@unique([actorId, purpose])
+  @@index([actorId])
+  @@index([actorDid])
+  @@index([purpose])
+  @@index([status])
+  @@map("consent_records")
 }

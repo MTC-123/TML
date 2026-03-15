@@ -1,0 +1,191 @@
+{
+  "public": {
+    "nav": {
+      "home": "Accueil",
+      "verify": "V\u00e9rifier un certificat",
+      "about": "\u00c0 propos",
+      "tagline": "Transparence",
+      "openMenu": "Ouvrir le menu"
+    },
+    "footer": {
+      "description": "TML est un middleware d'attestation d'identit\u00e9 num\u00e9rique pour la responsabilit\u00e9 des infrastructures publiques au Maroc et en Afrique. Preuve cryptographique \u00e0 chaque \u00e9tape.",
+      "platform": "Plateforme",
+      "verifyCertificate": "V\u00e9rifier un certificat",
+      "aboutTml": "\u00c0 propos de TML",
+      "howItWorks": "Comment \u00e7a marche",
+      "aboutHeading": "\u00c0 propos",
+      "cnieBinding": "Liaison d'identit\u00e9 CNIE",
+      "multiPartyAttestation": "Attestation multi-parties",
+      "tgrIntegration": "Int\u00e9gration TGR",
+      "ed25519Cryptography": "Cryptographie Ed25519",
+      "legal": "L\u00e9gal",
+      "privacyPolicy": "Politique de confidentialit\u00e9",
+      "termsOfService": "Conditions d'utilisation",
+      "dataProtection": "Protection des donn\u00e9es",
+      "copyright": "TML. Tous droits r\u00e9serv\u00e9s.",
+      "tagline": "Responsabilit\u00e9 ancr\u00e9e dans l'identit\u00e9 pour les infrastructures publiques"
+    }
+  },
+  "landing": {
+    "hero": {
+      "badge": "S\u00e9curiser les infrastructures du Maroc 2030",
+      "title": "Chaque Dirham des D\u00e9penses Publiques, Justifi\u00e9",
+      "subtitle": "Responsabilit\u00e9 cryptographique pour les infrastructures publiques. Chaque jalon v\u00e9rifi\u00e9, chaque paiement justifi\u00e9.",
+      "learnMore": "En savoir plus"
+    },
+    "howItWorks": {
+      "title": "Comment \u00e7a marche",
+      "contractor": {
+        "title": "L'entrepreneur soumet",
+        "description": "L'entrepreneur soumet une d\u00e9claration d'ach\u00e8vement de jalon avec la documentation et les preuves \u00e0 l'appui."
+      },
+      "auditor": {
+        "title": "L'auditeur v\u00e9rifie",
+        "description": "Un auditeur agr\u00e9\u00e9 examine la documentation et un inspecteur effectue une v\u00e9rification g\u00e9olocalis\u00e9e sur site."
+      },
+      "citizen": {
+        "title": "Les citoyens attestent",
+        "description": "Les citoyens inscrits dans la zone du projet fournissent une attestation communautaire pour atteindre le quorum."
+      }
+    },
+    "stats": {
+      "projects": "1 247",
+      "projectsLabel": "Projets suivis",
+      "verification": "99,7%",
+      "verificationLabel": "Taux de v\u00e9rification",
+      "citizens": "48 000+",
+      "citizensLabel": "Citoyens engag\u00e9s",
+      "fraud": "0",
+      "fraudLabel": "Cas de fraude"
+    },
+    "cta": {
+      "title": "V\u00e9rifier un Certificat de Conformit\u00e9 de Paiement",
+      "subtitle": "Entrez le hash SHA-256 pour v\u00e9rifier l'authenticit\u00e9 et l'int\u00e9grit\u00e9 de tout certificat.",
+      "placeholder": "Entrez le hash du certificat (SHA-256)...",
+      "button": "V\u00e9rifier un certificat",
+      "helpText": "Entrez le hash SHA-256 figurant sur votre Certificat de Conformit\u00e9 de Paiement pour v\u00e9rifier son authenticit\u00e9."
+    },
+    "security": {
+      "title": "Infrastructure de confiance cryptographique",
+      "subtitle": "Chaque certificat est ancr\u00e9 dans la cryptographie v\u00e9rifiable, pas seulement dans la confiance institutionnelle.",
+      "ed25519": {
+        "title": "Signatures Ed25519",
+        "description": "Chaque attestation est sign\u00e9e cryptographiquement avec Ed25519, garantissant une v\u00e9rification infalsifiable de l'ach\u00e8vement des jalons sur toute la cha\u00eene de d\u00e9caissement."
+      },
+      "cnie": {
+        "title": "Liaison d'identit\u00e9 CNIE",
+        "description": "Les cartes nationales d'identit\u00e9 \u00e9lectroniques sont li\u00e9es \u00e0 des identifiants d\u00e9centralis\u00e9s, ancrant chaque action \u00e0 une identit\u00e9 r\u00e9elle v\u00e9rifi\u00e9e."
+      },
+      "multiParty": {
+        "title": "Attestation multi-parties",
+        "description": "L'inspecteur, l'auditeur et le quorum citoyen doivent attester ind\u00e9pendamment avant tout d\u00e9caissement, \u00e9liminant les points de compromission uniques."
+      }
+    },
+    "partners": {
+      "tgr": "Con\u00e7u pour l'int\u00e9gration TGR",
+      "mosip": "Compatible MOSIP e-Signet",
+      "w3c": "W3C Verifiable Credentials"
+    }
+  },
+  "about": {
+    "title": "\u00c0 propos de TML",
+    "description": "TML (Transparency Middleware Layer) est une plateforme d'attestation d'identit\u00e9 num\u00e9rique pour la responsabilit\u00e9 des infrastructures publiques au Maroc et en Afrique. Elle connecte entrepreneurs, inspecteurs, auditeurs et citoyens gr\u00e2ce \u00e0 des identit\u00e9s num\u00e9riques v\u00e9rifi\u00e9es par la CNIE.",
+    "mission": "Notre mission est de garantir que chaque dirham des fonds publics est d\u00e9pens\u00e9 de mani\u00e8re transparente en exigeant des attestations multi-parties v\u00e9rifiables avant tout d\u00e9caissement via la Tr\u00e9sorerie G\u00e9n\u00e9rale du Royaume.",
+    "teamTitle": "Notre \u00e9quipe",
+    "teamName": "\u00c9quipe TML",
+    "team": {
+      "member1": "Architecture et d\u00e9veloppement backend",
+      "member2": "Cryptographie et int\u00e9gration d'identit\u00e9",
+      "member3": "Frontend et exp\u00e9rience utilisateur"
+    },
+    "patronTitle": "Superviseure acad\u00e9mique",
+    "patron": "Superviseure acad\u00e9mique"
+  },
+  "verify": {
+    "title": "V\u00e9rifier un certificat",
+    "subtitle": "V\u00e9rifiez de mani\u00e8re ind\u00e9pendante l'authenticit\u00e9 et l'int\u00e9grit\u00e9 de tout Certificat de Conformit\u00e9 de Paiement \u00e9mis par TML.",
+    "placeholder": "Entrez le hash SHA-256...",
+    "search": "V\u00e9rifier",
+    "searching": "Recherche en cours...",
+    "loading": "V\u00e9rification de l'int\u00e9grit\u00e9 du certificat...",
+    "button": "V\u00e9rifier",
+    "notFound": {
+      "title": "Certificat introuvable",
+      "description": "Aucun certificat correspondant \u00e0 ce hash n'a \u00e9t\u00e9 trouv\u00e9. Veuillez v\u00e9rifier le hash et r\u00e9essayer.",
+      "hint": "V\u00e9rifiez que vous avez saisi le hash SHA-256 complet de 64 caract\u00e8res."
+    },
+    "invalid": {
+      "title": "\u00c9chec de la v\u00e9rification",
+      "description": "Le certificat n'a pas pu \u00eatre v\u00e9rifi\u00e9. Il a peut-\u00eatre \u00e9t\u00e9 alt\u00e9r\u00e9."
+    },
+    "scanner": {
+      "title": "Scanner cam\u00e9ra",
+      "description": "Pointez votre cam\u00e9ra vers le code QR du certificat"
+    },
+    "hashMode": {
+      "title": "V\u00e9rification par hash",
+      "description": "Saisissez ou collez le hash d'int\u00e9grit\u00e9 SHA-256 imprim\u00e9 sur le certificat",
+      "helpText": "Le hash SHA-256 est imprim\u00e9 au bas de chaque Certificat de Conformit\u00e9 de Paiement."
+    },
+    "vpMode": {
+      "title": "Pr\u00e9sentation V\u00e9rifiable (OpenID4VP)",
+      "description": "Soumettez un jeton de Pr\u00e9sentation V\u00e9rifiable W3C pour une v\u00e9rification cryptographique",
+      "placeholder": "Collez le jeton VP ici...",
+      "verifying": "V\u00e9rification en cours...",
+      "verifyButton": "V\u00e9rifier le justificatif",
+      "howItWorksLabel": "Comment \u00e7a marche :",
+      "howItWorksText": "Le jeton VP est v\u00e9rifi\u00e9 cryptographiquement par rapport au DID de l'\u00e9metteur \u00e0 l'aide de la validation de signature Ed25519."
+    },
+    "certificate": {
+      "title": "Certificat de Conformit\u00e9 de Paiement",
+      "verified": "V\u00e9rifi\u00e9",
+      "verifiedDescription": "Ce Certificat de Conformit\u00e9 de Paiement est authentique et n'a pas \u00e9t\u00e9 alt\u00e9r\u00e9.",
+      "validTitle": "Certificat valide",
+      "revoked": "R\u00e9voqu\u00e9",
+      "revokedTitle": "Certificat r\u00e9voqu\u00e9",
+      "revokedDescription": "Ce certificat a \u00e9t\u00e9 r\u00e9voqu\u00e9 et n'est plus valable pour le d\u00e9caissement des fonds.",
+      "id": "ID du certificat",
+      "milestoneId": "ID du jalon",
+      "issuedAt": "\u00c9mis le",
+      "status": "Statut",
+      "tgrReference": "R\u00e9f\u00e9rence TGR",
+      "integrityHash": "Hash d'int\u00e9grit\u00e9 (SHA-256)",
+      "digitalSignature": "Signature num\u00e9rique Ed25519",
+      "verifiedOn": "V\u00e9rifi\u00e9 le",
+      "attestationChain": "Cha\u00eene d'attestations"
+    },
+    "details": {
+      "title": "D\u00e9tails du certificat",
+      "certificateId": "ID du certificat",
+      "milestoneId": "ID du jalon",
+      "issued": "\u00c9mis le",
+      "status": "Statut",
+      "tgrReference": "R\u00e9f\u00e9rence TGR",
+      "integrityHash": "Hash d'int\u00e9grit\u00e9 (SHA-256)",
+      "digitalSignature": "Signature num\u00e9rique Ed25519",
+      "copyHash": "Copier le hash",
+      "verifiedOn": "V\u00e9rifi\u00e9 le {date}"
+    },
+    "modes": {
+      "scanQr": {
+        "title": "Scanner le code QR",
+        "description": "Scannez le code QR imprim\u00e9 sur le certificat"
+      },
+      "enterHash": {
+        "title": "Entrer le hash",
+        "description": "Saisissez ou collez le hash d'int\u00e9grit\u00e9 SHA-256"
+      },
+      "verifyCredential": {
+        "title": "V\u00e9rifier un justificatif",
+        "description": "Soumettez un jeton de Pr\u00e9sentation V\u00e9rifiable"
+      }
+    },
+    "verifyAnother": "V\u00e9rifier un autre certificat",
+    "errors": {
+      "qrFailed": "\u00c9chec de la lecture du code QR. Veuillez r\u00e9essayer.",
+      "credentialFailed": "\u00c9chec de la v\u00e9rification du justificatif. Veuillez v\u00e9rifier le jeton et r\u00e9essayer."
+    },
+    "hash": "Hash",
+    "qrCode": "Code QR"
+  }
+}

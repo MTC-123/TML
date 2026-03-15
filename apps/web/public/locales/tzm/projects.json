@@ -1,0 +1,80 @@
+{
+  "projects": {
+    "title": "ⵉⵙⵏⴼⴰⵔⵏ",
+    "subtitle": "ⴰⵙⵡⵓⴷⴷⵓ ⵏ ⵉⵙⵏⴼⴰⵔⵏ ⵏ ⵜⵣⵓⵏⵉⵏ ⵜⵉⴳⴷⵓⴷⴰⵏⵉⵏ ⴷ ⵓⴹⴼⴰⵕ ⵏ ⵜⵉⴼⵔⴽⵉⵡⵉⵏ.",
+    "create": "ⴰⵙⵏⴼⴰⵔ ⴰⵎⴰⵢⵏⵓ",
+    "search": "ⵔⵣⵓ ⵅⴼ ⵉⵙⵏⴼⴰⵔⵏ...",
+    "empty": "ⵓⵔ ⵜⵜⵓⴼⴰⵏ ⵉⵙⵏⴼⴰⵔⵏ",
+    "fields": {
+      "name": "ⵉⵙⵎ ⵏ ⵓⵙⵏⴼⴰⵔ",
+      "description": "ⴰⴳⵍⴰⵎ",
+      "location": "ⴰⴷⵖⴰⵔ",
+      "region": "ⵜⴰⵎⵏⴰⴹⵜ",
+      "budget": "ⴰⵎⵢⴰⵡⴰⴹ (ⴷⵔⵀⵎ)",
+      "contractor": "ⴰⵎⵙⴽⴰⵔ",
+      "donor": "ⴰⵎⵙⴼⴰⵡ",
+      "status": "ⴰⴷⴷⴰⴷ",
+      "milestones": "ⵜⵉⴼⵔⴽⵉⵡⵉⵏ",
+      "createdAt": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⵓⵙⴽⴰ",
+      "startDate": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵓⵙⵏⵜⵉ",
+      "endDate": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵜⴳⵉⵔⴰ",
+      "deadline": "ⴰⵣⵎⵣ ⴰⵏⴳⴳⴰⵔⵓ",
+      "progress": "ⴰⵎⴰⵣⵣⴰⵍ",
+      "assuranceTier": "ⴰⵙⵡⵉⵔ ⵏ ⵓⵙⵖⵣⴼ",
+      "sector": "ⴰⴳⵣⵣⵓⵎ"
+    },
+    "status": {
+      "draft": "ⴰⵡⵏⵏⵉ",
+      "active": "ⵉⵜⵜⵓⵙⴽⴰⵔ",
+      "suspended": "ⵉⵜⵜⵓⵙⴱⴷⴷ",
+      "completed": "ⵉⵎⴷⴰ",
+      "archived": "ⵉⵜⵜⵓⴽⵍⵙ"
+    },
+    "tabs": {
+      "overview": "ⵜⴰⵡⴰⵍⵜ",
+      "milestones": "ⵜⵉⴼⵔⴽⵉⵡⵉⵏ",
+      "attestations": "ⵜⵉⵎⴰⵜⴰⵔⵉⵏ",
+      "certificates": "ⵜⵉⵙⵍⴽⵉⵏ",
+      "disputes": "ⵉⵎⵢⴰⵏⴽⴰⵏ",
+      "team": "ⵜⴰⵔⴰⴱⴱⵓⵜ",
+      "timeline": "ⵜⴰⵙⵏⵙⵍⵜ ⵏ ⵓⵣⵎⵣ",
+      "documents": "ⵉⵙⴽⴽⵉⵍⵏ"
+    },
+    "sectors": {
+      "roads": "ⵉⵖⴰⵔⴰⵙⵏ ⴷ ⵉⴱⵔⴷⴰⵏ",
+      "schools": "ⵜⵉⵏⵎⵍ ⴷ ⵓⵙⵙⵍⵎⴷ",
+      "hospitals": "ⵜⵉⵙⴳⵏⴰⴼ ⴷ ⵜⴷⵓⵙⵉ",
+      "water": "ⴰⵎⴰⵏ ⴷ ⵓⵙⵉⵣⴷⴳ",
+      "energy": "ⵜⵉⵣⵎⵔⵜ ⴷ ⵜⵔⵉⵙⵉⵏⵜⵉ",
+      "housing": "ⴰⵙⵏⵙⵓ",
+      "telecommunications": "ⵜⵉⵍⵉⵡⵉⵙⵢⵓⵏⵉⵏ",
+      "other": "ⵡⴰⵢⵢⴰⴹ"
+    }
+  },
+  "milestones": {
+    "title": "ⵜⵉⴼⵔⴽⵉⵡⵉⵏ",
+    "create": "ⵜⴰⴼⵔⴽⵉⵜ ⵜⴰⵎⴰⵢⵏⵓⵜ",
+    "empty": "ⵓⵔ ⵜⵜⵓⴼⴰⵏ ⵜⵉⴼⵔⴽⵉⵡⵉⵏ",
+    "fields": {
+      "name": "ⵉⵙⵎ ⵏ ⵜⴼⵔⴽⵉⵜ",
+      "description": "ⴰⴳⵍⴰⵎ",
+      "deadline": "ⴰⵣⵎⵣ ⴰⵏⴳⴳⴰⵔⵓ",
+      "status": "ⴰⴷⴷⴰⴷ",
+      "sequence": "ⴰⵙⴽⴽⵉⵍ",
+      "dueDate": "ⴰⵣⵎⵣ ⵏ ⵓⵙⵎⴹⴰⵍ",
+      "progress": "ⴰⵎⴰⵣⵣⴰⵍ",
+      "completionDate": "ⴰⵙⴰⴽⵓⴷ ⵏ ⵓⵙⵎⴷ",
+      "fundAmount": "ⵜⴰⵙⵓⵎⵜ ⵏ ⵉⴷⵔⵉⵎⵏ (ⴷⵔⵀⵎ)"
+    },
+    "quorum": {
+      "title": "ⴰⴷⴷⴰⴷ ⵏ ⵓⴽⴰⴱⴰⵔ",
+      "inspectors": "ⵉⵎⴼⵔⴰⵏ",
+      "auditors": "ⵉⵎⵙⴰⵙⴰⵏ",
+      "citizens": "ⵉⵖⵔⵎⴰⵏ",
+      "met": "ⵉⵜⵜⵓⴽⴽⴰ",
+      "notMet": "ⵓⵔ ⵉⵜⵜⵓⴽⴽⴰ",
+      "required": "ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵉⵅⵚⵚⴰⵏ",
+      "received": "ⵜⵉⵎⴰⵜⴰⵔⵉⵏ ⵉⵜⵜⵓⵔⵎⵙⵏ"
+    }
+  }
+}

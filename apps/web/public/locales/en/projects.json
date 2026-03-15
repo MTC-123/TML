@@ -1,0 +1,80 @@
+{
+  "projects": {
+    "title": "Projects",
+    "subtitle": "Manage public infrastructure projects and track milestone progress.",
+    "create": "New Project",
+    "search": "Search projects...",
+    "empty": "No projects found",
+    "fields": {
+      "name": "Project name",
+      "description": "Description",
+      "location": "Location",
+      "region": "Region",
+      "budget": "Budget (MAD)",
+      "contractor": "Contractor",
+      "donor": "Donor",
+      "status": "Status",
+      "milestones": "Milestones",
+      "createdAt": "Created on",
+      "startDate": "Start Date",
+      "endDate": "End Date",
+      "deadline": "Deadline",
+      "progress": "Progress",
+      "assuranceTier": "Assurance Tier",
+      "sector": "Sector"
+    },
+    "status": {
+      "draft": "Draft",
+      "active": "Active",
+      "suspended": "Suspended",
+      "completed": "Completed",
+      "archived": "Archived"
+    },
+    "tabs": {
+      "overview": "Overview",
+      "milestones": "Milestones",
+      "attestations": "Attestations",
+      "certificates": "Certificates",
+      "disputes": "Disputes",
+      "team": "Team",
+      "timeline": "Timeline",
+      "documents": "Documents"
+    },
+    "sectors": {
+      "roads": "Roads & Highways",
+      "schools": "Schools & Education",
+      "hospitals": "Hospitals & Healthcare",
+      "water": "Water & Sanitation",
+      "energy": "Energy & Power",
+      "housing": "Housing",
+      "telecommunications": "Telecommunications",
+      "other": "Other"
+    }
+  },
+  "milestones": {
+    "title": "Milestones",
+    "create": "New Milestone",
+    "empty": "No milestones found",
+    "fields": {
+      "name": "Milestone Name",
+      "description": "Description",
+      "deadline": "Deadline",
+      "status": "Status",
+      "sequence": "Sequence",
+      "dueDate": "Due Date",
+      "progress": "Progress",
+      "completionDate": "Completion Date",
+      "fundAmount": "Fund Amount (MAD)"
+    },
+    "quorum": {
+      "title": "Quorum Status",
+      "inspectors": "Inspectors",
+      "auditors": "Auditors",
+      "citizens": "Citizens",
+      "met": "Met",
+      "notMet": "Not met",
+      "required": "Required Attestations",
+      "received": "Received Attestations"
+    }
+  }
+}

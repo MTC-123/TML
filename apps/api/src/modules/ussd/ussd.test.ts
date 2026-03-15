@@ -982,7 +982,7 @@ describe('USSD Gateway — Attestation Integration', () => {
     await injectUssd(app, `1*${projectCode}*1`, 'dup-session-2');
     const otp2 = mockSms.sentMessages[1]!.code;
     const res2 = await injectUssd(app, `1*${projectCode}*1*${otp2}`, 'dup-session-2');
-    expect(res2.body).toContain('END Vous avez déjà soumis');
+    expect(res2.body).toContain('END Vous avez déjà attesté');
   });
 });
 

@@ -26,6 +26,9 @@ export type { AttestationHashInput } from "./hashing.js";
 export { signPayload, verifyPayload, signAttestation, verifyAttestation } from "./signing.js";
 export type { AttestationSigningInput } from "./signing.js";
 
+// Base encoding (re-export for consumers that need signature format conversion)
+export { base58 } from "@scure/base";
+
 // Credentials
 export { issueCredential, verifyCredential } from "./credentials.js";
 export type {
@@ -54,3 +57,20 @@ export type {
 // ZKP
 export { createStubVerifier } from "./zkp.js";
 export type { ProximityProof, ZKPProximityVerifier } from "./zkp.js";
+
+// Presentations
+export { createPresentation, verifyPresentation } from "./presentation.js";
+export type {
+  VerifiablePresentation,
+  PresentationProof,
+  CreatePresentationInput,
+  PresentationVerificationResult,
+} from "./presentation.js";
+
+// QR Payload
+export { encodeQrPayload, decodeQrPayload, validateQrPayloadIntegrity } from "./qr-payload.js";
+export type { QrPayloadType, QrPayload, EncodeQrPayloadInput } from "./qr-payload.js";
+
+// Selective Disclosure
+export { deriveSelectiveCredential, verifySelectiveDisclosure, verifyRedactedField } from "./selective-disclosure.js";
+export type { SelectiveDisclosureInput, DerivedCredential } from "./selective-disclosure.js";

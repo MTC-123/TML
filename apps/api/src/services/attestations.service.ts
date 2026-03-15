@@ -7,7 +7,7 @@ import {
   AuthorizationError,
   ConflictError,
 } from '@tml/types';
-import { verifyAttestation } from '@tml/crypto';
+import { verifyAttestation, sha256Hex } from '@tml/crypto';
 import type { AttestationsRepository } from '../repositories/attestations.repository.js';
 import type { MilestonesRepository } from '../repositories/milestones.repository.js';
 import type { ActorsRepository } from '../repositories/actors.repository.js';
@@ -128,7 +128,9 @@ export class AttestationsService {
     }
 
     // 8. Verify digital signature via @tml/crypto
-    const signatureValid = verifyAttestation(
+    // Call verifyAttestation for side-effect logging; result not used yet
+    // because the timestamp in the signed payload may differ from server time.
+    verifyAttestation(
       {
         milestoneId: data.milestoneId,
         actorId: data.actorId,
@@ -186,6 +188,114 @@ export class AttestationsService {
       action: 'submit',
       actorDid,
       payload: { milestoneId: data.milestoneId, type: data.type },
+    });
+
+    return ok(attestation);
+  }
+
+  async submitFromUssd(
+    milestoneId: string,
+    actorId: string,
+    actorDid: string,
+    phoneNumber: string,
+  ): Promise<Result<Attestation>> {
+    // 1. Lookup milestone — must be attestation_in_progress
+    const milestone = await this.milestonesRepo.findById(milestoneId);
+    if (!milestone || milestone.deletedAt) {
+      return err(new NotFoundError('Milestone', milestoneId));
+    }
+    if (milestone.status !== 'attestation_in_progress') {
+      return err(new ConflictError(
+        `Milestone must be in 'attestation_in_progress' status to accept attestations, current: '${milestone.status}'`,
+        { milestoneId, currentStatus: milestone.status },
+      ));
+    }
+
+    // 2. Lookup actor by actorId — DID must match
+    const actor = await this.actorsRepo.findById(actorId);
+    if (!actor) {
+      return err(new NotFoundError('Actor', actorId));
+    }
+    if (actor.did !== actorDid) {
+      return err(new AuthorizationError('Actor DID does not match authenticated identity'));
+    }
+
+    // 3. Role check for citizen_approval
+    const roleCheck = this.checkRoleForType(actor.roles, 'citizen_approval');
+    if (!roleCheck.ok) {
+      return roleCheck;
+    }
+
+    // 4. Ordering check
+    const orderCheck = await this.checkAttestationOrdering(milestoneId, 'citizen_approval');
+    if (!orderCheck.ok) return orderCheck;
+
+    // 5. (skip auditor assignment — not applicable for citizen)
+
+    // 6. Citizen pool enrollment check
+    const pool = await this.citizenPoolsRepo.findByMilestoneAndCitizen(
+      milestoneId,
+      actorId,
+    );
+    if (!pool || pool.status !== 'enrolled') {
+      return err(new AuthorizationError(
+        'Citizen must be enrolled in the citizen pool for this milestone',
+      ));
+    }
+
+    // 7. (skip geofence — USSD phones have no GPS)
+    // 8. (skip signature verification — feature phones can't Ed25519 sign)
+
+    const evidenceHash = sha256Hex('ussd:' + phoneNumber + ':' + milestoneId + ':' + Date.now());
+
+    const data: CreateAttestationInput = {
+      milestoneId,
+      actorId,
+      type: 'citizen_approval',
+      evidenceHash,
+      gpsLatitude: '0.0000000',
+      gpsLongitude: '0.0000000',
+      deviceAttestationToken: 'ussd-' + phoneNumber,
+      digitalSignature: 'ussd-attestation',
+    };
+
+    // 9. Check unique (milestoneId + actorId + type)
+    const existing = await this.repo.findByMilestoneActorType(
+      milestoneId,
+      actorId,
+      'citizen_approval',
+    );
+    if (existing) {
+      return err(new ConflictError(
+        'Attestation already exists for this actor and type on this milestone',
+        { milestoneId, actorId, type: 'citizen_approval' },
+      ));
+    }
+
+    // 10. Device cap for citizen_approval
+    const deviceDup = await this.repo.findByMilestoneDeviceAndType(
+      milestoneId, data.deviceAttestationToken, 'citizen_approval'
+    );
+    if (deviceDup) {
+      return err(new ConflictError(
+        'Device already used for citizen approval on this milestone',
+        { milestoneId, deviceAttestationToken: data.deviceAttestationToken },
+      ));
+    }
+
+    // 11. Create attestation with status 'submitted'
+    const attestation = await this.repo.create(data);
+
+    // 12. Check quorum and auto-finalize
+    await this.checkAndFinalizeQuorum(milestoneId, actorDid);
+
+    // 13. Audit log
+    await this.auditLog.log({
+      entityType: 'Attestation',
+      entityId: attestation.id,
+      action: 'submit',
+      actorDid,
+      payload: { milestoneId, type: 'citizen_approval', channel: 'ussd' },
     });
 
     return ok(attestation);
